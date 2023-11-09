@@ -1,16 +1,16 @@
 #include <iostream>
-#include "UserInterface.cpp"
+#include "UserInterface.h"
 
 int main() {
     UserInterface::UserInterface ui;
     ui.cBorder = '*';
     
     ui.printTitle("Hello, World!", UserInterface::YELLOW, UserInterface::CYAN);
-    std::string testPass = "123";
     
     ui.waitForInput("Username: ", UserInterface::LIGHT_BLUE, false);
     std::string pass = ui.waitForInput("Password: ", UserInterface::LIGHT_BLUE, true);
     
+    std::string testPass = "123";
     if (pass == testPass) {
         ui.printTitle("Access granted!", UserInterface::GREEN, UserInterface::CYAN);
     } else {
@@ -19,7 +19,7 @@ int main() {
         return 0;
     }
     
-    ui.clear();
+    ui.clearScreen();
     ui.menu.emplace_back("1. Option 1");
     ui.menu.emplace_back("2. Option 2");
     ui.menu.emplace_back("3. Option 3");
