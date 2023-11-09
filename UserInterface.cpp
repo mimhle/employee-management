@@ -59,9 +59,13 @@ void UserInterface::UserInterface::print(const std::string &text, const int colo
     setColor(DEFAULT_COLOR);
 }
 
-void UserInterface::UserInterface::centeredPrint(const std::string &text, const int color, const bool newLine) {
-    _moveCursor(static_cast<int>((_getScreenSize().X - text.length()) / 2), 0);
-    print(text, color, newLine);
+void UserInterface::UserInterface::printCentered(const std::string &text, int color, bool newLine, char padding) {
+    COORD screenSize = _getScreenSize();
+    int paddingLengthLeft = static_cast<int>((screenSize.X - text.length()) / 2);
+    int paddingLengthRight = (int) (screenSize.X - text.length()) - paddingLengthLeft;
+    std::string paddingLeft(paddingLengthLeft, padding);
+    std::string paddingRight(paddingLengthRight, padding);
+    print(paddingLeft + text + paddingRight, color, newLine);
 }
 
 void UserInterface::UserInterface::printFullLine(const char c, const int color) {
@@ -77,7 +81,7 @@ void UserInterface::UserInterface::printFullLine(const char c, const int color) 
 
 void UserInterface::UserInterface::printTitle(const std::string &text, const int borderColor, const int textColor) {
     printFullLine(cBorder, borderColor);
-    centeredPrint(text, textColor, false);
+    printCentered(text, textColor, false);
     printFullLine(cBorder, borderColor);
 }
 

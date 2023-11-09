@@ -25,7 +25,7 @@ int main() {
     ui.menu.emplace_back("3. Option 3");
     ui.menu.emplace_back("4. Option 4");
     
-    ui.printTitle("Menu", UserInterface::YELLOW, UserInterface::CYAN);
+    ui.printCentered("Menu", UserInterface::YELLOW, UserInterface::CYAN, '-');
     ui.printMenu(UserInterface::LIGHT_BLUE);
     
     while (1 != 2) {

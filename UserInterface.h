@@ -98,7 +98,7 @@ namespace UserInterface {
          * @param newLine
          * @return void
          */
-        void centeredPrint(const std::string &text, int color = DEFAULT_COLOR, bool newLine = true);
+        void printCentered(const std::string &text, int color = DEFAULT_COLOR, bool newLine = true, char padding = ' ');
         
         /**
          * @description Print full line of character to console
