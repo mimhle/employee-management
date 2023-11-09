@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <windows.h>
+#include <vector>
 
 /**
  * @namespace UserInterface
@@ -86,6 +87,7 @@ namespace UserInterface {
     
     public:
         char cBorder = '#';
+        std::vector<std::string> menu;
         
         UserInterface() {
             clear();
@@ -174,6 +176,24 @@ namespace UserInterface {
             printFullLine(cBorder, borderColor);
             centeredPrint(text, textColor, false);
             printFullLine(cBorder, borderColor);
+        }
+        
+        /**
+         * @description Print menu to console
+         *
+         * @param color Color of menu
+         * @return void
+         */
+        void printMenu(const int color = DEFAULT_COLOR) {
+            int i = 0;
+            for (const std::string &item: menu) {
+                print(item, color, false);
+                if (i == 0) {
+                    print(" (default)", color, false);
+                }
+                print("");
+                i++;
+            }
         }
         
         /**

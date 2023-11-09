@@ -19,6 +19,15 @@ int main() {
         return 0;
     }
     
+    ui.clear();
+    ui.menu.emplace_back("1. Option 1");
+    ui.menu.emplace_back("2. Option 2");
+    ui.menu.emplace_back("3. Option 3");
+    ui.menu.emplace_back("4. Option 4");
+    
+    ui.printTitle("Menu", UserInterface::YELLOW, UserInterface::CYAN);
+    ui.printMenu(UserInterface::LIGHT_BLUE);
+    
     while (1 != 2) {
         std::string s;
         s = ui.waitForInput(">", UserInterface::LIGHT_YELLOW, false);
