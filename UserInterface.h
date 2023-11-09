@@ -2,17 +2,16 @@
 // Created by Mingle on 008/08/11/23.
 //
 
-#ifndef CTDL_GK_CUSERINTERFACE_H
-#define CTDL_GK_CUSERINTERFACE_H
+#ifndef CTDL_GK_USERINTERFACE_H
+#define CTDL_GK_USERINTERFACE_H
 
 #include <iostream>
 #include <windows.h>
 
 namespace UserInterface {
-
-    struct Coordinate {
-        int iX;
-        int iY;
+    struct POINT {
+        int X;
+        int Y;
     };
 
     enum Color {
@@ -35,13 +34,12 @@ namespace UserInterface {
         BRIGHT_WHITE = 15
     };
 
-    class CUserInterface {
+    class UserInterface {
     private:
-
         HANDLE _consoleHandle = GetStdHandle(STD_OUTPUT_HANDLE);
         HANDLE _inputHandle = GetStdHandle(STD_INPUT_HANDLE);
 
-        Coordinate _getScreenSize() {
+        POINT _getScreenSize() {
             CONSOLE_SCREEN_BUFFER_INFO csbi;
             GetConsoleScreenBufferInfo(_consoleHandle, &csbi);
             int iWidth = csbi.srWindow.Right - csbi.srWindow.Left + 1;
@@ -49,7 +47,7 @@ namespace UserInterface {
             return {iWidth, iHeight};
         }
 
-        Coordinate _getCursorPosition() {
+        POINT _getCursorPosition() {
             CONSOLE_SCREEN_BUFFER_INFO csbi;
             if (!GetConsoleScreenBufferInfo(_consoleHandle, &csbi)) {
                 return {-1, -1};
@@ -57,13 +55,13 @@ namespace UserInterface {
             return {csbi.dwCursorPosition.X, csbi.dwCursorPosition.Y};
         }
 
-        void _setCursorPosition(Coordinate pos) {
-            SetConsoleCursorPosition(_consoleHandle, {static_cast<short>(pos.iX), static_cast<short>(pos.iY)});
+        void _setCursorPosition(POINT pos) {
+            SetConsoleCursorPosition(_consoleHandle, {static_cast<short>(pos.X), static_cast<short>(pos.Y)});
         }
 
         void _moveCursor(int dx = 0, int dy = 0) {
-            Coordinate pos = _getCursorPosition();
-            _setCursorPosition({pos.iX + dx, pos.iY + dy});
+            POINT pos = _getCursorPosition();
+            _setCursorPosition({pos.X + dx, pos.Y + dy});
         }
 
         void _hideInput() {
@@ -79,19 +77,19 @@ namespace UserInterface {
         }
 
         void _printFullLine(const std::string &text, const int color = DEFAULT_COLOR) {
-            Coordinate screenSize = _getScreenSize();
-            int iCount = (int) (screenSize.iX / text.length());
-            _setCursorPosition({0, _getCursorPosition().iY + 1});
+            POINT screenSize = _getScreenSize();
+            int iCount = (int) (screenSize.X / text.length());
+            _setCursorPosition({0, _getCursorPosition().Y + 1});
             setColor(color);
             for (int i = 0; i < iCount; i++) {
                 printf("%s", text.c_str());
             }
-            _setCursorPosition({0, _getCursorPosition().iY + 1});
+            _setCursorPosition({0, _getCursorPosition().Y + 1});
             setColor(DEFAULT_COLOR);
         }
 
     public:
-        CUserInterface() {
+        UserInterface() {
             clear();
             setColor(DEFAULT_COLOR);
         }
@@ -111,7 +109,7 @@ namespace UserInterface {
         ) {
             _printFullLine("-", borderColor);
 
-            _moveCursor(static_cast<int>((_getScreenSize().iX - text.length()) / 2), 0);
+            _moveCursor(static_cast<int>((_getScreenSize().X - text.length()) / 2), 0);
             setColor(textColor);
             printf("%s", text.c_str());
 
@@ -139,6 +137,6 @@ namespace UserInterface {
         }
     };
 
-} // CUserInterface
+} // UserInterface
 
-#endif //CTDL_GK_CUSERINTERFACE_H
+#endif //CTDL_GK_USERINTERFACE_H

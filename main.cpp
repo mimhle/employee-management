@@ -1,8 +1,8 @@
 #include <iostream>
-#include "CUserInterface.h"
+#include "UserInterface.h"
 
 int main() {
-    UserInterface::CUserInterface ui;
+    UserInterface::UserInterface ui;
     ui.printTitle("Hello, World!", UserInterface::RED, UserInterface::GREEN);
     ui.printTitle("Hello, World!", UserInterface::LIGHT_BLUE, UserInterface::LIGHT_GREEN);
 
