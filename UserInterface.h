@@ -43,29 +43,30 @@ namespace UserInterface {
             _setCursorPosition({pos.x + dx, pos.y + dy});
         }
 
-        static void _printFullLine(const std::string &text, const std::string &colorCode = "07", bool endl = false) {
+        static void _printFullLine(const std::string &text, const std::string &colorCode = "07") {
             auto screenSize = _getScreenSize();
             auto count = (int) (screenSize.x / text.length());
             _setCursorPosition({0, _getCursorPosition().y + 1});
             for (int i = 0; i < count; i++) {
                 printf("%s", text.c_str());
             }
-            if (endl) {
-                printf("\n");
-            }
-            // _setCursorPosition({0, _getCursorPosition().y + 1});
+            _setCursorPosition({0, _getCursorPosition().y + 1});
         }
 
     public:
         UserInterface() {
+            clear();
+        }
+
+        static void clear() {
             system("cls");
         }
 
         static void title(const std::string &text, const std::string &colorCode = "07") {
-            _printFullLine("-", colorCode, false);
-            _moveCursor(static_cast<int>(_getScreenSize().x - text.length() / 2), 0); // FIXME: not working
+            _printFullLine("-", colorCode);
+            _moveCursor(static_cast<int>((_getScreenSize().x - text.length()) / 2), 0);
             printf("%s", text.c_str());
-            _printFullLine("-", colorCode, false);
+            _printFullLine("-", colorCode);
         }
     };
 
