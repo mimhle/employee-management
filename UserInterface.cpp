@@ -1,5 +1,21 @@
 #include "UserInterface.h"
 
+bool UserInterface::UserInterface::isElevated() {
+    BOOL fRet = FALSE;
+    HANDLE hToken = nullptr;
+    if (OpenProcessToken(GetCurrentProcess(), TOKEN_QUERY, &hToken)) {
+        TOKEN_ELEVATION Elevation;
+        DWORD cbSize = sizeof(TOKEN_ELEVATION);
+        if (GetTokenInformation(hToken, TokenElevation, &Elevation, sizeof(Elevation), &cbSize)) {
+            fRet = (bool) Elevation.TokenIsElevated;
+        }
+    }
+    if (hToken) {
+        CloseHandle(hToken);
+    }
+    return fRet;
+}
+
 UserInterface::COORD UserInterface::UserInterface::_getScreenSize() {
     CONSOLE_SCREEN_BUFFER_INFO consoleScreenBufferInfo;
     GetConsoleScreenBufferInfo(_consoleHandle, &consoleScreenBufferInfo);
@@ -38,6 +54,11 @@ void UserInterface::UserInterface::_showInput() {
 }
 
 UserInterface::UserInterface::UserInterface() {
+    if (!isElevated()) {
+        printf("Please run this program as administrator!\n");
+        system("pause");
+        exit(0);
+    }
     clearScreen();
     setColor(DEFAULT_COLOR);
 }

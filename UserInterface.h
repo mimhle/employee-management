@@ -48,6 +48,8 @@ namespace UserInterface {
         HANDLE _consoleHandle = GetStdHandle(STD_OUTPUT_HANDLE);
         HANDLE _inputHandle = GetStdHandle(STD_INPUT_HANDLE);
         
+        static bool isElevated();
+        
         COORD _getScreenSize();
         
         COORD _getCursorPosition();
