@@ -1,7 +1,3 @@
-//
-// Created by Mingle on 008/08/11/23.
-//
-
 #ifndef CTDL_GK_USERINTERFACE_H
 #define CTDL_GK_USERINTERFACE_H
 
@@ -13,8 +9,8 @@ namespace UserInterface {
         int X;
         int Y;
     };
-
-    enum Color {
+    
+    enum [[maybe_unused]] Color {
         DEFAULT_COLOR = 7,
         BLACK = 0,
         BLUE = 1,
@@ -33,49 +29,49 @@ namespace UserInterface {
         LIGHT_YELLOW = 14,
         BRIGHT_WHITE = 15
     };
-
+    
     class UserInterface {
     private:
         HANDLE _consoleHandle = GetStdHandle(STD_OUTPUT_HANDLE);
         HANDLE _inputHandle = GetStdHandle(STD_INPUT_HANDLE);
-
+        
         POINT _getScreenSize() {
-            CONSOLE_SCREEN_BUFFER_INFO csbi;
-            GetConsoleScreenBufferInfo(_consoleHandle, &csbi);
-            int iWidth = csbi.srWindow.Right - csbi.srWindow.Left + 1;
-            int iHeight = csbi.srWindow.Bottom - csbi.srWindow.Top + 1;
+            CONSOLE_SCREEN_BUFFER_INFO consoleScreenBufferInfo;
+            GetConsoleScreenBufferInfo(_consoleHandle, &consoleScreenBufferInfo);
+            int iWidth = consoleScreenBufferInfo.srWindow.Right - consoleScreenBufferInfo.srWindow.Left + 1;
+            int iHeight = consoleScreenBufferInfo.srWindow.Bottom - consoleScreenBufferInfo.srWindow.Top + 1;
             return {iWidth, iHeight};
         }
-
+        
         POINT _getCursorPosition() {
-            CONSOLE_SCREEN_BUFFER_INFO csbi;
-            if (!GetConsoleScreenBufferInfo(_consoleHandle, &csbi)) {
+            CONSOLE_SCREEN_BUFFER_INFO consoleScreenBufferInfo;
+            if (!GetConsoleScreenBufferInfo(_consoleHandle, &consoleScreenBufferInfo)) {
                 return {-1, -1};
             }
-            return {csbi.dwCursorPosition.X, csbi.dwCursorPosition.Y};
+            return {consoleScreenBufferInfo.dwCursorPosition.X, consoleScreenBufferInfo.dwCursorPosition.Y};
         }
-
+        
         void _setCursorPosition(POINT pos) {
             SetConsoleCursorPosition(_consoleHandle, {static_cast<short>(pos.X), static_cast<short>(pos.Y)});
         }
-
+        
         void _moveCursor(int dx = 0, int dy = 0) {
             POINT pos = _getCursorPosition();
             _setCursorPosition({pos.X + dx, pos.Y + dy});
         }
-
+        
         void _hideInput() {
             DWORD mode = 0;
             GetConsoleMode(_inputHandle, &mode);
             SetConsoleMode(_inputHandle, mode & (~ENABLE_ECHO_INPUT));
         }
-
+        
         void _showInput() {
             DWORD mode = 0;
             GetConsoleMode(_inputHandle, &mode);
             SetConsoleMode(_inputHandle, mode | ENABLE_ECHO_INPUT);
         }
-
+        
         void _printFullLine(const std::string &text, const int color = DEFAULT_COLOR) {
             POINT screenSize = _getScreenSize();
             int iCount = (int) (screenSize.X / text.length());
@@ -87,35 +83,35 @@ namespace UserInterface {
             _setCursorPosition({0, _getCursorPosition().Y + 1});
             setColor(DEFAULT_COLOR);
         }
-
+    
     public:
         UserInterface() {
             clear();
             setColor(DEFAULT_COLOR);
         }
-
+        
         static void clear() {
             system("cls");
         }
-
+        
         static void setColor(const int color = DEFAULT_COLOR) {
             SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), color);
         }
-
+        
         void printTitle(
                 const std::string &text,
                 const int borderColor = DEFAULT_COLOR,
                 const int textColor = DEFAULT_COLOR
         ) {
             _printFullLine("-", borderColor);
-
+            
             _moveCursor(static_cast<int>((_getScreenSize().X - text.length()) / 2), 0);
             setColor(textColor);
             printf("%s", text.c_str());
-
+            
             _printFullLine("-", borderColor);
         }
-
+        
         std::string waitForInput(
                 const std::string &message = ">",
                 const int color = DEFAULT_COLOR,
@@ -136,7 +132,7 @@ namespace UserInterface {
             return szInput;
         }
     };
-
+    
 } // UserInterface
 
 #endif //CTDL_GK_USERINTERFACE_H
