@@ -6,8 +6,9 @@ int main() {
     UserInterfaceWindows ui;
     ui.cBorder = '*';
     
-    ui.printTitle("Hello, World!", YELLOW, CYAN);
-    ui.printTitle("Hello, World!", YELLOW, CYAN, true);
+    ui.printTitle("No cap!", YELLOW, CYAN);
+    ui.printLineBreak();
+    ui.printTitle("With cap!  " + std::to_string(1), YELLOW, CYAN, true);
     
     ui.printLineBreak();
     ui.printLineBreak();

@@ -74,13 +74,19 @@ UserInterfaceWindows::UserInterfaceWindows() {
     setColor(DEFAULT_COLOR);
 }
 
+UserInterfaceWindows::~UserInterfaceWindows() {
+    CloseHandle(_consoleHandle);
+    CloseHandle(_inputHandle);
+}
+
 void UserInterfaceWindows::clearScreen() {
     COORD coord = {0, 0};
     DWORD count;
     CONSOLE_SCREEN_BUFFER_INFO consoleScreenBufferInfo;
     GetConsoleScreenBufferInfo(_consoleHandle, &consoleScreenBufferInfo);
-    FillConsoleOutputCharacterA(_consoleHandle, ' ', consoleScreenBufferInfo.dwSize.X * consoleScreenBufferInfo.dwSize.Y,
-                               coord, &count);
+    FillConsoleOutputCharacterA(_consoleHandle, ' ',
+                                consoleScreenBufferInfo.dwSize.X * consoleScreenBufferInfo.dwSize.Y,
+                                coord, &count);
     SetConsoleCursorPosition(_consoleHandle, coord);
 }
 

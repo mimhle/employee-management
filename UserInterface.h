@@ -60,6 +60,7 @@ namespace UserInterface {
         char cBorder = '#';
         
         UserInterfaceWindows();
+        ~UserInterfaceWindows();
         
         /**
          * @description Clear console screen
@@ -139,11 +140,10 @@ namespace UserInterface {
          * @param message Message to print
          * @param color ConsoleApiColor of message
          * @param hideInput Hide input (for password)
-         * @return std::string
+         * @return User input
          */
         std::string input(const std::string &message = ">", int color = DEFAULT_COLOR, bool hideInput = false);
     };
-    
 } // UserInterfaceWindows
 
 #endif //CTDL_GK_USERINTERFACE_CPP
