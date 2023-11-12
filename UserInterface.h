@@ -12,11 +12,6 @@
  * @note This namespace is only for Windows
  */
 namespace UserInterface {
-    struct COORD {
-        int X;
-        int Y;
-    };
-    
     enum [[maybe_unused]] Color {
         DEFAULT_COLOR = 7,
         BLACK = 0,
@@ -45,8 +40,8 @@ namespace UserInterface {
      */
     class UserInterface {
     private:
-        HANDLE _consoleHandle = GetStdHandle(STD_OUTPUT_HANDLE);
-        HANDLE _inputHandle = GetStdHandle(STD_INPUT_HANDLE);
+        HANDLE _consoleHandle;
+        HANDLE _inputHandle;
         
         static bool isElevated();
         
@@ -73,7 +68,7 @@ namespace UserInterface {
          *
          * @return void
          */
-        static void clearScreen();
+        void clearScreen();
         
         /**
          * @description Set color for subsequent output
@@ -92,42 +87,53 @@ namespace UserInterface {
          * @return void
          */
         void print(const std::string &text, int color = DEFAULT_COLOR, bool newLine = true);
+        
         /**
          * @description Print text to console, centered
          *
-         * @param text
-         * @param color
-         * @param newLine
+         * @param text Text to print
+         * @param color Color of text
+         * @param newLine Print new line after text
+         * @param padding Padding character
+         * @param cap Cap character
+         * @param capColor Color of cap and padding character
          * @return void
          */
-        void printCentered(const std::string &text, int color = DEFAULT_COLOR, bool newLine = true, char padding = ' ');
+        void printCentered(const std::string &text, int color = DEFAULT_COLOR, bool newLine = true, char padding = ' ',
+                           char cap = ' ', int capColor = DEFAULT_COLOR
+        );
         
         /**
          * @description Print full line of character to console
          *
          * @param c Character to print
          * @param color Color of character
+         * @param newLine Print new line after text
          * @return void
          */
-        void printFullLine(char c, int color = DEFAULT_COLOR);
+        void printLineBreak(char c = ' ', int color = DEFAULT_COLOR, bool newLine = true);
         
         /**
          * @description Print title to console (text with border and centered)
          *
          * @param text Text to print
-         * @param borderColor Border color
          * @param textColor Text color
+         * @param borderColor Border color
+         * @param cap Whether to cap the title
          * @return void
          */
-        void printTitle(const std::string &text, int borderColor = DEFAULT_COLOR, int textColor = DEFAULT_COLOR);
+        void printTitle(const std::string &text, int textColor = DEFAULT_COLOR, int borderColor = DEFAULT_COLOR,
+                        bool cap = false
+        );
         
         /**
          * @description Print menu to console
          *
+         * @param items Items to print (vector of strings)
          * @param color Color of menu
          * @return void
          */
-        void printMenu(int color = DEFAULT_COLOR);
+        void printMenu(const std::vector<std::string> &items, int color = DEFAULT_COLOR);
         
         /**
          * @description Wait for user input
@@ -137,7 +143,7 @@ namespace UserInterface {
          * @param hideInput Hide input (for password)
          * @return std::string
          */
-        std::string waitForInput(const std::string &message = ">", int color = DEFAULT_COLOR, bool hideInput = false);
+        std::string input(const std::string &message = ">", int color = DEFAULT_COLOR, bool hideInput = false);
     };
     
 } // UserInterface

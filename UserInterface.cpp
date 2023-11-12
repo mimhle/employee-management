@@ -16,15 +16,15 @@ bool UserInterface::UserInterface::isElevated() {
     return fRet;
 }
 
-UserInterface::COORD UserInterface::UserInterface::_getScreenSize() {
+COORD UserInterface::UserInterface::_getScreenSize() {
     CONSOLE_SCREEN_BUFFER_INFO consoleScreenBufferInfo;
     GetConsoleScreenBufferInfo(_consoleHandle, &consoleScreenBufferInfo);
     int iWidth = consoleScreenBufferInfo.srWindow.Right - consoleScreenBufferInfo.srWindow.Left + 1;
     int iHeight = consoleScreenBufferInfo.srWindow.Bottom - consoleScreenBufferInfo.srWindow.Top + 1;
-    return {iWidth, iHeight};
+    return {static_cast<SHORT>(iWidth), static_cast<SHORT>(iHeight)};
 }
 
-UserInterface::COORD UserInterface::UserInterface::_getCursorPosition() {
+COORD UserInterface::UserInterface::_getCursorPosition() {
     CONSOLE_SCREEN_BUFFER_INFO consoleScreenBufferInfo;
     if (!GetConsoleScreenBufferInfo(_consoleHandle, &consoleScreenBufferInfo)) {
         return {-1, -1};
@@ -59,12 +59,27 @@ UserInterface::UserInterface::UserInterface() {
         system("pause");
         exit(0);
     }
+    _consoleHandle = GetStdHandle(STD_OUTPUT_HANDLE);
+    _inputHandle = GetStdHandle(STD_INPUT_HANDLE);
     clearScreen();
+    
+    // disable wrap
+    DWORD mode;
+    GetConsoleMode(_consoleHandle, &mode);
+    mode &= ~ENABLE_WRAP_AT_EOL_OUTPUT;
+    SetConsoleMode(_consoleHandle, mode);
+    
     setColor(DEFAULT_COLOR);
 }
 
 void UserInterface::UserInterface::clearScreen() {
-    system("cls");
+    COORD coord = {0, 0};
+    DWORD count;
+    CONSOLE_SCREEN_BUFFER_INFO consoleScreenBufferInfo;
+    GetConsoleScreenBufferInfo(_consoleHandle, &consoleScreenBufferInfo);
+    FillConsoleOutputCharacter(_consoleHandle, ' ', consoleScreenBufferInfo.dwSize.X * consoleScreenBufferInfo.dwSize.Y,
+                               coord, &count);
+    SetConsoleCursorPosition(_consoleHandle, coord);
 }
 
 void UserInterface::UserInterface::setColor(const int color) {
@@ -80,35 +95,51 @@ void UserInterface::UserInterface::print(const std::string &text, const int colo
     setColor(DEFAULT_COLOR);
 }
 
-void UserInterface::UserInterface::printCentered(const std::string &text, int color, bool newLine, char padding) {
+void
+UserInterface::UserInterface::printCentered(const std::string &text, int color, bool newLine, char padding, char cap,
+                                            int capColor
+) {
     COORD screenSize = _getScreenSize();
     int paddingLengthLeft = static_cast<int>((screenSize.X - text.length()) / 2);
     int paddingLengthRight = (int) (screenSize.X - text.length()) - paddingLengthLeft;
     std::string paddingLeft(paddingLengthLeft, padding);
     std::string paddingRight(paddingLengthRight, padding);
-    print(paddingLeft + text + paddingRight, color, newLine);
+    paddingLeft[0] = cap;
+    paddingRight[paddingRight.length() - 1] = cap;
+    print(paddingLeft, capColor, false);
+    print(text, color, false);
+    print(paddingRight, capColor, newLine);
 }
 
-void UserInterface::UserInterface::printFullLine(const char c, const int color) {
+void UserInterface::UserInterface::printLineBreak(const char c, const int color, bool newLine) {
     COORD screenSize = _getScreenSize();
-    _setCursorPosition(0, _getCursorPosition().Y + 1);
     setColor(color);
     for (int i = 0; i < screenSize.X; i++) {
         printf("%c", c);
     }
-    _setCursorPosition(0, _getCursorPosition().Y + 1);
+    if (newLine) {
+        _setCursorPosition(0, _getCursorPosition().Y + 1);
+    }
     setColor(DEFAULT_COLOR);
 }
 
-void UserInterface::UserInterface::printTitle(const std::string &text, const int borderColor, const int textColor) {
-    printFullLine(cBorder, borderColor);
-    printCentered(text, textColor, false);
-    printFullLine(cBorder, borderColor);
+void UserInterface::UserInterface::printTitle(const std::string &text, const int textColor, const int borderColor,
+                                              bool cap
+) {
+    printLineBreak(cBorder, borderColor);
+    printLineBreak(' ', borderColor);
+    if (cap) {
+        printCentered(text, textColor, true, ' ', cBorder, borderColor);
+    } else {
+        printCentered(text, textColor, true);
+    }
+    printLineBreak(' ', borderColor);
+    printLineBreak(cBorder, borderColor);
 }
 
-void UserInterface::UserInterface::printMenu(const int color) {
+void UserInterface::UserInterface::printMenu(const std::vector<std::string> &items, const int color) {
     int i = 0;
-    for (const std::string &item: menu) {
+    for (const std::string &item: items) {
         print(item, color, false);
         if (i == 0) {
             print(" (default)", color, false);
@@ -118,7 +149,7 @@ void UserInterface::UserInterface::printMenu(const int color) {
     }
 }
 
-std::string UserInterface::UserInterface::waitForInput(const std::string &message, const int color, bool hideInput) {
+std::string UserInterface::UserInterface::input(const std::string &message, int color, bool hideInput) {
     char szInput[255];
     setColor(color);
     printf("%s ", message.c_str());
