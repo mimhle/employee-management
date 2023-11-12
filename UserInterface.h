@@ -6,13 +6,12 @@
 #include <vector>
 
 /**
- * @namespace UserInterface
- * @brief Namespace for UserInterface
- * @details This namespace contains classes and functions for UserInterface
- * @note This namespace is only for Windows
+ * @namespace UserInterfaceWindows
+ * @brief Namespace for UserInterfaceWindows
+ * @details This namespace contains classes and functions for UserInterfaceWindows
  */
 namespace UserInterface {
-    enum [[maybe_unused]] Color {
+    enum [[maybe_unused]] ConsoleApiColor {
         DEFAULT_COLOR = 7,
         BLACK = 0,
         BLUE = 1,
@@ -33,12 +32,12 @@ namespace UserInterface {
     };
     
     /**
-     * @class UserInterface
-     * @brief Class for UserInterface
-     * @details This class contains functions for UserInterface
+     * @class UserInterfaceWindows
+     * @brief Class for UserInterfaceWindows
+     * @details This class contains functions for UserInterfaceWindows
      * @note This class is only for Windows
      */
-    class UserInterface {
+    class UserInterfaceWindows {
     private:
         HANDLE _consoleHandle;
         HANDLE _inputHandle;
@@ -59,12 +58,11 @@ namespace UserInterface {
     
     public:
         char cBorder = '#';
-        std::vector<std::string> menu;
         
-        UserInterface();
+        UserInterfaceWindows();
         
         /**
-         * @description Clear console
+         * @description Clear console screen
          *
          * @return void
          */
@@ -73,7 +71,7 @@ namespace UserInterface {
         /**
          * @description Set color for subsequent output
          *
-         * @param color: Color to set
+         * @param color: ConsoleApiColor to set
          * @return void
          */
         void setColor(int color = DEFAULT_COLOR);
@@ -82,7 +80,7 @@ namespace UserInterface {
          * @description Print text to console
          *
          * @param text Text to print
-         * @param color Color of text
+         * @param color ConsoleApiColor of text
          * @param newLine Print new line after text
          * @return void
          */
@@ -92,11 +90,11 @@ namespace UserInterface {
          * @description Print text to console, centered
          *
          * @param text Text to print
-         * @param color Color of text
+         * @param color ConsoleApiColor of text
          * @param newLine Print new line after text
          * @param padding Padding character
          * @param cap Cap character
-         * @param capColor Color of cap and padding character
+         * @param capColor ConsoleApiColor of cap and padding character
          * @return void
          */
         void printCentered(const std::string &text, int color = DEFAULT_COLOR, bool newLine = true, char padding = ' ',
@@ -107,7 +105,7 @@ namespace UserInterface {
          * @description Print full line of character to console
          *
          * @param c Character to print
-         * @param color Color of character
+         * @param color ConsoleApiColor of character
          * @param newLine Print new line after text
          * @return void
          */
@@ -130,22 +128,22 @@ namespace UserInterface {
          * @description Print menu to console
          *
          * @param items Items to print (vector of strings)
-         * @param color Color of menu
+         * @param color ConsoleApiColor of menu
          * @return void
          */
-        void printMenu(const std::vector<std::string> &items, int color = DEFAULT_COLOR);
+        void printMultiLine(const std::vector<std::string> &items, int color = DEFAULT_COLOR);
         
         /**
          * @description Wait for user input
          *
          * @param message Message to print
-         * @param color Color of message
+         * @param color ConsoleApiColor of message
          * @param hideInput Hide input (for password)
          * @return std::string
          */
         std::string input(const std::string &message = ">", int color = DEFAULT_COLOR, bool hideInput = false);
     };
     
-} // UserInterface
+} // UserInterfaceWindows
 
 #endif //CTDL_GK_USERINTERFACE_CPP
