@@ -55,6 +55,7 @@ public:
     char cBorder = '#';
     
     UserInterface();
+    
     ~UserInterface();
     
     /**
