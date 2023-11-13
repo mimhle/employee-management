@@ -1,9 +1,8 @@
 #include <iostream>
 #include "UserInterface.h"
-using namespace UserInterface;
 
 int main() {
-    UserInterfaceWindows ui;
+    UserInterface ui;
     ui.cBorder = '*';
     
     ui.printTitle("No cap!", YELLOW, CYAN);
