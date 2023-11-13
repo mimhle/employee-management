@@ -16,7 +16,7 @@ bool UserInterface::isElevated() {
     return bRet;
 }
 
-COORD UserInterface::_getScreenSize() {
+COORD UserInterface::_getScreenSize() const {
     CONSOLE_SCREEN_BUFFER_INFO csbiConsoleScreenBufferInfo;
     GetConsoleScreenBufferInfo(_hConsoleHandle, &csbiConsoleScreenBufferInfo);
     int iWidth = csbiConsoleScreenBufferInfo.srWindow.Right - csbiConsoleScreenBufferInfo.srWindow.Left + 1;
@@ -24,7 +24,7 @@ COORD UserInterface::_getScreenSize() {
     return {static_cast<SHORT>(iWidth), static_cast<SHORT>(iHeight)};
 }
 
-COORD UserInterface::_getCursorPosition() {
+COORD UserInterface::_getCursorPosition() const {
     CONSOLE_SCREEN_BUFFER_INFO csbiConsoleScreenBufferInfo;
     if (!GetConsoleScreenBufferInfo(_hConsoleHandle, &csbiConsoleScreenBufferInfo)) {
         return {-1, -1};
@@ -32,22 +32,22 @@ COORD UserInterface::_getCursorPosition() {
     return {csbiConsoleScreenBufferInfo.dwCursorPosition.X, csbiConsoleScreenBufferInfo.dwCursorPosition.Y};
 }
 
-void UserInterface::_setCursorPosition(int x, int y) {
+void UserInterface::_setCursorPosition(int x, int y) const {
     SetConsoleCursorPosition(_hConsoleHandle, {static_cast<short>(x), static_cast<short>(y)});
 }
 
-void UserInterface::_moveCursor(int dx, int dy) {
+void UserInterface::_moveCursor(int dx, int dy) const {
     COORD coordPos = _getCursorPosition();
     _setCursorPosition(coordPos.X + dx, coordPos.Y + dy);
 }
 
-void UserInterface::_hideInput() {
+void UserInterface::_hideInput() const {
     DWORD lMode = 0;
     GetConsoleMode(_hInputHandle, &lMode);
     SetConsoleMode(_hInputHandle, lMode & (~ENABLE_ECHO_INPUT));
 }
 
-void UserInterface::_showInput() {
+void UserInterface::_showInput() const {
     DWORD lMode = 0;
     GetConsoleMode(_hInputHandle, &lMode);
     SetConsoleMode(_hInputHandle, lMode | ENABLE_ECHO_INPUT);
@@ -77,7 +77,7 @@ UserInterface::~UserInterface() {
     CloseHandle(_hInputHandle);
 }
 
-void UserInterface::clearScreen() {
+void UserInterface::clearScreen() const {
     COORD coordTopLeft = {0, 0};
     DWORD lCount;
     CONSOLE_SCREEN_BUFFER_INFO csbiConsoleScreenBufferInfo;
@@ -88,11 +88,11 @@ void UserInterface::clearScreen() {
     SetConsoleCursorPosition(_hConsoleHandle, coordTopLeft);
 }
 
-void UserInterface::setColor(const int color) {
+void UserInterface::setColor(const int color) const {
     SetConsoleTextAttribute(_hConsoleHandle, color);
 }
 
-void UserInterface::print(const std::string &text, const int color, const bool newLine) {
+void UserInterface::print(const std::string &text, const int color, const bool newLine) const {
     setColor(color);
     printf("%s", text.c_str());
     if (newLine) {
@@ -101,7 +101,7 @@ void UserInterface::print(const std::string &text, const int color, const bool n
     setColor(DEFAULT_COLOR);
 }
 
-void UserInterface::print(const std::vector<std::string> &items, int color, bool newLine, char separator) {
+void UserInterface::print(const std::vector<std::string> &items, int color, bool newLine, char separator) const {
     for (const std::string &strItem: items) {
         print(strItem, color, false);
         if (strItem != items.back() && items.size() > 1) {
@@ -115,7 +115,7 @@ void UserInterface::print(const std::vector<std::string> &items, int color, bool
 
 void UserInterface::printCentered(const std::string &text, int color, bool newLine, char padding, char cap,
                                   int capColor
-) {
+) const {
     COORD coordScreenSize = _getScreenSize();
     int iPaddingLengthLeft = static_cast<int>((coordScreenSize.X - text.length()) / 2);
     int iPaddingLengthRight = (int) (coordScreenSize.X - text.length()) - iPaddingLengthLeft;
@@ -128,7 +128,7 @@ void UserInterface::printCentered(const std::string &text, int color, bool newLi
     print(strPaddingRight, capColor, newLine);
 }
 
-void UserInterface::printLineBreak(const char c, const int color, bool newLine) {
+void UserInterface::printLineBreak(const char c, const int color, bool newLine) const {
     COORD coordScreenSize = _getScreenSize();
     setColor(color);
     for (int i = 0; i < coordScreenSize.X; i++) {
@@ -140,9 +140,9 @@ void UserInterface::printLineBreak(const char c, const int color, bool newLine) 
     setColor(DEFAULT_COLOR);
 }
 
-void UserInterface::printTitle(const std::string &text, const int textColor, const int borderColor,
+void UserInterface::printTitle(const std::string &text, int textColor, int borderColor,
                                bool cap
-) {
+) const {
     printLineBreak(cBorder, borderColor);
     if (cap) {
         printCentered(" ", textColor, true, ' ', cBorder, borderColor);
@@ -156,14 +156,14 @@ void UserInterface::printTitle(const std::string &text, const int textColor, con
     printLineBreak(cBorder, borderColor);
 }
 
-void UserInterface::printMultiLine(const std::vector<std::string> &items, int color) {
+void UserInterface::printMultiLine(const std::vector<std::string> &items, int color) const {
     for (const std::string &strItem: items) {
         print(strItem, color, false);
         printLineBreak();
     }
 }
 
-std::string UserInterface::input(const std::string &message, int color, bool hideInput) {
+std::string UserInterface::input(const std::string &message, int color, bool hideInput) const {
     char szInput[255];
     setColor(color);
     printf("%s ", message.c_str());
