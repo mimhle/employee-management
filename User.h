@@ -1,65 +1,45 @@
-#ifndef User_H
-#define User_H
+#pragma once
 
-#include <string>
+#include <iostream>
 
 class User {
-    private:
-    std::string _name;
-    std::string _address;
-    std::string _phoneNumber;
-    std::string _email;
-    std::string _username;
-    std::string _password;
-    std::string _role;
+private:
+    std::string _strName;
+    std::string _strDateOfBirth;
+    int _iAge;
+    std::string _strAddress;
+    std::string _strPhoneNumber;
+    std::string _strEmail;
+    std::string _strUserName;
+    std::string _strPassword;
+    std::string _strRole;
 
-    public:
-    //constructor
-    User() {
-        _name = "";
-        _address = "";
-        _phoneNumber = "";
-        _email = "";
-        _username = "";
-        _password = "";
-        _role = "";
-    }
-    User(std::string name, std::string address, std::string phoneNumber, std::string email, std::string username, std::string password, std::string role) {
-        _name = name;
-        _address = address;
-        _phoneNumber = phoneNumber;
-        _email = email;
-        _username = username;
-        _password = password;
-        _role = role;
-    }
+public:
+    User(std::string name, std::string dateOfBirth, int age, std::string address, std::string phoneNumber, std::string email, std::string username, std::string password, std::string role);
 
     //destructor
-    ~User() {
-        _name = "";
-        _address = "";
-        _phoneNumber = "";
-        _email = "";
-        _username = "";
-        _password = "";
-        _role = "";
-    }
+    ~User();
 
     //getter && setter
-    std::string getName() { return _name; }
-    void setName(std::string name) { _name = name; }
-    std::string getAddress() { return _address; }
-    void setAddress(std::string address) { _address = address; }
-    std::string getPhoneNumber() { return _phoneNumber; }
-    void setPhoneNumber(std::string phoneNumber) { _phoneNumber = phoneNumber; }
-    std::string getEmail() { return _email; }
-    void setEmail(std::string email) { _email = email; }
-    std::string getUsername() { return _username; }
-    void setUsername(std::string username) { _username = username; }
-    std::string getPassword() { return _password; }
-    void setPassword(std::string password) { _password = password; }
-    std::string getRole() { return _role; }
-    void setRole(std::string role) { _role = role; }
-};
+    std::string getName();
+    void setName(std::string name);
+    std::string getDateOfBirth();
+    void setDateOfBirth(std::string dateOfBirth);
+    int getAge();
+    void setAge(int age);
+    std::string getAddress();
+    void setAddress(std::string address);
+    std::string getPhoneNumber();
+    void setPhoneNumber(std::string phoneNumber);
+    std::string getEmail();
+    void setEmail(std::string email);
+    std::string getUserName();
+    void setUserName(std::string username);
+    std::string getPassword();
+    void setPassword(std::string password);
+    std::string getRole();
+    void setRole(std::string role);
 
-#endif
+    //method
+    void display();
+};
