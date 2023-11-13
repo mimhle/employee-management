@@ -157,14 +157,9 @@ void UserInterface::printTitle(const std::string &text, const int textColor, con
 }
 
 void UserInterface::printMultiLine(const std::vector<std::string> &items, int color) {
-    int i = 0;
     for (const std::string &item: items) {
         print(item, color, false);
-        if (i == 0) {
-            print(" (default)", color, false);
-        }
         printLineBreak();
-        i++;
     }
 }
 
