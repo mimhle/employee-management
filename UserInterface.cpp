@@ -1,100 +1,98 @@
 #include "UserInterface.h"
 
-using namespace UserInterface;
-
-bool UserInterfaceWindows::isElevated() {
-    BOOL fRet = FALSE;
+bool UserInterface::isElevated() {
+    BOOL bRet = FALSE;
     HANDLE hToken = nullptr;
     if (OpenProcessToken(GetCurrentProcess(), TOKEN_QUERY, &hToken)) {
-        TOKEN_ELEVATION Elevation;
-        DWORD cbSize = sizeof(TOKEN_ELEVATION);
-        if (GetTokenInformation(hToken, TokenElevation, &Elevation, sizeof(Elevation), &cbSize)) {
-            fRet = (bool) Elevation.TokenIsElevated;
+        TOKEN_ELEVATION teElevation;
+        DWORD lSize = sizeof(TOKEN_ELEVATION);
+        if (GetTokenInformation(hToken, TokenElevation, &teElevation, sizeof(teElevation), &lSize)) {
+            bRet = (bool) teElevation.TokenIsElevated;
         }
     }
     if (hToken) {
         CloseHandle(hToken);
     }
-    return fRet;
+    return bRet;
 }
 
-COORD UserInterfaceWindows::_getScreenSize() {
-    CONSOLE_SCREEN_BUFFER_INFO consoleScreenBufferInfo;
-    GetConsoleScreenBufferInfo(_consoleHandle, &consoleScreenBufferInfo);
-    int iWidth = consoleScreenBufferInfo.srWindow.Right - consoleScreenBufferInfo.srWindow.Left + 1;
-    int iHeight = consoleScreenBufferInfo.srWindow.Bottom - consoleScreenBufferInfo.srWindow.Top + 1;
+COORD UserInterface::_getScreenSize() {
+    CONSOLE_SCREEN_BUFFER_INFO csbiConsoleScreenBufferInfo;
+    GetConsoleScreenBufferInfo(_hConsoleHandle, &csbiConsoleScreenBufferInfo);
+    int iWidth = csbiConsoleScreenBufferInfo.srWindow.Right - csbiConsoleScreenBufferInfo.srWindow.Left + 1;
+    int iHeight = csbiConsoleScreenBufferInfo.srWindow.Bottom - csbiConsoleScreenBufferInfo.srWindow.Top + 1;
     return {static_cast<SHORT>(iWidth), static_cast<SHORT>(iHeight)};
 }
 
-COORD UserInterfaceWindows::_getCursorPosition() {
-    CONSOLE_SCREEN_BUFFER_INFO consoleScreenBufferInfo;
-    if (!GetConsoleScreenBufferInfo(_consoleHandle, &consoleScreenBufferInfo)) {
+COORD UserInterface::_getCursorPosition() {
+    CONSOLE_SCREEN_BUFFER_INFO csbiConsoleScreenBufferInfo;
+    if (!GetConsoleScreenBufferInfo(_hConsoleHandle, &csbiConsoleScreenBufferInfo)) {
         return {-1, -1};
     }
-    return {consoleScreenBufferInfo.dwCursorPosition.X, consoleScreenBufferInfo.dwCursorPosition.Y};
+    return {csbiConsoleScreenBufferInfo.dwCursorPosition.X, csbiConsoleScreenBufferInfo.dwCursorPosition.Y};
 }
 
-void UserInterfaceWindows::_setCursorPosition(int x, int y) {
-    SetConsoleCursorPosition(_consoleHandle, {static_cast<short>(x), static_cast<short>(y)});
+void UserInterface::_setCursorPosition(int x, int y) {
+    SetConsoleCursorPosition(_hConsoleHandle, {static_cast<short>(x), static_cast<short>(y)});
 }
 
-void UserInterfaceWindows::_moveCursor(int dx, int dy) {
-    COORD pos = _getCursorPosition();
-    _setCursorPosition(pos.X + dx, pos.Y + dy);
+void UserInterface::_moveCursor(int dx, int dy) {
+    COORD coordPos = _getCursorPosition();
+    _setCursorPosition(coordPos.X + dx, coordPos.Y + dy);
 }
 
-void UserInterfaceWindows::_hideInput() {
-    DWORD mode = 0;
-    GetConsoleMode(_inputHandle, &mode);
-    SetConsoleMode(_inputHandle, mode & (~ENABLE_ECHO_INPUT));
+void UserInterface::_hideInput() {
+    DWORD lMode = 0;
+    GetConsoleMode(_hInputHandle, &lMode);
+    SetConsoleMode(_hInputHandle, lMode & (~ENABLE_ECHO_INPUT));
 }
 
-void UserInterfaceWindows::_showInput() {
-    DWORD mode = 0;
-    GetConsoleMode(_inputHandle, &mode);
-    SetConsoleMode(_inputHandle, mode | ENABLE_ECHO_INPUT);
+void UserInterface::_showInput() {
+    DWORD lMode = 0;
+    GetConsoleMode(_hInputHandle, &lMode);
+    SetConsoleMode(_hInputHandle, lMode | ENABLE_ECHO_INPUT);
 }
 
-UserInterfaceWindows::UserInterfaceWindows() {
+UserInterface::UserInterface() {
     if (!isElevated()) {
         printf("Please run this program as administrator!\n");
         system("pause");
         exit(0);
     }
-    _consoleHandle = GetStdHandle(STD_OUTPUT_HANDLE);
-    _inputHandle = GetStdHandle(STD_INPUT_HANDLE);
+    _hConsoleHandle = GetStdHandle(STD_OUTPUT_HANDLE);
+    _hInputHandle = GetStdHandle(STD_INPUT_HANDLE);
     clearScreen();
     
     // disable wrap
-    DWORD mode;
-    GetConsoleMode(_consoleHandle, &mode);
-    mode &= ~ENABLE_WRAP_AT_EOL_OUTPUT;
-    SetConsoleMode(_consoleHandle, mode);
+    DWORD lMode;
+    GetConsoleMode(_hConsoleHandle, &lMode);
+    lMode &= ~ENABLE_WRAP_AT_EOL_OUTPUT;
+    SetConsoleMode(_hConsoleHandle, lMode);
     
     setColor(DEFAULT_COLOR);
 }
 
-UserInterfaceWindows::~UserInterfaceWindows() {
-    CloseHandle(_consoleHandle);
-    CloseHandle(_inputHandle);
+UserInterface::~UserInterface() {
+    CloseHandle(_hConsoleHandle);
+    CloseHandle(_hInputHandle);
 }
 
-void UserInterfaceWindows::clearScreen() {
-    COORD coord = {0, 0};
-    DWORD count;
-    CONSOLE_SCREEN_BUFFER_INFO consoleScreenBufferInfo;
-    GetConsoleScreenBufferInfo(_consoleHandle, &consoleScreenBufferInfo);
-    FillConsoleOutputCharacterA(_consoleHandle, ' ',
-                                consoleScreenBufferInfo.dwSize.X * consoleScreenBufferInfo.dwSize.Y,
-                                coord, &count);
-    SetConsoleCursorPosition(_consoleHandle, coord);
+void UserInterface::clearScreen() {
+    COORD coordTopLeft = {0, 0};
+    DWORD lCount;
+    CONSOLE_SCREEN_BUFFER_INFO csbiConsoleScreenBufferInfo;
+    GetConsoleScreenBufferInfo(_hConsoleHandle, &csbiConsoleScreenBufferInfo);
+    FillConsoleOutputCharacterA(_hConsoleHandle, ' ',
+                                csbiConsoleScreenBufferInfo.dwSize.X * csbiConsoleScreenBufferInfo.dwSize.Y,
+                                coordTopLeft, &lCount);
+    SetConsoleCursorPosition(_hConsoleHandle, coordTopLeft);
 }
 
-void UserInterfaceWindows::setColor(const int color) {
-    SetConsoleTextAttribute(_consoleHandle, color);
+void UserInterface::setColor(const int color) {
+    SetConsoleTextAttribute(_hConsoleHandle, color);
 }
 
-void UserInterfaceWindows::print(const std::string &text, const int color, const bool newLine) {
+void UserInterface::print(const std::string &text, const int color, const bool newLine) {
     setColor(color);
     printf("%s", text.c_str());
     if (newLine) {
@@ -103,25 +101,37 @@ void UserInterfaceWindows::print(const std::string &text, const int color, const
     setColor(DEFAULT_COLOR);
 }
 
-void UserInterfaceWindows::printCentered(const std::string &text, int color, bool newLine, char padding, char cap,
-                                         int capColor
-) {
-    COORD screenSize = _getScreenSize();
-    int paddingLengthLeft = static_cast<int>((screenSize.X - text.length()) / 2);
-    int paddingLengthRight = (int) (screenSize.X - text.length()) - paddingLengthLeft;
-    std::string paddingLeft(paddingLengthLeft, padding);
-    std::string paddingRight(paddingLengthRight, padding);
-    paddingLeft[0] = cap;
-    paddingRight[paddingRight.length() - 1] = cap;
-    print(paddingLeft, capColor, false);
-    print(text, color, false);
-    print(paddingRight, capColor, newLine);
+void UserInterface::print(const std::vector<std::string> &items, int color, bool newLine, char separator) {
+    for (const std::string &strItem: items) {
+        print(strItem, color, false);
+        if (strItem != items.back() && items.size() > 1) {
+            print(std::string(1, separator), color, false);
+        }
+    }
+    if (newLine) {
+        printLineBreak();
+    }
 }
 
-void UserInterfaceWindows::printLineBreak(const char c, const int color, bool newLine) {
-    COORD screenSize = _getScreenSize();
+void UserInterface::printCentered(const std::string &text, int color, bool newLine, char padding, char cap,
+                                  int capColor
+) {
+    COORD coordScreenSize = _getScreenSize();
+    int iPaddingLengthLeft = static_cast<int>((coordScreenSize.X - text.length()) / 2);
+    int iPaddingLengthRight = (int) (coordScreenSize.X - text.length()) - iPaddingLengthLeft;
+    std::string strPaddingLeft(iPaddingLengthLeft, padding);
+    std::string strPaddingRight(iPaddingLengthRight, padding);
+    strPaddingLeft[0] = cap;
+    strPaddingRight[strPaddingRight.length() - 1] = cap;
+    print(strPaddingLeft, capColor, false);
+    print(text, color, false);
+    print(strPaddingRight, capColor, newLine);
+}
+
+void UserInterface::printLineBreak(const char c, const int color, bool newLine) {
+    COORD coordScreenSize = _getScreenSize();
     setColor(color);
-    for (int i = 0; i < screenSize.X; i++) {
+    for (int i = 0; i < coordScreenSize.X; i++) {
         printf("%c", c);
     }
     if (newLine) {
@@ -130,8 +140,8 @@ void UserInterfaceWindows::printLineBreak(const char c, const int color, bool ne
     setColor(DEFAULT_COLOR);
 }
 
-void UserInterfaceWindows::printTitle(const std::string &text, const int textColor, const int borderColor,
-                                      bool cap
+void UserInterface::printTitle(const std::string &text, const int textColor, const int borderColor,
+                               bool cap
 ) {
     printLineBreak(cBorder, borderColor);
     if (cap) {
@@ -146,19 +156,14 @@ void UserInterfaceWindows::printTitle(const std::string &text, const int textCol
     printLineBreak(cBorder, borderColor);
 }
 
-void UserInterfaceWindows::printMultiLine(const std::vector<std::string> &items, int color) {
-    int i = 0;
-    for (const std::string &item: items) {
-        print(item, color, false);
-        if (i == 0) {
-            print(" (default)", color, false);
-        }
+void UserInterface::printMultiLine(const std::vector<std::string> &items, int color) {
+    for (const std::string &strItem: items) {
+        print(strItem, color, false);
         printLineBreak();
-        i++;
     }
 }
 
-std::string UserInterfaceWindows::input(const std::string &message, int color, bool hideInput) {
+std::string UserInterface::input(const std::string &message, int color, bool hideInput) {
     char szInput[255];
     setColor(color);
     printf("%s ", message.c_str());
