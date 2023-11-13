@@ -6,7 +6,7 @@
 #include <vector>
 
 
-enum [[maybe_unused]] ConsoleApiColor {
+enum [[maybe_unused]] Color {
     DEFAULT_COLOR = 7,
     BLACK = 0,
     BLUE = 1,
@@ -68,7 +68,7 @@ public:
     /**
      * @description Set color for subsequent output
      *
-     * @param color: ConsoleApiColor to set
+     * @param color: Color to set
      * @return void
      */
     void setColor(int color = DEFAULT_COLOR);
@@ -77,21 +77,32 @@ public:
      * @description Print text to console
      *
      * @param text Text to print
-     * @param color ConsoleApiColor of text
+     * @param color Color of text
      * @param newLine Print new line after text
      * @return void
      */
     void print(const std::string &text, int color = DEFAULT_COLOR, bool newLine = true);
     
     /**
+     * @description Print text to console
+     *
+     * @param items Items to print (vector of strings)
+     * @param color Color of text
+     * @param newLine Print new line after text
+     * @param separator Separator character
+     * @return void
+     */
+    void print(const std::vector<std::string> &items, int color = DEFAULT_COLOR, bool newLine = true, char separator = '\n');
+    
+    /**
      * @description Print text to console, centered
      *
      * @param text Text to print
-     * @param color ConsoleApiColor of text
+     * @param color Color of text
      * @param newLine Print new line after text
      * @param padding Padding character
      * @param cap Cap character
-     * @param capColor ConsoleApiColor of cap and padding character
+     * @param capColor Color of cap and padding character
      * @return void
      */
     void printCentered(const std::string &text, int color = DEFAULT_COLOR, bool newLine = true, char padding = ' ',
@@ -102,7 +113,7 @@ public:
      * @description Print full line of character to console
      *
      * @param c Character to print
-     * @param color ConsoleApiColor of character
+     * @param color Color of character
      * @param newLine Print new line after text
      * @return void
      */
@@ -122,19 +133,22 @@ public:
     );
     
     /**
-     * @description Print menu to console
+     * @deprecated This function is deprecated, use print() instead
+     *
+     * @description Print multiple lines of text to console
      *
      * @param items Items to print (vector of strings)
-     * @param color ConsoleApiColor of menu
+     * @param color Color of the items
      * @return void
      */
+    [[deprecated("This function is deprecated, use print() instead")]]
     void printMultiLine(const std::vector<std::string> &items, int color = DEFAULT_COLOR);
     
     /**
      * @description Wait for user input
      *
      * @param message Message to print
-     * @param color ConsoleApiColor of message
+     * @param color Color of message
      * @param hideInput Hide input (for password)
      * @return User input
      */

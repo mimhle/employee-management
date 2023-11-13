@@ -101,6 +101,18 @@ void UserInterface::print(const std::string &text, const int color, const bool n
     setColor(DEFAULT_COLOR);
 }
 
+void UserInterface::print(const std::vector<std::string> &items, int color, bool newLine, char separator) {
+    for (const std::string &item: items) {
+        print(item, color, false);
+        if (item != items.back() && items.size() > 1) {
+            print(std::string(1, separator), color, false);
+        }
+    }
+    if (newLine) {
+        printLineBreak();
+    }
+}
+
 void UserInterface::printCentered(const std::string &text, int color, bool newLine, char padding, char cap,
                                   int capColor
 ) {
