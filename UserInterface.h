@@ -5,8 +5,7 @@
 #include <windows.h>
 #include <vector>
 
-
-enum [[maybe_unused]] Color {
+enum [[maybe_unused]] g_Color {
     DEFAULT_COLOR = 7,
     BLACK = 0,
     BLUE = 1,
@@ -34,8 +33,8 @@ enum [[maybe_unused]] Color {
  */
 class UserInterface {
 private:
-    HANDLE _consoleHandle;
-    HANDLE _inputHandle;
+    HANDLE _hConsoleHandle;
+    HANDLE _hInputHandle;
     
     static bool isElevated();
     
@@ -92,7 +91,8 @@ public:
      * @param separator Separator character
      * @return void
      */
-    void print(const std::vector<std::string> &items, int color = DEFAULT_COLOR, bool newLine = true, char separator = '\n');
+    void
+    print(const std::vector<std::string> &items, int color = DEFAULT_COLOR, bool newLine = true, char separator = '\n');
     
     /**
      * @description Print text to console, centered
