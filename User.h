@@ -4,6 +4,12 @@
 
 #include <iostream>
 
+/**
+* @class User
+* @brief Class representing a User
+* @details This class encapsulates the data and operations for a User. It includes attributes such as name, date of birth, age, address, phone number, email, username, password, and role.
+* @note This class can be used on any platform that supports C++.
+*/
 class User {
 private:
     std::string _strName;
@@ -19,10 +25,13 @@ private:
 public:
     User(std::string name, std::string dateOfBirth, int age, std::string address, std::string phoneNumber, std::string email, std::string username, std::string password, std::string role);
 
-    //destructor
     ~User();
 
-    //getter && setter
+    /**
+     * @brief Getters and setters
+     * @details Getters and setters for private attributes
+     * @return Value of private attributes
+    */
     std::string getName() const;
     void setName(std::string name);
     std::string getDateOfBirth() const;
@@ -42,7 +51,11 @@ public:
     std::string getRole() const;
     void setRole(std::string role);
 
-    //method
+    /**
+    *@brief Display information of user
+    *@details Display information of user
+    *@return void
+    */
     void display() const;
 };
 

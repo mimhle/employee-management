@@ -6,6 +6,12 @@
 template <class DataType>
 class LinkedList;
 
+/**
+* @class Node
+* @brief Class representing a Node
+* @details This class encapsulates the data and operations for a Node in a data structure (like a linked list, tree, etc.).
+* @note This class can be used on LinkedList, Tree.
+*/
 template <class DataType>
 class Node {
     friend class LinkedList<DataType>;
@@ -14,10 +20,13 @@ private:
     Node* _pNext;
 
 public:
-    //constructor
     Node(DataType data);
 
-    //method
+    /**
+     * @brief Display information of node
+     * @details Display information of node
+     * @return void
+    */
     void display() const;
 };
 
