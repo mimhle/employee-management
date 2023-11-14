@@ -1,3 +1,0 @@
-C:/Users/nguyn/source/repos/employee-management/out/build/x64-Debug/CMakeFiles/ctdl_gk.dir
-C:/Users/nguyn/source/repos/employee-management/out/build/x64-Debug/CMakeFiles/edit_cache.dir
-C:/Users/nguyn/source/repos/employee-management/out/build/x64-Debug/CMakeFiles/rebuild_cache.dir
