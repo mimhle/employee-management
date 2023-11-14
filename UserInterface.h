@@ -1,3 +1,5 @@
+#pragma clang diagnostic push
+#pragma ide diagnostic ignored "modernize-use-nodiscard"
 #ifndef CTDL_GK_USERINTERFACE_CPP
 #define CTDL_GK_USERINTERFACE_CPP
 
@@ -5,8 +7,7 @@
 #include <windows.h>
 #include <vector>
 
-
-enum [[maybe_unused]] ConsoleApiColor {
+enum [[maybe_unused]] g_Color {
     DEFAULT_COLOR = 7,
     BLACK = 0,
     BLUE = 1,
@@ -34,22 +35,22 @@ enum [[maybe_unused]] ConsoleApiColor {
  */
 class UserInterface {
 private:
-    HANDLE _consoleHandle;
-    HANDLE _inputHandle;
+    HANDLE _hConsoleHandle;
+    HANDLE _hInputHandle;
     
     static bool isElevated();
     
-    COORD _getScreenSize();
+    COORD _getScreenSize() const;
     
-    COORD _getCursorPosition();
+    COORD _getCursorPosition() const;
     
-    void _setCursorPosition(int x, int y);
+    void _setCursorPosition(int x, int y) const;
     
-    void _moveCursor(int dx = 0, int dy = 0);
+    void _moveCursor(int dx = 0, int dy = 0) const;
     
-    void _hideInput();
+    void _hideInput() const;
     
-    void _showInput();
+    void _showInput() const;
 
 public:
     char cBorder = '#';
@@ -63,50 +64,63 @@ public:
      *
      * @return void
      */
-    void clearScreen();
+    void clearScreen() const;
     
     /**
      * @description Set color for subsequent output
      *
-     * @param color: ConsoleApiColor to set
+     * @param color: Color to set
      * @return void
      */
-    void setColor(int color = DEFAULT_COLOR);
+    void setColor(int color = DEFAULT_COLOR) const;
     
     /**
      * @description Print text to console
      *
      * @param text Text to print
-     * @param color ConsoleApiColor of text
+     * @param color Color of text
      * @param newLine Print new line after text
      * @return void
      */
-    void print(const std::string &text, int color = DEFAULT_COLOR, bool newLine = true);
+    void print(const std::string &text, int color = DEFAULT_COLOR, bool newLine = true) const;
+    
+    /**
+     * @description Print text to console
+     *
+     * @param items Items to print (vector of strings)
+     * @param color Color of text
+     * @param newLine Print new line after text
+     * @param separator Separator character
+     * @return void
+     */
+    void
+    print(const std::vector<std::string> &items, int color = DEFAULT_COLOR, bool newLine = true, char separator = '\n'
+    ) const;
     
     /**
      * @description Print text to console, centered
      *
      * @param text Text to print
-     * @param color ConsoleApiColor of text
+     * @param color Color of text
      * @param newLine Print new line after text
      * @param padding Padding character
      * @param cap Cap character
-     * @param capColor ConsoleApiColor of cap and padding character
+     * @param capColor Color of cap and padding character
      * @return void
      */
     void printCentered(const std::string &text, int color = DEFAULT_COLOR, bool newLine = true, char padding = ' ',
                        char cap = ' ', int capColor = DEFAULT_COLOR
-    );
+    ) const;
     
     /**
      * @description Print full line of character to console
      *
      * @param c Character to print
-     * @param color ConsoleApiColor of character
+     * @param color Color of character
      * @param newLine Print new line after text
      * @return void
      */
-    void printLineBreak(char c = ' ', int color = DEFAULT_COLOR, bool newLine = true);
+    void printLineBreak(char c = ' ', int color = DEFAULT_COLOR, bool newLine = true) const;
     
     /**
      * @description Print title to console (text with border and centered)
@@ -119,26 +133,31 @@ public:
      */
     void printTitle(const std::string &text, int textColor = DEFAULT_COLOR, int borderColor = DEFAULT_COLOR,
                     bool cap = false
-    );
+    ) const;
     
     /**
-     * @description Print menu to console
+     * @deprecated This function is deprecated, use print() instead
+     *
+     * @description Print multiple lines of text to console
      *
      * @param items Items to print (vector of strings)
-     * @param color ConsoleApiColor of menu
+     * @param color Color of the items
      * @return void
      */
-    void printMultiLine(const std::vector<std::string> &items, int color = DEFAULT_COLOR);
+    [[deprecated("This function is deprecated, use print() instead")]]
+    void printMultiLine(const std::vector<std::string> &items, int color = DEFAULT_COLOR) const;
     
     /**
      * @description Wait for user input
      *
      * @param message Message to print
-     * @param color ConsoleApiColor of message
+     * @param color Color of message
      * @param hideInput Hide input (for password)
      * @return User input
      */
-    std::string input(const std::string &message = ">", int color = DEFAULT_COLOR, bool hideInput = false);
+    std::string input(const std::string &message = ">", int color = DEFAULT_COLOR, bool hideInput = false) const;
 };
 
 #endif //CTDL_GK_USERINTERFACE_CPP
+
+#pragma clang diagnostic pop
