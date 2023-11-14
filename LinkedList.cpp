@@ -30,8 +30,8 @@ public:
     void remove(DataType data);
 
     void selectionSort();
-    int getSize();
-    void display();
+    int getSize() const;
+    void display() const;
     void clear();
 };
 
@@ -157,7 +157,7 @@ void LinkedList<DataType>::remove(DataType data) {
 }
 
 template <class DataType>
-void LinkedList<DataType>::display() {
+void LinkedList<DataType>::display() const {
     Node<DataType>* _pWalker = _pHead;
     while (_pWalker != NULL) {
         _pWalker->display();
@@ -172,7 +172,7 @@ void LinkedList<DataType>::clear() {
 }
 
 template <class DataType>
-int LinkedList<DataType>::getSize() {
+int LinkedList<DataType>::getSize() const {
     return _iSize;
 }
 

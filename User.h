@@ -1,4 +1,6 @@
-#pragma once
+//#pragma once
+#ifndef CTDL_GK_USER_CPP
+#define CTDL_GK_USER_CPP
 
 #include <iostream>
 
@@ -21,25 +23,27 @@ public:
     ~User();
 
     //getter && setter
-    std::string getName();
+    std::string getName() const;
     void setName(std::string name);
-    std::string getDateOfBirth();
+    std::string getDateOfBirth() const;
     void setDateOfBirth(std::string dateOfBirth);
-    int getAge();
+    int getAge() const;
     void setAge(int age);
-    std::string getAddress();
+    std::string getAddress() const;
     void setAddress(std::string address);
-    std::string getPhoneNumber();
+    std::string getPhoneNumber() const;
     void setPhoneNumber(std::string phoneNumber);
-    std::string getEmail();
+    std::string getEmail() const;
     void setEmail(std::string email);
-    std::string getUserName();
+    std::string getUserName() const;
     void setUserName(std::string username);
-    std::string getPassword();
+    std::string getPassword() const;
     void setPassword(std::string password);
-    std::string getRole();
+    std::string getRole() const;
     void setRole(std::string role);
 
     //method
-    void display();
+    void display() const;
 };
+
+#endif // CTDL_GK_USER_CPP

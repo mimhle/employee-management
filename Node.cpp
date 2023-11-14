@@ -8,6 +8,6 @@ Node<DataType>::Node(DataType data) {
 }
 
 template <class DataType>
-void Node<DataType>::display() {
+void Node<DataType>::display() const {
     std::cout << _data << std::endl;
 }
