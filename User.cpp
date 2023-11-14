@@ -1,7 +1,9 @@
 #include <iostream>
 #include "User.h"
 
-User::User(std::string name, std::string dateOfBirth, int age, std::string address, std::string phoneNumber, std::string email, std::string username, std::string password, std::string role) {
+User::User(std::string name, std::string dateOfBirth, int age, std::string address, std::string phoneNumber,
+           std::string email, std::string username, std::string password, std::string role
+) {
     _strName = name;
     _strDateOfBirth = dateOfBirth;
     _iAge = age;
@@ -26,22 +28,39 @@ User::~User() {
 }
 
 std::string User::getName() const { return _strName; }
+
 void User::setName(std::string name) { _strName = name; }
+
 std::string User::getDateOfBirth() const { return _strDateOfBirth; }
+
 void User::setDateOfBirth(std::string dateOfBirth) { _strDateOfBirth = dateOfBirth; }
+
 int User::getAge() const { return _iAge; }
+
 void User::setAge(int age) { _iAge = age; }
+
 std::string User::getAddress() const { return _strAddress; }
+
 void User::setAddress(std::string address) { _strAddress = address; }
+
 std::string User::getPhoneNumber() const { return _strPhoneNumber; }
+
 void User::setPhoneNumber(std::string phoneNumber) { _strPhoneNumber = phoneNumber; }
+
 std::string User::getEmail() const { return _strEmail; }
+
 void User::setEmail(std::string email) { _strEmail = email; }
+
 std::string User::getUserName() const { return _strUserName; }
+
 void User::setUserName(std::string username) { _strUserName = username; }
+
 std::string User::getPassword() const { return _strPassword; }
+
 void User::setPassword(std::string password) { _strPassword = password; }
+
 std::string User::getRole() const { return _strRole; }
+
 void User::setRole(std::string role) { _strRole = role; }
 
 void User::display() const {
