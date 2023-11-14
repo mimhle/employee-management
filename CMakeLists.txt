@@ -11,4 +11,4 @@ add_executable(ctdl_gk main.cpp
         Node.h
         Node.cpp
         LinkedList.cpp
-)
+ "Login.h" "Login.cpp")
