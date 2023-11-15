@@ -2,7 +2,7 @@
 #include "User.h"
 
 User::User(std::string name, std::string dateOfBirth, int age, std::string address, std::string phoneNumber,
-           std::string email, std::string username, std::string password, std::string role
+    std::string email, std::string username, std::string password, std::string role
 ) {
     _strName = name;
     _strDateOfBirth = dateOfBirth;
@@ -13,6 +13,18 @@ User::User(std::string name, std::string dateOfBirth, int age, std::string addre
     _strUserName = username;
     _strPassword = password;
     _strRole = role;
+}
+
+User::User() {
+    _strName = "";
+    _strDateOfBirth = "";
+    _iAge = 0;
+    _strAddress = "";
+    _strPhoneNumber = "";
+    _strEmail = "";
+    _strUserName = "";
+    _strPassword = "";
+    _strRole = "";
 }
 
 User::~User() {

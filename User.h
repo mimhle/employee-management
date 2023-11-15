@@ -26,52 +26,54 @@ private:
 
 public:
     User(std::string name, std::string dateOfBirth, int age, std::string address, std::string phoneNumber,
-         std::string email, std::string username, std::string password, std::string role
+        std::string email, std::string username, std::string password, std::string role
     );
-    
+
+    User();
+
     ~User();
-    
+
     /**
      * @brief Getters and setters
      * @details Getters and setters for private attributes
      * @return Value of private attributes
     */
     std::string getName() const;
-    
+
     void setName(std::string name);
-    
+
     std::string getDateOfBirth() const;
-    
+
     void setDateOfBirth(std::string dateOfBirth);
-    
+
     int getAge() const;
-    
+
     void setAge(int age);
-    
+
     std::string getAddress() const;
-    
+
     void setAddress(std::string address);
-    
+
     std::string getPhoneNumber() const;
-    
+
     void setPhoneNumber(std::string phoneNumber);
-    
+
     std::string getEmail() const;
-    
+
     void setEmail(std::string email);
-    
+
     std::string getUserName() const;
-    
+
     void setUserName(std::string username);
-    
+
     std::string getPassword() const;
-    
+
     void setPassword(std::string password);
-    
+
     std::string getRole() const;
-    
+
     void setRole(std::string role);
-    
+
     /**
     *@brief Display information of user
     *@details Display information of user
