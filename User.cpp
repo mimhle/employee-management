@@ -75,11 +75,22 @@ std::string User::getRole() const { return _strRole; }
 
 void User::setRole(std::string role) { _strRole = role; }
 
-void User::display() const {
-    std::cout << "Name: " << _strName << std::endl;
-    std::cout << "Address: " << _strAddress << std::endl;
-    std::cout << "PhoneNumber: " << _strPhoneNumber << std::endl;
-    std::cout << "Email: " << _strEmail << std::endl;
-    std::cout << "Username: " << _strUserName << std::endl;
-    std::cout << "Role: " << _strRole << std::endl;
+// void User::display() const {
+//     std::cout << "Name: " << _strName << std::endl;
+//     std::cout << "Address: " << _strAddress << std::endl;
+//     std::cout << "PhoneNumber: " << _strPhoneNumber << std::endl;
+//     std::cout << "Email: " << _strEmail << std::endl;
+//     std::cout << "Username: " << _strUserName << std::endl;
+//     std::cout << "Role: " << _strRole << std::endl;
+// }
+
+std::ostream& operator<<(std::ostream& os, const User& user) {
+    os << "Name: " << user.getName() << "\n"
+        << "Date of Birth: " << user.getDateOfBirth() << "\n"
+        << "Age: " << user.getAge() << "\n"
+        << "Address: " << user.getAddress() << "\n"
+        << "Phone Number: " << user.getPhoneNumber() << "\n"
+        << "Email: " << user.getEmail() << "\n";
+
+    return os;
 }
