@@ -1,6 +1,9 @@
 #pragma clang diagnostic push
 #pragma ide diagnostic ignored "modernize-use-nodiscard"
 //#pragma once
+#ifndef CTDL_GK_USER_CPP
+#define CTDL_GK_USER_CPP
+
 #include <iostream>
 #include "Node.cpp"
 
@@ -280,4 +283,5 @@ void LinkedList<DataType>::selectionSort() {
     }
 }
 
+#endif // CTDL_GK_USER_CPP
 #pragma clang diagnostic pop
