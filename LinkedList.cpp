@@ -22,9 +22,9 @@ private:
 
 public:
     LinkedList();
-    
+
     ~LinkedList();
-    
+
     /**
     * @brief Inserts a node at the beginning of the list
     * @details This function creates a new node with the provided data and places it at the start of the linked list.
@@ -32,7 +32,7 @@ public:
     * @return void
    */
     void addHead(DataType data);
-    
+
     /**
      * @brief Appends a node to the end of the list
      * @details This function creates a new node with the given data and places it at the end of the linked list.
@@ -40,7 +40,7 @@ public:
      * @return void
     */
     void addTail(DataType data);
-    
+
     /**
      * @brief Inserts a node after a given node in the list
      * @details This function creates a new node with the provided data and places it in the linked list right after the specified node.
@@ -49,7 +49,7 @@ public:
      * @return void
     */
     void addAfter(Node<DataType>* node, DataType data);
-    
+
     /**
      * @brief Locates a node in the list by its data
      * @details This function searches the linked list for a node containing the specified data.
@@ -57,7 +57,7 @@ public:
      * @return The node containing the given data, or null if no such node is found
     */
     Node<DataType>* search(DataType data);
-    
+
     /**
      * @brief Identifies the node prior to a specified node in the list
      * @details This function takes a reference node and finds the node that is positioned before it in the linked list.
@@ -65,28 +65,28 @@ public:
      * @return The node preceding the given node, or null if the provided node is the first in the list or not found
     */
     Node<DataType>* searchPre(Node<DataType>* node);
-    
+
     /**
      * @brief Deletes the head node of the list
      * @details This function removes the node at the beginning of the linked list.
      * @return void
     */
     void removeHead();
-    
+
     /**
      * @brief Removes the last node in the list
      * @details This function deletes the node at the tail of the linked list.
      * @return void
     */
     void removeTail();
-    
+
     /**
      * @brief Removes the node after a specified node in the list
      * @details This function deletes the node that is positioned after the specified node in the linked list.
      * @param node The node whose successor is to be deleted
     */
     void removeAfter(Node<DataType>* node);
-    
+
     /**
      * @brief Deletes the first occurrence of a node with the given data in the list
      * @details This function locates the first node in the linked list with the provided data and removes it.
@@ -94,28 +94,21 @@ public:
      * @return void
     */
     void remove(DataType data);
-    
+
     /**
      * @brief Arranges the list elements in increasing order
      * @details This function applies the selection sort algorithm to arrange the nodes of the linked list in ascending order.
      * @return void
     */
     void selectionSort();
-    
+
     /**
      * @brief Return size of linked list
      * @details Return size of linked list
      * @return int
     */
     int getSize() const;
-    
-    /**
-     * @brief Prints the data of the linked list
-     * @details This function traverses the linked list and prints the data of each node.
-     * @return void
-    */
-    void display() const;
-    
+
     /**
      * @brief Clear linked list
      * @details Clear linked list
@@ -243,15 +236,6 @@ void LinkedList<DataType>::remove(DataType data) {
     else
         removeAfter(_pPre);
     _iSize--;
-}
-
-template<class DataType>
-void LinkedList<DataType>::display() const {
-    Node<DataType>* _pWalker = _pHead;
-    while (_pWalker != NULL) {
-        _pWalker->display();
-        _pWalker = _pWalker->_pNext;
-    }
 }
 
 template<class DataType>

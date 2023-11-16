@@ -22,13 +22,7 @@ private:
 
 public:
     explicit Node(DataType data);
-    
-    /**
-     * @brief Display information of node
-     * @details Display information of node
-     * @return void
-    */
-    void display() const;
+
 };
 
 #endif // CTDL_GK_NODE_CPP
