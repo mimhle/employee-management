@@ -73,22 +73,6 @@ public:
     std::string getRole() const;
 
     void setRole(std::string role);
-
-    /**
-    *@brief Display information of user
-    *@details Display information of user
-    *@return void
-    */
-    //void display() const;
-
-    /**
-     * @brief Overload operator <<
-     * @details Overload operator << for User
-     * @return std::ostream
-     * @param os
-     * @param user
-     */
-    friend std::ostream& operator<<(std::ostream& os, const User& user);
 };
 
 #endif // CTDL_GK_USER_CPP
