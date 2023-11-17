@@ -18,6 +18,4 @@ jobs:
 
       - name: build
         run: |
-          mkdir build
-          cd build
-          g++ ${{ github.workspace }}/main.cpp -o main.exe
+          g++ ${{ github.workspace }}/*.cpp -o main.exe
