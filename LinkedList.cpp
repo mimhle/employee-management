@@ -64,7 +64,7 @@ void LinkedList<DataType>::addAfter(Node<DataType>* node, const DataType& data) 
 }
 
 template<class DataType>
-Node<DataType>* LinkedList<DataType>::search(const DataType& data) {
+Node<DataType>* LinkedList<DataType>::search(const DataType& data) const {
     Node<DataType>* _p = _pHead;
     while (_p != NULL && _p->_data != data)
         _p = _p->_pNext;
@@ -72,7 +72,7 @@ Node<DataType>* LinkedList<DataType>::search(const DataType& data) {
 }
 
 template<>
-Node<User>* LinkedList<User>::search(const std::string& strKey) {
+Node<User>* LinkedList<User>::search(const std::string& strKey) const {
     Node<User>* _p = _pHead;
     while (_p != NULL && _p->_data.getName() != strKey)
         _p = _p->_pNext;
@@ -81,7 +81,7 @@ Node<User>* LinkedList<User>::search(const std::string& strKey) {
 
 
 template<class DataType>
-Node<DataType>* LinkedList<DataType>::searchPre(Node<DataType>* node) {
+Node<DataType>* LinkedList<DataType>::searchPre(Node<DataType>* node) const {
     Node<DataType>* _p = _pHead;
     if (_p == node)
         return NULL;
