@@ -107,5 +107,5 @@ std::string User::getRole() const { return _strRole; }
 void User::setRole(std::string role) { _strRole = role; }
 
 bool User::operator!=(const User& user) const {
-    return _strUserName != user._strUserName && _strPassword != user._strPassword && _strRole != user._strRole && _strName != user._strName && _strDateOfBirth != user._strDateOfBirth && _iAge != user._iAge && _strAddress != user._strAddress && _strPhoneNumber != user._strPhoneNumber && _strEmail != user._strEmail;
+    return _strUserName != user._strUserName || _strPassword != user._strPassword || _strRole != user._strRole || _strName != user._strName || _strDateOfBirth != user._strDateOfBirth || _iAge != user._iAge || _strAddress != user._strAddress || _strPhoneNumber != user._strPhoneNumber || _strEmail != user._strEmail;
 }
