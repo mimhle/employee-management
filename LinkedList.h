@@ -85,6 +85,15 @@ public:
     Node<DataType>* search(const DataType& data);
 
     /**
+     * @brief Locates a node in the list by its key
+     * @details This function searches the linked list for a node containing the specified key.
+     * @param key The username of the node to locate
+     * @return The node containing the given key, or null if no such node is found
+    */
+    Node<User>* search(const std::string& key);
+
+
+    /**
      * @brief Identifies the node prior to a specified node in the list
      * @details This function takes a reference node and finds the node that is positioned before it in the linked list.
      * @param node The node whose predecessor is to be found
@@ -149,6 +158,14 @@ public:
     * @return The data of the specified node
     */
     DataType getNodeData(Node<DataType>* node) const;
+
+    /**
+     * @brief Gets the data of a node in the linked list
+     * @details This function retrieves the data stored in a specified node of the linked list.
+     * @param i The index of the node from which to retrieve the data
+     * @return The data of the specified node
+    */
+    DataType getNodeData(const int i) const;
 };
 
 #endif // CTDL_GK_LINKEDLIST_CPP
