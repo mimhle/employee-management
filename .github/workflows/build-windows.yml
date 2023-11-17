@@ -18,4 +18,4 @@ jobs:
 
       - name: build
         run: |
-          g++ -Wdeprecated-declarations ${{ github.workspace }}/*.cpp -o main.exe
+          g++ -Wall ${{ github.workspace }}/*.cpp -o main.exe
