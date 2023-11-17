@@ -1,12 +1,14 @@
 #include <iostream>
+#include <ctime>
+#include <string>
 #include "User.h"
 
-User::User(std::string name, std::string dateOfBirth, int age, std::string address, std::string phoneNumber,
+User::User(std::string name, std::string dateOfBirth, std::string address, std::string phoneNumber,
     std::string email, std::string username, std::string password, std::string role
 ) {
     _strName = name;
     _strDateOfBirth = dateOfBirth;
-    _iAge = age;
+    _iAge = 0;
     _strAddress = address;
     _strPhoneNumber = phoneNumber;
     _strEmail = email;
@@ -39,17 +41,48 @@ User::~User() {
     _strRole = "";
 }
 
+void User::calculateAge() {
+    getDateOfBirth();
+    time_t now = time(0);
+
+    tm* ltm = localtime(&now);
+    int day = ltm->tm_mday;
+    int month = 1 + ltm->tm_mon;
+    int year = 1900 + ltm->tm_year;
+
+    //type string dateOfBirth DD/MM/YYYY
+    int dayOfBirth = std::stoi(_strDateOfBirth.substr(0, 2));
+    int monthOfBirth = std::stoi(_strDateOfBirth.substr(3, 2));
+    int yearOfBirth = std::stoi(_strDateOfBirth.substr(6, 4));
+
+    if (monthOfBirth > month) {
+        _iAge = year - yearOfBirth - 1;
+    } else if (monthOfBirth < month) {
+        _iAge = year - yearOfBirth;
+    } else {
+        if (dayOfBirth > day) {
+            _iAge = year - yearOfBirth - 1;
+        } else {
+            _iAge = year - yearOfBirth;
+        }
+    }
+}
+
 std::string User::getName() const { return _strName; }
 
 void User::setName(std::string name) { _strName = name; }
 
 std::string User::getDateOfBirth() const { return _strDateOfBirth; }
 
-void User::setDateOfBirth(std::string dateOfBirth) { _strDateOfBirth = dateOfBirth; }
+void User::setDateOfBirth(std::string dateOfBirth) {
+    _strDateOfBirth = dateOfBirth;
+    calculateAge();
+}
 
-int User::getAge() const { return _iAge; }
-
-void User::setAge(int age) { _iAge = age; }
+int User::getAge() {
+    calculateAge();
+    return _iAge;
+}
 
 std::string User::getAddress() const { return _strAddress; }
 
@@ -74,3 +107,7 @@ void User::setPassword(std::string password) { _strPassword = password; }
 std::string User::getRole() const { return _strRole; }
 
 void User::setRole(std::string role) { _strRole = role; }
+
+bool User::operator!=(const User& user) const {
+    return _strUserName != user._strUserName;
+}

@@ -25,13 +25,20 @@ private:
     std::string _strRole;
 
 public:
-    User(std::string name, std::string dateOfBirth, int age, std::string address, std::string phoneNumber,
+    User(std::string name, std::string dateOfBirth, std::string address, std::string phoneNumber,
         std::string email, std::string username, std::string password, std::string role
     );
 
     User();
 
     ~User();
+
+    /**
+     * @brief Calculates the age of the user
+     * @details This function calculates the age of the user based on the date of birth.
+     * @return void
+    */
+    void calculateAge();
 
     /**
      * @brief Getters and setters
@@ -46,9 +53,7 @@ public:
 
     void setDateOfBirth(std::string dateOfBirth);
 
-    int getAge() const;
-
-    void setAge(int age);
+    int getAge();
 
     std::string getAddress() const;
 
@@ -73,6 +78,13 @@ public:
     std::string getRole() const;
 
     void setRole(std::string role);
+
+    /**
+     * @brief Overloads the != operator
+     * @details This function overloads the != operator to compare two users.
+     * @return True if the two users are not equal, false otherwise
+    */
+    bool operator!=(const User& user) const;
 };
 
 #endif // CTDL_GK_USER_CPP
