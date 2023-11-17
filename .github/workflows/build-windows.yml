@@ -1,0 +1,21 @@
+name: build-windows
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+env:
+  BUILD_TYPE: Release
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: build
+        run: |
+          g++ -Wall -Werror -Wno-unknown-pragmas ${{ github.workspace }}/*.cpp -o main.exe
