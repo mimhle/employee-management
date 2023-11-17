@@ -50,19 +50,19 @@ int User::userAge() {
     int iCurrentYear = 1900 + pLocalTime->tm_year;
 
     //type string dateOfBirth DD/MM/YYYY
-    int dayOfBirth = std::stoi(_strDateOfBirth.substr(0, 2));
-    int monthOfBirth = std::stoi(_strDateOfBirth.substr(3, 2));
-    int yearOfBirth = std::stoi(_strDateOfBirth.substr(6, 4));
+    int iDayOfBirth = std::stoi(_strDateOfBirth.substr(0, 2));
+    int iMonthOfBirth = std::stoi(_strDateOfBirth.substr(3, 2));
+    int iYearOfBirth = std::stoi(_strDateOfBirth.substr(6, 4));
 
-    if (monthOfBirth > iCurrentMonth) {
-        _iAge = iCurrentYear - yearOfBirth - 1;
-    } else if (monthOfBirth < iCurrentMonth) {
-        _iAge = iCurrentYear - yearOfBirth;
+    if (iMonthOfBirth > iCurrentMonth) {
+        _iAge = iCurrentYear - iYearOfBirth - 1;
+    } else if (iMonthOfBirth < iCurrentMonth) {
+        _iAge = iCurrentYear - iYearOfBirth;
     } else {
-        if (dayOfBirth > iCurrentDay) {
-            _iAge = iCurrentYear - yearOfBirth - 1;
+        if (iDayOfBirth > iCurrentDay) {
+            _iAge = iCurrentYear - iYearOfBirth - 1;
         } else {
-            _iAge = iCurrentYear - yearOfBirth;
+            _iAge = iCurrentYear - iYearOfBirth;
         }
     }
 
