@@ -71,6 +71,15 @@ Node<DataType>* LinkedList<DataType>::search(const DataType& data) {
     return _p;
 }
 
+template<>
+Node<User>* LinkedList<User>::search(const std::string& strKey) {
+    Node<User>* _p = _pHead;
+    while (_p != NULL && _p->_data.getName() != strKey)
+        _p = _p->_pNext;
+    return _p;
+}
+
+
 template<class DataType>
 Node<DataType>* LinkedList<DataType>::searchPre(Node<DataType>* node) {
     Node<DataType>* _p = _pHead;
@@ -173,6 +182,14 @@ void LinkedList<DataType>::selectionSort() {
 template<class DataType>
 DataType LinkedList<DataType>::getNodeData(Node<DataType>* node) const {
     return node->getData();
+}
+
+template<class DataType>
+DataType LinkedList<DataType>::operator[](int index) const {
+    Node<DataType>* _p = _pHead;
+    for (int i = 0; i < index; i++)
+        _p = _p->_pNext;
+    return _p->_data;
 }
 
 //#endif // CTDL_GK_USER_CPP
