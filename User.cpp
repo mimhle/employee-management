@@ -8,7 +8,7 @@ User::User(std::string name, std::string dateOfBirth, std::string address, std::
 ) {
     _strName = name;
     _strDateOfBirth = dateOfBirth;
-    _iAge = 0;
+    _iAge = userAge();
     _strAddress = address;
     _strPhoneNumber = phoneNumber;
     _strEmail = email;
@@ -41,8 +41,7 @@ User::~User() {
     _strRole = "";
 }
 
-void User::calculateAge() {
-    getDateOfBirth();
+int User::userAge() {
     time_t now = time(0);
 
     tm* ltm = localtime(&now);
@@ -66,6 +65,8 @@ void User::calculateAge() {
             _iAge = year - yearOfBirth;
         }
     }
+
+    return _iAge;
 }
 
 std::string User::getName() const { return _strName; }
@@ -76,13 +77,10 @@ std::string User::getDateOfBirth() const { return _strDateOfBirth; }
 
 void User::setDateOfBirth(std::string dateOfBirth) {
     _strDateOfBirth = dateOfBirth;
-    calculateAge();
+    _iAge = userAge();
 }
 
-int User::getAge() {
-    calculateAge();
-    return _iAge;
-}
+int User::getAge() { return _iAge; }
 
 std::string User::getAddress() const { return _strAddress; }
 
@@ -109,5 +107,5 @@ std::string User::getRole() const { return _strRole; }
 void User::setRole(std::string role) { _strRole = role; }
 
 bool User::operator!=(const User& user) const {
-    return _strUserName != user._strUserName;
+    return _strUserName != user._strUserName && _strPassword != user._strPassword && _strRole != user._strRole && _strName != user._strName && _strDateOfBirth != user._strDateOfBirth && _iAge != user._iAge && _strAddress != user._strAddress && _strPhoneNumber != user._strPhoneNumber && _strEmail != user._strEmail;
 }

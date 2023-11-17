@@ -24,7 +24,26 @@ private:
     std::string _strPassword;
     std::string _strRole;
 
+    /**
+     * @brief Calculates the age of the user
+     * @details This function calculates the age of the user based on the date of birth.
+     * @return void
+    */
+    int userAge();
+
 public:
+    /**
+     * @brief Constructs a new User object
+     * @details This function constructs a new User object with the provided data.
+     * @param name The name of the user
+     * @param dateOfBirth The date of birth of the user
+     * @param address The address of the user
+     * @param phoneNumber The phone number of the user
+     * @param email The email of the user
+     * @param username The username of the user
+     * @param password The password of the user
+     * @param role The role of the user
+    */
     User(std::string name, std::string dateOfBirth, std::string address, std::string phoneNumber,
         std::string email, std::string username, std::string password, std::string role
     );
@@ -32,13 +51,6 @@ public:
     User();
 
     ~User();
-
-    /**
-     * @brief Calculates the age of the user
-     * @details This function calculates the age of the user based on the date of birth.
-     * @return void
-    */
-    void calculateAge();
 
     /**
      * @brief Getters and setters
