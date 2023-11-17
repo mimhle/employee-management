@@ -24,60 +24,78 @@ private:
     std::string _strPassword;
     std::string _strRole;
 
+    /**
+     * @brief Calculates the age of the user
+     * @details This function calculates the age of the user based on the date of birth.
+     * @return void
+    */
+    int userAge();
+
 public:
-    User(std::string name, std::string dateOfBirth, int age, std::string address, std::string phoneNumber,
-         std::string email, std::string username, std::string password, std::string role
+    /**
+    * @brief Constructs a new User object with the provided data.
+    * @param name The user's name
+    * @param dateOfBirth The user's date of birth (format: DD/MM/YYYY)
+    * @param address The user's address
+    * @param phoneNumber The user's phone number
+    * @param email The user's email
+    * @param username The user's username
+    * @param password The user's password
+    * @param role The user's role(Admintrator, Employee)
+    */
+    User(std::string name, std::string dateOfBirth, std::string address, std::string phoneNumber,
+        std::string email, std::string username, std::string password, std::string role
     );
-    
+
+    User();
+
     ~User();
-    
+
     /**
      * @brief Getters and setters
      * @details Getters and setters for private attributes
      * @return Value of private attributes
     */
     std::string getName() const;
-    
+
     void setName(std::string name);
-    
+
     std::string getDateOfBirth() const;
-    
+
     void setDateOfBirth(std::string dateOfBirth);
-    
-    int getAge() const;
-    
-    void setAge(int age);
-    
+
+    int getAge();
+
     std::string getAddress() const;
-    
+
     void setAddress(std::string address);
-    
+
     std::string getPhoneNumber() const;
-    
+
     void setPhoneNumber(std::string phoneNumber);
-    
+
     std::string getEmail() const;
-    
+
     void setEmail(std::string email);
-    
+
     std::string getUserName() const;
-    
+
     void setUserName(std::string username);
-    
+
     std::string getPassword() const;
-    
+
     void setPassword(std::string password);
-    
+
     std::string getRole() const;
-    
+
     void setRole(std::string role);
-    
+
     /**
-    *@brief Display information of user
-    *@details Display information of user
-    *@return void
+     * @brief Overloads the != operator
+     * @details This function overloads the != operator to compare two users.
+     * @return True if the two users are not equal, false otherwise
     */
-    void display() const;
+    bool operator!=(const User& user) const;
 };
 
 #endif // CTDL_GK_USER_CPP
