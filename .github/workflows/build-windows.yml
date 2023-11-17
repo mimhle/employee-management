@@ -20,4 +20,4 @@ jobs:
         run: |
           mkdir build
           cd build
-          g++ ../src/main.cpp -o main.exe
+          g++ ${{ github.workspace }}/main.cpp -o main.exe
