@@ -159,13 +159,13 @@ public:
     */
     DataType getNodeData(Node<DataType>* node) const;
 
+
     /**
-     * @brief Gets the data of a node in the linked list
-     * @details This function retrieves the data stored in a specified node of the linked list.
-     * @param i The index of the node from which to retrieve the data
-     * @return The data of the specified node
+     * @brief Overload operator []
+     * @details Overload operator []
+     * @return DataType
     */
-    DataType getNodeData(const int i) const;
+    DataType operator[](int index) const;
 };
 
 #endif // CTDL_GK_LINKEDLIST_CPP

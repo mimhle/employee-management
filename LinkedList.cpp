@@ -185,14 +185,11 @@ DataType LinkedList<DataType>::getNodeData(Node<DataType>* node) const {
 }
 
 template<class DataType>
-DataType LinkedList<DataType>::getNodeData(const int i) const {
+DataType LinkedList<DataType>::operator[](int index) const {
     Node<DataType>* _p = _pHead;
-    int _i = 0;
-    while (i != _i) {
+    for (int i = 0; i < index; i++)
         _p = _p->_pNext;
-        _i++;
-    }
-    return _p->getData();
+    return _p->_data;
 }
 
 //#endif // CTDL_GK_USER_CPP
