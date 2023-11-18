@@ -7,21 +7,21 @@
 
 class Users {
 private:
-    LinkedList<UserData*>* _pUsers;
+    ;
 public:
-    Users();
+    Users(...);
 
     ~Users();
 
-    void addUser(UserData* userData);
+    void addUser(...);
 
-    void removeUser(const std::string& userName);
+    void removeUser(...);
 
-    void editUser(const std::string& userName, UserData* userData);
+    void editUser(...);
 
-    void searchUser(const std::string& userName);
+    void searchUser(...);
 
-    void printUsers();
+    void printUsers(...);
 
 };
 

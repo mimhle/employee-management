@@ -182,5 +182,4 @@ DataType LinkedList<DataType>::operator[](int index) const {
     return _p->_data;
 }
 
-//#endif // CTDL_GK_USER_CPP
 #pragma clang diagnostic pop
