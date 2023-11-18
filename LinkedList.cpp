@@ -71,14 +71,12 @@ Node<DataType>* LinkedList<DataType>::search(const DataType& data) const {
     return _p;
 }
 
-template<>
-Node<User>* LinkedList<User>::search(const std::string& strKey) const {
+Node<User>* LinkedList<User>::search(const std::string& key) const {
     Node<User>* _p = _pHead;
-    while (_p != NULL && _p->_data.getName() != strKey)
+    while (_p != NULL && _p->_data.getName() != key)
         _p = _p->_pNext;
     return _p;
 }
-
 
 template<class DataType>
 Node<DataType>* LinkedList<DataType>::searchPre(Node<DataType>* node) const {
