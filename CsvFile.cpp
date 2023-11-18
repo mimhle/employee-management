@@ -19,6 +19,9 @@ std::vector<std::vector<std::string>> CsvFile::read(int startLine, int endLine) 
     while (std::getline(ifsFile, strLine)) {
         std::vector<std::string> vtRow;
         std::string strCell;
+        if (strLine.empty()) {
+            continue;
+        }
         for (char c: strLine) {
             if (c == ',') {
                 vtRow.push_back(strCell);
