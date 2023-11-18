@@ -37,35 +37,35 @@ class UserInterface {
 private:
     HANDLE _hConsoleHandle;
     HANDLE _hInputHandle;
-    
+
     static bool isElevated();
-    
+
     COORD _getScreenSize() const;
-    
+
     COORD _getCursorPosition() const;
-    
+
     void _setCursorPosition(int x, int y) const;
-    
+
     void _moveCursor(int dx = 0, int dy = 0) const;
-    
+
     void _hideInput() const;
-    
+
     void _showInput() const;
 
 public:
     char cBorder = '#';
-    
+
     UserInterface();
-    
+
     ~UserInterface();
-    
+
     /**
      * @description Clear console screen
      *
      * @return void
      */
     void clearScreen() const;
-    
+
     /**
      * @description Set color for subsequent output
      *
@@ -73,7 +73,7 @@ public:
      * @return void
      */
     void setColor(int color = DEFAULT_COLOR) const;
-    
+
     /**
      * @description Print text to console
      *
@@ -82,8 +82,8 @@ public:
      * @param newLine Print new line after text
      * @return void
      */
-    void print(const std::string &text, int color = DEFAULT_COLOR, bool newLine = true) const;
-    
+    void print(const std::string& text, int color = DEFAULT_COLOR, bool newLine = true) const;
+
     /**
      * @description Print text to console
      *
@@ -94,9 +94,9 @@ public:
      * @return void
      */
     void
-    print(const std::vector<std::string> &items, int color = DEFAULT_COLOR, bool newLine = true, char separator = '\n'
+    print(const std::vector<std::string>& items, int color = DEFAULT_COLOR, bool newLine = true, char separator = '\n'
     ) const;
-    
+
     /**
      * @description Print text to console, centered
      *
@@ -108,10 +108,10 @@ public:
      * @param capColor Color of cap and padding character
      * @return void
      */
-    void printCentered(const std::string &text, int color = DEFAULT_COLOR, bool newLine = true, char padding = ' ',
+    void printCentered(const std::string& text, int color = DEFAULT_COLOR, bool newLine = true, char padding = ' ',
                        char cap = ' ', int capColor = DEFAULT_COLOR
     ) const;
-    
+
     /**
      * @description Print full line of character to console
      *
@@ -121,7 +121,7 @@ public:
      * @return void
      */
     void printLineBreak(char c = ' ', int color = DEFAULT_COLOR, bool newLine = true) const;
-    
+
     /**
      * @description Print title to console (text with border and centered)
      *
@@ -131,10 +131,10 @@ public:
      * @param cap Whether to cap the title
      * @return void
      */
-    void printTitle(const std::string &text, int textColor = DEFAULT_COLOR, int borderColor = DEFAULT_COLOR,
+    void printTitle(const std::string& text, int textColor = DEFAULT_COLOR, int borderColor = DEFAULT_COLOR,
                     bool cap = false
     ) const;
-    
+
     /**
      * @deprecated This function is deprecated, use print() instead
      *
@@ -145,8 +145,8 @@ public:
      * @return void
      */
     [[deprecated("This function is deprecated, use print() instead")]]
-    void printMultiLine(const std::vector<std::string> &items, int color = DEFAULT_COLOR) const;
-    
+    void printMultiLine(const std::vector<std::string>& items, int color = DEFAULT_COLOR) const;
+
     /**
      * @description Wait for user input
      *
@@ -155,7 +155,7 @@ public:
      * @param hideInput Hide input (for password)
      * @return User input
      */
-    std::string input(const std::string &message = ">", int color = DEFAULT_COLOR, bool hideInput = false) const;
+    std::string input(const std::string& message = ">", int color = DEFAULT_COLOR, bool hideInput = false) const;
 };
 
 #endif //CTDL_GK_USERINTERFACE_CPP

@@ -62,13 +62,13 @@ UserInterface::UserInterface() {
     _hConsoleHandle = GetStdHandle(STD_OUTPUT_HANDLE);
     _hInputHandle = GetStdHandle(STD_INPUT_HANDLE);
     clearScreen();
-    
+
     // disable wrap
     DWORD lMode;
     GetConsoleMode(_hConsoleHandle, &lMode);
     lMode &= ~ENABLE_WRAP_AT_EOL_OUTPUT;
     SetConsoleMode(_hConsoleHandle, lMode);
-    
+
     setColor(DEFAULT_COLOR);
 }
 
@@ -92,7 +92,7 @@ void UserInterface::setColor(const int color) const {
     SetConsoleTextAttribute(_hConsoleHandle, color);
 }
 
-void UserInterface::print(const std::string &text, const int color, const bool newLine) const {
+void UserInterface::print(const std::string& text, const int color, const bool newLine) const {
     setColor(color);
     printf("%s", text.c_str());
     if (newLine) {
@@ -101,8 +101,8 @@ void UserInterface::print(const std::string &text, const int color, const bool n
     setColor(DEFAULT_COLOR);
 }
 
-void UserInterface::print(const std::vector<std::string> &items, int color, bool newLine, char separator) const {
-    for (const std::string &strItem: items) {
+void UserInterface::print(const std::vector<std::string>& items, int color, bool newLine, char separator) const {
+    for (const std::string& strItem: items) {
         print(strItem, color, false);
         if (strItem != items.back() && items.size() > 1) {
             print(std::string(1, separator), color, false);
@@ -113,7 +113,7 @@ void UserInterface::print(const std::vector<std::string> &items, int color, bool
     }
 }
 
-void UserInterface::printCentered(const std::string &text, int color, bool newLine, char padding, char cap,
+void UserInterface::printCentered(const std::string& text, int color, bool newLine, char padding, char cap,
                                   int capColor
 ) const {
     COORD coordScreenSize = _getScreenSize();
@@ -140,7 +140,7 @@ void UserInterface::printLineBreak(const char c, const int color, bool newLine) 
     setColor(DEFAULT_COLOR);
 }
 
-void UserInterface::printTitle(const std::string &text, int textColor, int borderColor,
+void UserInterface::printTitle(const std::string& text, int textColor, int borderColor,
                                bool cap
 ) const {
     printLineBreak(cBorder, borderColor);
@@ -156,14 +156,14 @@ void UserInterface::printTitle(const std::string &text, int textColor, int borde
     printLineBreak(cBorder, borderColor);
 }
 
-void UserInterface::printMultiLine(const std::vector<std::string> &items, int color) const {
-    for (const std::string &strItem: items) {
+void UserInterface::printMultiLine(const std::vector<std::string>& items, int color) const {
+    for (const std::string& strItem: items) {
         print(strItem, color, false);
         printLineBreak();
     }
 }
 
-std::string UserInterface::input(const std::string &message, int color, bool hideInput) const {
+std::string UserInterface::input(const std::string& message, int color, bool hideInput) const {
     char szInput[255];
     setColor(color);
     printf("%s ", message.c_str());
