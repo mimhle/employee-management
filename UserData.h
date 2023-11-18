@@ -31,7 +31,7 @@ private:
     */
     int userAge();
 
-    bool operator!=(const UserData& user) const;
+    bool operator!=(const UserData& user);
 
 public:
     /**
