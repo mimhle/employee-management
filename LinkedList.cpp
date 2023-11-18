@@ -2,7 +2,6 @@
 #pragma ide diagnostic ignored "modernize-use-nodiscard"
 
 #include "LinkedList.h"
-#include "UserData.h"
 
 template<class DataType>
 Node<DataType>::Node(DataType data) {
@@ -67,14 +66,6 @@ template<class DataType>
 Node<DataType>* LinkedList<DataType>::search(const DataType& data) const {
     Node<DataType>* _p = _pHead;
     while (_p != NULL && _p->_data != data)
-        _p = _p->_pNext;
-    return _p;
-}
-
-template<>
-Node<UserData>* LinkedList<UserData>::search(const std::string& key) const {
-    Node<UserData>* _p = _pHead;
-    while (_p != NULL && _p->_data.getName() != key)
         _p = _p->_pNext;
     return _p;
 }
