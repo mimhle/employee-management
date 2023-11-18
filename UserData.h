@@ -31,8 +31,6 @@ private:
     */
     int userAge();
 
-    bool operator!=(const UserData& user);
-
 public:
     /**
     * @brief Constructs a new User object with the provided data.
@@ -97,6 +95,7 @@ public:
      * @details This function overloads the != operator to compare two users.
      * @return True if the two users are not equal, false otherwise
     */
+    bool operator!=(const UserData& user) const;
 };
 
 #endif // CTDL_GK_USER_CPP
