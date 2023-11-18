@@ -1,8 +1,7 @@
 #pragma clang diagnostic push
 #pragma ide diagnostic ignored "modernize-use-nodiscard"
 
-#include"LinkedList.h"
-#include"User.h"
+#include "LinkedList.h"
 
 template<class DataType>
 Node<DataType>::Node(DataType data) {
@@ -67,14 +66,6 @@ template<class DataType>
 Node<DataType>* LinkedList<DataType>::search(const DataType& data) const {
     Node<DataType>* _p = _pHead;
     while (_p != NULL && _p->_data != data)
-        _p = _p->_pNext;
-    return _p;
-}
-
-template<>
-Node<User>* LinkedList<User>::search(const std::string& key) const {
-    Node<User>* _p = _pHead;
-    while (_p != NULL && _p->_data.getName() != key)
         _p = _p->_pNext;
     return _p;
 }
@@ -191,5 +182,4 @@ DataType LinkedList<DataType>::operator[](int index) const {
     return _p->_data;
 }
 
-//#endif // CTDL_GK_USER_CPP
 #pragma clang diagnostic pop

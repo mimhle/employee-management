@@ -2,7 +2,7 @@
 #define CTDL_GK_LINKEDLIST_CPP
 
 #include <iostream>
-#include "User.h"
+#include "UserData.h"
 
 template<class DataType>
 class LinkedList;
@@ -83,14 +83,6 @@ public:
      * @return The node containing the given data, or null if no such node is found
     */
     Node<DataType>* search(const DataType& data) const;
-
-    /**
-     * @brief Locates a node in the list by its key
-     * @details This function searches the linked list for a node containing the specified key.
-     * @param key The username of the node to locate
-     * @return The node containing the given key, or null if no such node is found
-    */
-    Node<User>* search(const std::string& key) const;
 
 
     /**

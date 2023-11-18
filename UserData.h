@@ -12,7 +12,7 @@
 * @details This class encapsulates the data and operations for a User. It includes attributes such as name, date of birth, age, address, phone number, email, username, password, and role.
 * @note This class can be used on any platform that supports C++.
 */
-class User {
+class UserData {
 private:
     std::string _strName;
     std::string _strDateOfBirth;
@@ -43,13 +43,13 @@ public:
     * @param password The user's password
     * @param role The user's role(Admintrator, Employee)
     */
-    User(std::string name, std::string dateOfBirth, std::string address, std::string phoneNumber,
-        std::string email, std::string username, std::string password, std::string role
+    UserData(std::string name, std::string dateOfBirth, std::string address, std::string phoneNumber,
+             std::string email, std::string username, std::string password, std::string role
     );
 
-    User();
+    UserData();
 
-    ~User();
+    ~UserData();
 
     /**
      * @brief Getters and setters
@@ -95,7 +95,7 @@ public:
      * @details This function overloads the != operator to compare two users.
      * @return True if the two users are not equal, false otherwise
     */
-    bool operator!=(const User& user) const;
+    bool operator!=(const UserData& user) const;
 };
 
 #endif // CTDL_GK_USER_CPP
