@@ -31,6 +31,7 @@ std::string Login::getStrTypeUser() const{
 		return "Administrators";
 	if (_intTypeUser == 2)
 		return "Employees";
+	return nullptr;
 }
 void Login::setTypeUser(int type) { _intTypeUser = type; }
 
