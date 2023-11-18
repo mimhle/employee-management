@@ -71,6 +71,7 @@ Node<DataType>* LinkedList<DataType>::search(const DataType& data) const {
     return _p;
 }
 
+template<>
 Node<User>* LinkedList<User>::search(const std::string& key) const {
     Node<User>* _p = _pHead;
     while (_p != NULL && _p->_data.getName() != key)
