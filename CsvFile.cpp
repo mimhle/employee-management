@@ -32,7 +32,7 @@ std::vector<std::vector<std::string>> CsvFile::read(int startLine, int endLine) 
     }
     ifsFile.close();
     if (endLine == -1) {
-        endLine = vtResult.size();
+        endLine = (int) vtResult.size();
     }
     if (startLine < 0 || endLine > vtResult.size()) {
         throw std::runtime_error("Invalid line!");
