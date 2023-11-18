@@ -8,7 +8,7 @@ add_executable(ctdl_gk main.cpp
         UserInterface.cpp
         User.cpp
         User.h
-        Node.h
-        Node.cpp
         LinkedList.cpp
+        CsvFile.cpp
+        CsvFile.h
 )
