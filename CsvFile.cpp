@@ -24,6 +24,9 @@ std::vector<std::vector<std::string>> CsvFile::read(int startLine, int endLine) 
         }
         for (char c: strLine) {
             if (c == ',') {
+                if (strCell.empty()) {
+                    continue;
+                }
                 vtRow.push_back(strCell);
                 strCell = "";
             } else {
