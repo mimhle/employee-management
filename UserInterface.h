@@ -3,9 +3,9 @@
 #ifndef CTDL_GK_USERINTERFACE_CPP
 #define CTDL_GK_USERINTERFACE_CPP
 
-#include <iostream>
 #include <windows.h>
 #include <vector>
+#include <string>
 
 enum [[maybe_unused]] g_Color {
     DEFAULT_COLOR = 7,
@@ -60,14 +60,14 @@ public:
     ~UserInterface();
 
     /**
-     * @description Clear console screen
+     * @brief Clear console screen
      *
      * @return void
      */
     void clearScreen() const;
 
     /**
-     * @description Set color for subsequent output
+     * @brief Set color for subsequent output
      *
      * @param color: Color to set
      * @return void
@@ -75,7 +75,7 @@ public:
     void setColor(int color = DEFAULT_COLOR) const;
 
     /**
-     * @description Print text to console
+     * @brief Print text to console
      *
      * @param text Text to print
      * @param color Color of text
@@ -85,7 +85,7 @@ public:
     void print(const std::string& text, int color = DEFAULT_COLOR, bool newLine = true) const;
 
     /**
-     * @description Print text to console
+     * @brief Print text to console
      *
      * @param items Items to print (vector of strings)
      * @param color Color of text
@@ -98,7 +98,7 @@ public:
     ) const;
 
     /**
-     * @description Print text to console, centered
+     * @brief Print text to console, centered
      *
      * @param text Text to print
      * @param color Color of text
@@ -113,7 +113,7 @@ public:
     ) const;
 
     /**
-     * @description Print full line of character to console
+     * @brief Print full line of character to console
      *
      * @param c Character to print
      * @param color Color of character
@@ -123,7 +123,7 @@ public:
     void printLineBreak(char c = ' ', int color = DEFAULT_COLOR, bool newLine = true) const;
 
     /**
-     * @description Print title to console (text with border and centered)
+     * @brief Print title to console (text with border and centered)
      *
      * @param text Text to print
      * @param textColor Text color
@@ -136,7 +136,7 @@ public:
     ) const;
 
     /**
-     * @deprecated This function is deprecated, use print() instead
+     * @brief This function is deprecated, use print() instead
      *
      * @description Print multiple lines of text to console
      *
@@ -148,7 +148,7 @@ public:
     void printMultiLine(const std::vector<std::string>& items, int color = DEFAULT_COLOR) const;
 
     /**
-     * @description Wait for user input
+     * @brief Wait for user input
      *
      * @param message Message to print
      * @param color Color of message
