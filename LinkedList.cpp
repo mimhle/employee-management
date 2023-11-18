@@ -1,9 +1,11 @@
-#pragma clang diagnostic push
-#pragma ide diagnostic ignored "modernize-use-nodiscard"
+//#pragma clang diagnostic push
+//#pragma ide diagnostic ignored "modernize-use-nodiscard"
 //#pragma once
 #include <iostream>
 #include "Node.cpp"
+#include "User.h"
 
+User;
 /**
 * @class LinkedList
 * @brief Class representing a LinkedList
@@ -135,7 +137,7 @@ LinkedList<DataType>::~LinkedList() {
 
 template<class DataType>
 void LinkedList<DataType>::addHead(DataType data) {
-    auto* _pAdd = new Node<DataType>(data);
+    Node<DataType>* _pAdd = new Node<DataType>(data);
     if (_pHead == NULL)
         _pHead = _pTail = _pAdd;
     else {
@@ -147,7 +149,7 @@ void LinkedList<DataType>::addHead(DataType data) {
 
 template<class DataType>
 void LinkedList<DataType>::addTail(DataType data) {
-    auto* _pAdd = new Node<DataType>(data);
+    Node<DataType>* _pAdd = new Node<DataType>(data);
     if (_pHead == NULL)
         _pHead = _pTail = _pAdd;
     else {
@@ -159,7 +161,7 @@ void LinkedList<DataType>::addTail(DataType data) {
 
 template<class DataType>
 void LinkedList<DataType>::addAfter(Node<DataType>* node, DataType data) {
-    auto* _pAdd = new Node<DataType>(data);
+    Node<DataType>* _pAdd = new Node<DataType>(data);
     if (node == NULL) {
         addHead(data);
     } else {

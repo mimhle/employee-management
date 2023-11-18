@@ -15,7 +15,7 @@ User::User(std::string name, std::string dateOfBirth, int age, std::string addre
     _strRole = role;
 }
 
-User::~User() {
+User::User() {
     _strName = "";
     _strDateOfBirth = "";
     _iAge = 0;

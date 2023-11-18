@@ -6,6 +6,7 @@
 
 #include <iostream>
 
+
 /**
 * @class User
 * @brief Class representing a User
@@ -29,7 +30,7 @@ public:
          std::string email, std::string username, std::string password, std::string role
     );
     
-    ~User();
+    User();
     
     /**
      * @brief Getters and setters
