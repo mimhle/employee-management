@@ -1,8 +1,8 @@
 #pragma clang diagnostic push
 #pragma ide diagnostic ignored "modernize-use-nodiscard"
 //#pragma once
-#ifndef CTDL_GK_USER_CPP
-#define CTDL_GK_USER_CPP
+#ifndef CTDL_GK_USERDATA_CPP
+#define CTDL_GK_USERDATA_CPP
 
 #include <iostream>
 
@@ -98,5 +98,5 @@ public:
     bool operator!=(const UserData& user) const;
 };
 
-#endif // CTDL_GK_USER_CPP
+#endif // CTDL_GK_USERDATA_CPP
 #pragma clang diagnostic pop

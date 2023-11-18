@@ -170,11 +170,6 @@ void LinkedList<DataType>::selectionSort() {
 }
 
 template<class DataType>
-DataType LinkedList<DataType>::getNodeData(Node<DataType>* node) const {
-    return node->getData();
-}
-
-template<class DataType>
 DataType LinkedList<DataType>::operator[](int index) const {
     Node<DataType>* _p = _pHead;
     for (int i = 0; i < index; i++)

@@ -144,15 +144,6 @@ public:
     void clear();
 
     /**
-    * @brief Gets the data of a node in the linked list
-    * @details This function retrieves the data stored in a specified node of the linked list.
-    * @param node The node from which to retrieve the data
-    * @return The data of the specified node
-    */
-    DataType getNodeData(Node<DataType>* node) const;
-
-
-    /**
      * @brief Overload operator []
      * @details Overload operator []
      * @return DataType
