@@ -1,5 +1,6 @@
 #include "Users.h"
 #include "UserData.h"
+#include "LinkedList.h"
 
 Users::Users() {
     _list = LinkedList<UserData>();
