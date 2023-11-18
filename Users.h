@@ -2,6 +2,7 @@
 #define CTDL_GK_USERS_H
 
 #include <string>
+#include <vector>
 #include "UserData.h"
 #include "LinkedList.h"
 
@@ -21,7 +22,7 @@ public:
 
     void searchUser(...);
 
-    void printUsers(...);
+    std::vector<std::vector<std::string>> listUsers(...);
 
 };
 
