@@ -25,8 +25,8 @@ int main() {
     
     ui.clearScreen();
     
-    ui.printCentered("Menu", YELLOW, CYAN, '-');
-    ui.printMultiLine(
+    ui.printCentered("Menu", YELLOW, true, '-');
+    ui.print(
         {
             "1. Option 1",
             "2. Option 2",
