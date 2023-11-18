@@ -84,14 +84,6 @@ public:
     */
     Node<DataType>* search(const DataType& data) const;
 
-    /**
-     * @brief Locates a node in the list by its key
-     * @details This function searches the linked list for a node containing the specified key.
-     * @param key The username of the node to locate
-     * @return The node containing the given key, or null if no such node is found
-    */
-    Node<UserData>* search(const std::string& key) const;
-
 
     /**
      * @brief Identifies the node prior to a specified node in the list
