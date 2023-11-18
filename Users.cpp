@@ -9,10 +9,6 @@ Users::~Users() {
     _list.~LinkedList();
 }
 
-Users::Users(const Users& users) {
-    _list = users._list;
-}
-
 void Users::addUser(const UserData& user) {
     for (int i = 0; i < _list.getSize(); i++)
     {
