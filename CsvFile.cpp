@@ -9,7 +9,7 @@ CsvFile::CsvFile(std::string path) {
     _strPath = std::move(path);
 }
 
-std::vector<std::vector<std::string>> CsvFile::read(int startLine, int endLine) const {
+std::vector<std::vector<std::string>> CsvFile::read(int startLine, int endLine, char sep) const {
     std::ifstream ifsFile(_strPath);
     if (!ifsFile.is_open()) {
         throw std::runtime_error("Cannot open file!");
@@ -23,7 +23,7 @@ std::vector<std::vector<std::string>> CsvFile::read(int startLine, int endLine) 
             continue;
         }
         for (char c: strLine) {
-            if (c == ',') {
+            if (c == sep) {
                 if (strCell.empty()) {
                     continue;
                 }
@@ -47,7 +47,7 @@ std::vector<std::vector<std::string>> CsvFile::read(int startLine, int endLine) 
     return vtResult;
 }
 
-void CsvFile::write(const std::vector<std::vector<std::string>>& data) const {
+void CsvFile::write(const std::vector<std::vector<std::string>>& data, char sep) const {
     std::ofstream ofsFile(_strPath, std::ios::out | std::ios::trunc);
     if (!ofsFile.is_open()) {
         throw std::runtime_error("Cannot open file!");
@@ -56,7 +56,7 @@ void CsvFile::write(const std::vector<std::vector<std::string>>& data) const {
         for (int i = 0; i < vtRow.size(); ++i) {
             ofsFile << vtRow[i];
             if (i != vtRow.size() - 1) {
-                ofsFile << ",";
+                ofsFile << sep;
             }
         }
         ofsFile << "\n";
@@ -64,7 +64,7 @@ void CsvFile::write(const std::vector<std::vector<std::string>>& data) const {
     ofsFile.close();
 }
 
-void CsvFile::append(const std::vector<std::vector<std::string>>& data) const {
+void CsvFile::append(const std::vector<std::vector<std::string>>& data, char sep) const {
     std::ofstream ofsFile(_strPath, std::ios::out | std::ios::app);
     if (!ofsFile.is_open()) {
         throw std::runtime_error("Cannot open file!");
@@ -73,7 +73,7 @@ void CsvFile::append(const std::vector<std::vector<std::string>>& data) const {
         for (int i = 0; i < vtRow.size(); ++i) {
             ofsFile << vtRow[i];
             if (i != vtRow.size() - 1) {
-                ofsFile << ",";
+                ofsFile << sep;
             }
         }
         ofsFile << "\n";
