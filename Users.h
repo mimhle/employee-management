@@ -8,22 +8,23 @@
 
 class Users {
 private:
-    ;
+    LinkedList<UserData> _list;
 public:
-    Users(...);
+    Users();
 
     ~Users();
 
-    void addUser(...);
+    void addUser(const UserData& user);
 
-    void removeUser(...);
+    void removeUser(const UserData& user);
 
-    void editUser(...);
+    void editUser(const std::string userName, const UserData& user);
 
-    void searchUser(...);
+    UserData searchUser(const std::string userName) const;
 
-    std::vector<std::vector<std::string>> listUsers(...);
+    std::vector<std::vector<std::string>> listUsers(...) const;
 
+    void loadListUsers();
 };
 
 

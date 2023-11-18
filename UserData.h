@@ -31,6 +31,8 @@ private:
     */
     int userAge();
 
+    bool operator!=(const UserData& user) const;
+
 public:
     /**
     * @brief Constructs a new User object with the provided data.
@@ -44,7 +46,7 @@ public:
     * @param role The user's role(Admintrator, Employee)
     */
     UserData(std::string name, std::string dateOfBirth, std::string address, std::string phoneNumber,
-             std::string email, std::string username, std::string password, std::string role
+        std::string email, std::string username, std::string password, std::string role
     );
 
     UserData();
@@ -95,7 +97,6 @@ public:
      * @details This function overloads the != operator to compare two users.
      * @return True if the two users are not equal, false otherwise
     */
-    bool operator!=(const UserData& user) const;
 };
 
 #endif // CTDL_GK_USER_CPP
