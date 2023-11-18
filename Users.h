@@ -3,8 +3,8 @@
 
 #include <string>
 #include <vector>
-#include "UserData.h"
-#include "LinkedList.h"
+#include "UserData.cpp"
+#include "LinkedList.cpp"
 
 class Users {
 private:
