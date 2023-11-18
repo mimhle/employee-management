@@ -3,8 +3,11 @@
 
 #include <string>
 #include "UserData.h"
+#include "LinkedList.h"
 
 class Users {
+private:
+    LinkedList<UserData*>* _pUsers;
 public:
     Users();
 
@@ -17,6 +20,8 @@ public:
     void editUser(const std::string& userName, UserData* userData);
 
     void searchUser(const std::string& userName);
+
+    void printUsers();
 
 };
 
