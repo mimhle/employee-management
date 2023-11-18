@@ -1,8 +1,8 @@
 #pragma clang diagnostic push
 #pragma ide diagnostic ignored "modernize-use-nodiscard"
 
-#include"LinkedList.h"
-#include"UserData.h"
+#include "LinkedList.h"
+#include "UserData.h"
 
 template<class DataType>
 Node<DataType>::Node(DataType data) {
