@@ -56,7 +56,7 @@ int main() {
 
     f.remove(1);
 
-    std::vector<std::vector<std::string>> data = f.read();
+    std::vector<std::vector<std::string>> data = f.read(0, -1);
     for (const std::vector<std::string>& row: data) {
         for (const std::string& cell: row) {
             std::cout << cell << " ";

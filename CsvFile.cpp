@@ -9,7 +9,7 @@ CsvFile::CsvFile(std::string path) {
     _strPath = std::move(path);
 }
 
-std::vector<std::vector<std::string>> CsvFile::read() const {
+std::vector<std::vector<std::string>> CsvFile::read(int startLine, int endLine) const {
     std::ifstream ifsFile(_strPath);
     if (!ifsFile.is_open()) {
         throw std::runtime_error("Cannot open file!");
@@ -31,6 +31,13 @@ std::vector<std::vector<std::string>> CsvFile::read() const {
         vtResult.push_back(vtRow);
     }
     ifsFile.close();
+    if (endLine == -1) {
+        endLine = vtResult.size();
+    }
+    if (startLine < 0 || endLine > vtResult.size()) {
+        throw std::runtime_error("Invalid line!");
+    }
+    vtResult.erase(vtResult.begin(), vtResult.begin() + startLine);
     return vtResult;
 }
 
@@ -69,7 +76,7 @@ void CsvFile::append(const std::vector<std::vector<std::string>>& data) const {
 }
 
 void CsvFile::remove(int line) const {
-    std::vector<std::vector<std::string>> VtData = read();
+    std::vector<std::vector<std::string>> VtData = read(0, -1);
     VtData.erase(VtData.begin() + line);
     write(VtData);
 }

@@ -24,9 +24,12 @@ public:
 
     /**
      * @brief Read data from file
+     *
+     * @param startLine Start line
+     * @param endLine End line
      * @return Data from file
      */
-    std::vector<std::vector<std::string>> read() const;
+    std::vector<std::vector<std::string>> read(int startLine = 0, int endLine = -1) const;
 
     /**
      * @brief Write data to file
