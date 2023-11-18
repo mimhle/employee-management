@@ -82,7 +82,7 @@ public:
      * @param data The data of the node to locate
      * @return The node containing the given data, or null if no such node is found
     */
-    Node<DataType>* search(const DataType& data);
+    Node<DataType>* search(const DataType& data) const;
 
     /**
      * @brief Locates a node in the list by its key
@@ -90,7 +90,7 @@ public:
      * @param key The username of the node to locate
      * @return The node containing the given key, or null if no such node is found
     */
-    Node<User>* search(const std::string& key);
+    Node<User>* search(const std::string& key) const;
 
 
     /**
@@ -99,7 +99,7 @@ public:
      * @param node The node whose predecessor is to be found
      * @return The node preceding the given node, or null if the provided node is the first in the list or not found
     */
-    Node<DataType>* searchPre(Node<DataType>* node);
+    Node<DataType>* searchPre(Node<DataType>* node) const;
 
     /**
      * @brief Deletes the head node of the list
