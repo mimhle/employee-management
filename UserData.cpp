@@ -4,7 +4,7 @@
 #include "UserData.h"
 
 UserData::UserData(std::string name, std::string dateOfBirth, std::string address, std::string phoneNumber,
-                   std::string email, std::string username, std::string password, std::string role
+    std::string email, std::string username, std::string password, std::string role
 ) {
     _strName = name;
     _strDateOfBirth = dateOfBirth;

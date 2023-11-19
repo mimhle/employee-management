@@ -1,6 +1,3 @@
-#pragma clang diagnostic push
-#pragma ide diagnostic ignored "modernize-use-nodiscard"
-
 #include "LinkedList.h"
 
 template<class DataType>
@@ -170,16 +167,9 @@ void LinkedList<DataType>::selectionSort() {
 }
 
 template<class DataType>
-DataType LinkedList<DataType>::getNodeData(Node<DataType>* node) const {
-    return node->getData();
-}
-
-template<class DataType>
 DataType LinkedList<DataType>::operator[](int index) const {
     Node<DataType>* _p = _pHead;
     for (int i = 0; i < index; i++)
         _p = _p->_pNext;
     return _p->_data;
 }
-
-#pragma clang diagnostic pop
