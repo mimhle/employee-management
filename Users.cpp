@@ -47,8 +47,7 @@ int Users::searchUser(const std::string userName) const {
 
 std::vector<UserData> Users::listUsers() const {
     std::vector<UserData> result;
-    for (int i = 0; i < _list.getSize(); i++)
-    {
+    for (int i = 0; i < _list.getSize(); i++) {
         result.push_back(_list[i]);
     }
     return result;
