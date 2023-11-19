@@ -40,8 +40,8 @@ public:
 template<class DataType>
 class LinkedList {
 private:
-    Node<DataType>* _pHead;
-    Node<DataType>* _pTail;
+    Node<DataType>* _pHead = nullptr;
+    Node<DataType>* _pTail = nullptr;
     int _iSize;
 
 public:
