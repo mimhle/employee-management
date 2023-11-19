@@ -19,4 +19,4 @@ jobs:
       - name: build
         run: |
           cd ${{ github.workspace }}
-          g++ -v -Wall -Werror -Wno-unknown-pragmas -Wno-sign-compare *.cpp -o main.exe
+          g++ -I. -v -Wall -Werror -Wno-unknown-pragmas -Wno-sign-compare *.cpp -o main.exe
