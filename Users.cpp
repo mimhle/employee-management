@@ -57,8 +57,7 @@ bool Users::importUserData() {
     CsvFile csvFileAdmin("Administrators.txt");
     try {
         csvFileAdmin.read();
-    }
-    catch (const std::exception& e) {
+    } catch (const std::exception& e) {
         return false;
     }
 
@@ -69,8 +68,7 @@ bool Users::importUserData() {
 
     try {
         csvFileEmployee.read();
-    }
-    catch (const std::exception& e) {
+    } catch (const std::exception& e) {
         return false;
     }
 
