@@ -1,7 +1,7 @@
 #include "Users.h"
 #include "UserData.h"
+#include "LinkedList.cpp"
 #include "CsvFile.h"
-#include "LinkedList.h"
 
 Users::Users() {
     _list = LinkedList<UserData>();
@@ -62,7 +62,7 @@ bool Users::importUserData() {
     }
 
     std::vector<std::vector<std::string>> accounts = csvFileAdmin.read();
-    int iSizeAdmin = (int) accounts.size();
+    int iSizeAdmin = (int)accounts.size();
 
     CsvFile csvFileEmployee("Employees.txt");
     try {
