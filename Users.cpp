@@ -12,8 +12,7 @@ Users::~Users() {
 }
 
 bool Users::addUser(const UserData& user) {
-    for (int i = 0; i < _list.getSize(); i++)
-    {
+    for (int i = 0; i < _list.getSize(); i++) {
         if (_list[i].getUserName() == user.getUserName()) {
             return false;
         }
@@ -28,8 +27,7 @@ void Users::removeUser(const UserData& user) {
 }
 
 bool Users::editUser(const std::string userName, const UserData& user) {
-    for (int i = 0; i < _list.getSize(); i++)
-    {
+    for (int i = 0; i < _list.getSize(); i++) {
         if (_list[i].getUserName() == userName) {
             _list[i] = user;
             return true;
@@ -39,8 +37,7 @@ bool Users::editUser(const std::string userName, const UserData& user) {
 }
 
 int Users::searchUser(const std::string userName) const {
-    for (int i = 0; i < _list.getSize(); i++)
-    {
+    for (int i = 0; i < _list.getSize(); i++) {
         if (_list[i].getUserName() == userName) {
             return i;
         }
@@ -82,7 +79,7 @@ bool Users::importUserData() {
     newData.erase(newData.begin());
     accounts.insert(accounts.end(), newData.begin(), newData.end());
 
-    for (const auto& userData : accounts) {
+    for (auto userData : accounts) {
         std::vector<std::vector<std::string>> data = CsvFile(userData[0] + ".txt").read();
         std::string role = (userData.size() > iSizeAdmin) ? "Employee" : "Administrators";
         UserData user = UserData(data[1][0], "01/01/1900", data[1][1], data[1][2], data[1][3], userData[0], userData[1], role);
