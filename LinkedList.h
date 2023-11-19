@@ -1,3 +1,5 @@
+#pragma clang diagnostic push
+#pragma ide diagnostic ignored "modernize-use-nodiscard"
 #ifndef CTDL_GK_LINKEDLIST_CPP
 #define CTDL_GK_LINKEDLIST_CPP
 
@@ -152,3 +154,5 @@ public:
 };
 
 #endif // CTDL_GK_LINKEDLIST_CPP
+
+#pragma clang diagnostic pop

@@ -1,3 +1,5 @@
+#pragma clang diagnostic push
+#pragma ide diagnostic ignored "modernize-use-nodiscard"
 #ifndef CTDL_GK_USERS_H
 #define CTDL_GK_USERS_H
 
@@ -63,3 +65,5 @@ public:
 
 
 #endif //CTDL_GK_USERS_H
+
+#pragma clang diagnostic pop

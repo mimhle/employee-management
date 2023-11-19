@@ -1,6 +1,3 @@
-#pragma clang diagnostic push
-#pragma ide diagnostic ignored "modernize-use-nodiscard"
-
 #include "LinkedList.h"
 
 template<class DataType>
@@ -176,5 +173,3 @@ DataType LinkedList<DataType>::operator[](int index) const {
         _p = _p->_pNext;
     return _p->_data;
 }
-
-#pragma clang diagnostic pop
