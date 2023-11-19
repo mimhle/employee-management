@@ -1,7 +1,7 @@
 #include "Users.h"
 #include "UserData.h"
+#include "LinkedList.cpp"
 #include "CsvFile.h"
-#include "LinkedList.h"
 
 Users::Users() {
     _list = LinkedList<UserData>();
