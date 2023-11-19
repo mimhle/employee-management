@@ -27,21 +27,24 @@ public:
      *
      * @param startLine Start line
      * @param endLine End line
+     * @param sep Separator
      * @return Data from file
      */
-    std::vector<std::vector<std::string>> read(int startLine = 0, int endLine = -1) const;
+    std::vector<std::vector<std::string>> read(int startLine = 0, int endLine = -1, char sep = ',') const;
 
     /**
      * @brief Write data to file
      * @param data Data to write
+     * @param sep Separator
      */
-    void write(const std::vector<std::vector<std::string>>& data) const;
+    void write(const std::vector<std::vector<std::string>>& data, char sep = ',') const;
 
     /**
      * @brief Append data to file
      * @param data Data to append
+     * @param sep Separator
      */
-    void append(const std::vector<std::vector<std::string>>& data) const;
+    void append(const std::vector<std::vector<std::string>>& data, char sep = ',') const;
 
     /**
      * @brief Remove line from file
