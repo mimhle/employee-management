@@ -58,36 +58,34 @@ std::vector<UserData> Users::listUsers() const {
 }
 
 bool Users::importUserData() {
-    CsvFile csvFile("Administrators.txt");
+    CsvFile csvFileAdmin("Administrators.txt");
     try {
-        csvFile.read();
+        csvFileAdmin.read();
     }
     catch (const std::exception& e) {
         return false;
     }
 
-    std::vector<std::vector<std::string>> account = csvFile.read();
-    int iSizeAdmin = account.size();
-    CsvFile csvFile("Employee.txt");
+    std::vector<std::vector<std::string>> accounts = csvFileAdmin.read();
+    accounts.erase(accounts.begin());
+    int iSizeAdmin = accounts.size();
+    CsvFile csvFileEmployee("Employees.txt");
 
     try {
-        csvFile.read();
+        csvFileEmployee.read();
     }
     catch (const std::exception& e) {
         return false;
     }
 
-    std::vector<std::vector<std::string>> newData = CsvFile("Employee.txt").read();
-    account.insert(account.end(), newData.begin(), newData.end());
+    std::vector<std::vector<std::string>> newData = csvFileEmployee.read();
+    newData.erase(newData.begin());
+    accounts.insert(accounts.end(), newData.begin(), newData.end());
 
-    for (int i = 1; i <= account.size(); i++) {
-        std::string path = account[i][0] + ".txt";
-        CsvFile csvFile(path);
-        std::vector<std::vector<std::string>> data = csvFile.read();
-        std::string role;
-        if (i <= iSizeAdmin) role = "Administrators";
-        else role = "Employee";
-        UserData user = UserData(data[1][0], "01/01/1900", data[1][1], data[1][2], data[1][3], account[i][0], account[i][1], role);
+    for (const auto& userData : accounts) {
+        std::vector<std::vector<std::string>> data = CsvFile(userData[0] + ".txt").read();
+        std::string role = (userData.size() > iSizeAdmin) ? "Employee" : "Administrators";
+        UserData user = UserData(data[1][0], "01/01/1900", data[1][1], data[1][2], data[1][3], userData[0], userData[1], role);
         _list.addTail(user);
     }
 
