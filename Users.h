@@ -5,7 +5,13 @@
 #include <vector>
 #include "UserData.h"
 #include "LinkedList.h"
+#include "CsvFile.h"
 
+/**
+ * @class Users
+ * @brief Class for Users
+ * @details This class contains functions for Users
+ */
 class Users {
 private:
     LinkedList<UserData> _list;
@@ -14,17 +20,45 @@ public:
 
     ~Users();
 
-    void addUser(const UserData& user);
+    /**
+     * @brief Add user to list
+     * @param user User to add
+     * @return True if success, false if failed
+     */
+    bool addUser(const UserData& user);
 
+    /**
+     * @brief Remove user from list
+     * @param user User to remove
+     */
     void removeUser(const UserData& user);
 
-    void editUser(const std::string userName, const UserData& user);
+    /**
+     * @brief Edit user in list
+     * @param userName Username of user to edit
+     * @param user New user data
+     * @return True if success, false if failed
+     */
+    bool editUser(const std::string userName, const UserData& user);
 
-    UserData searchUser(const std::string userName) const;
+    /**
+     * @brief Search user in list
+     * @param userName Username of user to search
+     * @return Index of user in list if found, -1 if not found
+     */
+    int searchUser(const std::string userName) const;
 
-    std::vector<std::vector<std::string>> listUsers(...) const;
+    /**
+     * @brief List all users
+     * @return List of users
+     */
+    std::vector<UserData> listUsers() const;
 
-    void loadListUsers();
+    /**
+     * @brief Import user data from file
+     * @return True if success, false if failed
+     */
+    bool importUserData();
 };
 
 
