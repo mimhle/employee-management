@@ -47,10 +47,10 @@ std::vector<std::vector<std::string>> CsvFile::read(int startLine, int endLine, 
     return vtResult;
 }
 
-void CsvFile::write(const std::vector<std::vector<std::string>>& data, char sep) const {
+bool CsvFile::write(const std::vector<std::vector<std::string>>& data, char sep) const {
     std::ofstream ofsFile(_strPath, std::ios::out | std::ios::trunc);
     if (!ofsFile.is_open()) {
-        throw std::runtime_error("Cannot open file!");
+        return false;
     }
     for (const std::vector<std::string>& vtRow: data) {
         for (int i = 0; i < vtRow.size(); ++i) {
@@ -62,12 +62,13 @@ void CsvFile::write(const std::vector<std::vector<std::string>>& data, char sep)
         ofsFile << "\n";
     }
     ofsFile.close();
+    return true;
 }
 
-void CsvFile::append(const std::vector<std::vector<std::string>>& data, char sep) const {
+bool CsvFile::append(const std::vector<std::vector<std::string>>& data, char sep) const {
     std::ofstream ofsFile(_strPath, std::ios::out | std::ios::app);
     if (!ofsFile.is_open()) {
-        throw std::runtime_error("Cannot open file!");
+        return false;
     }
     for (const std::vector<std::string>& vtRow: data) {
         for (int i = 0; i < vtRow.size(); ++i) {
@@ -79,10 +80,23 @@ void CsvFile::append(const std::vector<std::vector<std::string>>& data, char sep
         ofsFile << "\n";
     }
     ofsFile.close();
+    return true;
 }
 
 void CsvFile::remove(int line) const {
     std::vector<std::vector<std::string>> VtData = read(0, -1);
     VtData.erase(VtData.begin() + line);
     write(VtData);
+}
+
+bool CsvFile::rename(const std::string& newName) {
+    bool result = std::rename(_strPath.c_str(), newName.c_str()) == 0;
+    if (result) {
+        _strPath = newName;
+    }
+    return result;
+}
+
+bool CsvFile::del() {
+    return std::remove(_strPath.c_str()) == 0;
 }
