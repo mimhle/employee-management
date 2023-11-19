@@ -3,8 +3,6 @@
 #ifndef CTDL_GK_LINKEDLIST_CPP
 #define CTDL_GK_LINKEDLIST_CPP
 
-#include <iostream>
-#include "UserData.h"
 
 template<class DataType>
 class LinkedList;
@@ -18,11 +16,9 @@ class LinkedList;
 template<class DataType>
 class Node {
     friend class LinkedList<DataType>;
-
 private:
     DataType _data;
     Node* _pNext;
-
 public:
     explicit Node(DataType data);
 

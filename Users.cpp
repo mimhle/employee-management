@@ -1,7 +1,7 @@
 #include "Users.h"
 #include "UserData.h"
+#include "CsvFile.h"
 #include "LinkedList.h"
-#include "CSVFile.h"
 
 Users::Users() {
     _list = LinkedList<UserData>();
@@ -26,7 +26,7 @@ void Users::removeUser(const UserData& user) {
     _list.remove(user);
 }
 
-bool Users::editUser(const std::string userName, const UserData& user) {
+bool Users::editUser(const std::string& userName, const UserData& user) {
     for (int i = 0; i < _list.getSize(); i++) {
         if (_list[i].getUserName() == userName) {
             _list[i] = user;
@@ -36,7 +36,7 @@ bool Users::editUser(const std::string userName, const UserData& user) {
     return false;
 }
 
-int Users::searchUser(const std::string userName) const {
+int Users::searchUser(const std::string& userName) const {
     for (int i = 0; i < _list.getSize(); i++) {
         if (_list[i].getUserName() == userName) {
             return i;

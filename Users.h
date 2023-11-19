@@ -41,14 +41,14 @@ public:
      * @param user New user data
      * @return True if success, false if failed
      */
-    bool editUser(const std::string userName, const UserData& user);
+    bool editUser(const std::string& userName, const UserData& user);
 
     /**
      * @brief Search user in list
      * @param userName Username of user to search
      * @return Index of user in list if found, -1 if not found
      */
-    int searchUser(const std::string userName) const;
+    int searchUser(const std::string& userName) const;
 
     /**
      * @brief List all users
