@@ -1,5 +1,4 @@
 #include "LinkedList.h"
-#include "UserData.h"
 
 template<class DataType>
 Node<DataType>::Node(DataType data) {

@@ -3,8 +3,6 @@
 #ifndef CTDL_GK_LINKEDLIST_CPP
 #define CTDL_GK_LINKEDLIST_CPP
 
-#include "UserData.h"
-
 template<class DataType>
 class LinkedList;
 
