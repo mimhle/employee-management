@@ -62,7 +62,7 @@ bool Users::importUserData() {
     }
 
     std::vector<std::vector<std::string>> accounts = csvFileAdmin.read();
-    int iSizeAdmin = accounts.size();
+    int iSizeAdmin = (int) accounts.size();
 
     CsvFile csvFileEmployee("Employees.txt");
     try {

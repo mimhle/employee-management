@@ -3,7 +3,6 @@
 #ifndef CTDL_GK_LINKEDLIST_CPP
 #define CTDL_GK_LINKEDLIST_CPP
 
-
 template<class DataType>
 class LinkedList;
 
@@ -21,13 +20,6 @@ private:
     Node* _pNext;
 public:
     explicit Node(DataType data);
-
-    /**
-     * @brief Gets the data of a node
-     * @details This function retrieves the data stored in a node.
-     * @return The data of the node
-    */
-    DataType getData() const;
 };
 
 

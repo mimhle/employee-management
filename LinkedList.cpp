@@ -7,9 +7,6 @@ Node<DataType>::Node(DataType data) {
 }
 
 template<class DataType>
-DataType Node<DataType>::getData() const { return _data; }
-
-template<class DataType>
 LinkedList<DataType>::LinkedList() {
     _pHead = nullptr;
     _pTail = nullptr;
