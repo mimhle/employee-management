@@ -36,21 +36,36 @@ public:
      * @brief Write data to file
      * @param data Data to write
      * @param sep Separator
+     * @return True if success, false if not
      */
-    void write(const std::vector<std::vector<std::string>>& data, char sep = ',') const;
+    bool write(const std::vector<std::vector<std::string>>& data, char sep = ',') const;
 
     /**
      * @brief Append data to file
      * @param data Data to append
      * @param sep Separator
+     * @return True if success, false if not
      */
-    void append(const std::vector<std::vector<std::string>>& data, char sep = ',') const;
+    bool append(const std::vector<std::vector<std::string>>& data, char sep = ',') const;
 
     /**
      * @brief Remove line from file
      * @param line Line to remove
      */
     void remove(int line) const;
+
+    /**
+     * @brief Rename file
+     * @param newName New name
+     * @return True if success, false if not
+     */
+    bool rename(const std::string& newName);
+
+    /**
+     * @brief Delete file
+     * @return True if success, false if not
+     */
+    bool del();
 };
 
 
