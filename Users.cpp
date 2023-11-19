@@ -62,7 +62,6 @@ bool Users::importUserData() {
     }
 
     std::vector<std::vector<std::string>> accounts = csvFileAdmin.read();
-    accounts.erase(accounts.begin());
     int iSizeAdmin = accounts.size();
 
     CsvFile csvFileEmployee("Employees.txt");
@@ -73,7 +72,6 @@ bool Users::importUserData() {
     }
 
     std::vector<std::vector<std::string>> newData = csvFileEmployee.read();
-    newData.erase(newData.begin());
     accounts.insert(accounts.end(), newData.begin(), newData.end());
 
     for (auto userData : accounts) {
