@@ -12,7 +12,7 @@ Users::~Users() {
 }
 
 bool Users::addUser(const UserData& user) {
-    for (int i = 0; i < _list.getSize(); i++) {
+    for (auto i = 0; i < _list.getSize(); i++) {
         if (_list[i].getUserName() == user.getUserName()) {
             return false;
         }
@@ -27,7 +27,7 @@ void Users::removeUser(const UserData& user) {
 }
 
 bool Users::editUser(const std::string userName, const UserData& user) {
-    for (int i = 0; i < _list.getSize(); i++) {
+    for (auto i = 0; i < _list.getSize(); i++) {
         if (_list[i].getUserName() == userName) {
             _list[i] = user;
             return true;
@@ -37,7 +37,7 @@ bool Users::editUser(const std::string userName, const UserData& user) {
 }
 
 int Users::searchUser(const std::string userName) const {
-    for (int i = 0; i < _list.getSize(); i++) {
+    for (auto i = 0; i < _list.getSize(); i++) {
         if (_list[i].getUserName() == userName) {
             return i;
         }
@@ -47,7 +47,7 @@ int Users::searchUser(const std::string userName) const {
 
 std::vector<UserData> Users::listUsers() const {
     std::vector<UserData> result;
-    for (int i = 0; i < _list.getSize(); i++) {
+    for (auto i = 0; i < _list.getSize(); i++) {
         result.push_back(_list[i]);
     }
     return result;
