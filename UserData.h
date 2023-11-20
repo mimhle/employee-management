@@ -4,7 +4,7 @@
 #ifndef CTDL_GK_USERDATA_CPP
 #define CTDL_GK_USERDATA_CPP
 
-#include <iostream>
+#include <string>
 
 /**
 * @class User
