@@ -67,19 +67,19 @@ bool Users::importUserData() {
         return false;
     }
 
-    std::vector<std::vector<std::string>> vtAccount = vtAdminAccounts;
-    vtAccount.insert(vtAccount.end(), vtEmployeeAccounts.begin(), vtEmployeeAccounts.end());
+    std::vector<std::vector<std::string>> vtAccounts = vtAdminAccounts;
+    vtAccounts.insert(vtAccounts.end(), vtEmployeeAccounts.begin(), vtEmployeeAccounts.end());
 
-    for (int i = 0; i < vtAccount.size(); i++) {
+    for (int i = 0; i < vtAccounts.size(); i++) {
         std::vector<std::vector<std::string>> data;
         try {
-            CsvFile csvFile(vtAccount[i][0] + ".txt");
+            CsvFile csvFile(vtAccounts[i][0] + ".txt");
             data = csvFile.read();
         } catch (const std::exception& e) {
             return false;
         }
         std::string role = (i >= vtAdminAccounts.size()) ? "Employee" : "Administrators";
-        UserData user = UserData(data[1][0], "01/01/1900", data[1][1], data[1][2], data[1][3], vtAccount[i][0], vtAccount[i][1], role);
+        UserData user = UserData(data[1][0], "01/01/1900", data[1][1], data[1][2], data[1][3], vtAccounts[i][0], vtAccounts[i][1], role);
         _list.addTail(user);
     }
 
