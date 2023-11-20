@@ -46,40 +46,42 @@ int Users::searchUser(const std::string& userName) const {
 }
 
 std::vector<UserData> Users::listUsers() const {
-    std::vector<UserData> result;
+    std::vector<UserData> vtResult;
     for (int i = 0; i < _list.getSize(); i++) {
-        result.push_back(_list[i]);
+        vtResult.push_back(_list[i]);
     }
-    return result;
+    return vtResult;
 }
 
+// TODO: Test this function
 bool Users::importUserData() {
-    CsvFile csvFileAdmin("Administrators.txt");
+    std::vector<std::vector<std::string>> vtAdminAccounts;
     try {
-        csvFileAdmin.read();
+        CsvFile csvFileAdmin("Administrators.txt");
+        vtAdminAccounts = csvFileAdmin.read(1);
     } catch (const std::exception& e) {
         return false;
     }
 
-    std::vector<std::vector<std::string>> accounts = csvFileAdmin.read();
-    int iSizeAdmin = (int)accounts.size();
-
-    CsvFile csvFileEmployee("Employees.txt");
+    std::vector<std::vector<std::string>> vtEmployeeAccounts;
     try {
-        csvFileEmployee.read();
+        CsvFile csvFileEmployee("Employees.txt");
+        vtEmployeeAccounts = csvFileEmployee.read(1);
     } catch (const std::exception& e) {
         return false;
     }
 
-    std::vector<std::vector<std::string>> newData = csvFileEmployee.read();
-    accounts.insert(accounts.end(), newData.begin(), newData.end());
-
-    for (auto userData : accounts) {
-        std::vector<std::vector<std::string>> data = CsvFile(userData[0] + ".txt").read();
-        std::string role = (userData.size() > iSizeAdmin) ? "Employee" : "Administrators";
-        UserData user = UserData(data[1][0], "01/01/1900", data[1][1], data[1][2], data[1][3], userData[0], userData[1], role);
+    for (int i = 0; i < vtAdminAccounts.size() + vtEmployeeAccounts.size(); i++) {
+        std::vector<std::vector<std::string>> data;
+        try {
+            CsvFile csvFile(vtAdminAccounts[i][0] + ".txt");
+            data = csvFile.read();
+        } catch (const std::exception& e) {
+            return false;
+        }
+        std::string role = (i >= vtAdminAccounts.size()) ? "Employee" : "Administrators";
+        UserData user = UserData(data[1][0], "01/01/1900", data[1][1], data[1][2], data[1][3], vtAdminAccounts[i][0], vtAdminAccounts[i][1], role);
         _list.addTail(user);
     }
-
     return true;
 }
