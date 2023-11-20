@@ -1,8 +1,7 @@
+#pragma clang diagnostic push
+#pragma ide diagnostic ignored "modernize-use-nodiscard"
 #ifndef CTDL_GK_LINKEDLIST_CPP
 #define CTDL_GK_LINKEDLIST_CPP
-
-#include <iostream>
-#include "UserData.h"
 
 template<class DataType>
 class LinkedList;
@@ -16,20 +15,11 @@ class LinkedList;
 template<class DataType>
 class Node {
     friend class LinkedList<DataType>;
-
 private:
     DataType _data;
     Node* _pNext;
-
 public:
     explicit Node(DataType data);
-
-    /**
-     * @brief Gets the data of a node
-     * @details This function retrieves the data stored in a node.
-     * @return The data of the node
-    */
-    DataType getData() const;
 };
 
 
@@ -42,8 +32,8 @@ public:
 template<class DataType>
 class LinkedList {
 private:
-    Node<DataType>* _pHead;
-    Node<DataType>* _pTail;
+    Node<DataType>* _pHead = nullptr;
+    Node<DataType>* _pTail = nullptr;
     int _iSize;
 
 public:
@@ -144,15 +134,6 @@ public:
     void clear();
 
     /**
-    * @brief Gets the data of a node in the linked list
-    * @details This function retrieves the data stored in a specified node of the linked list.
-    * @param node The node from which to retrieve the data
-    * @return The data of the specified node
-    */
-    DataType getNodeData(Node<DataType>* node) const;
-
-
-    /**
      * @brief Overload operator []
      * @details Overload operator []
      * @return DataType
@@ -161,3 +142,5 @@ public:
 };
 
 #endif // CTDL_GK_LINKEDLIST_CPP
+
+#pragma clang diagnostic pop

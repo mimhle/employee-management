@@ -9,6 +9,7 @@ add_executable(ctdl_gk main.cpp
         UserData.cpp
         UserData.h
         LinkedList.cpp
+        LinkedList.h
         CsvFile.cpp
         CsvFile.h
         UserAction.cpp
