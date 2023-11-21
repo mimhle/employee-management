@@ -1,6 +1,7 @@
 #include <iostream>
 #include "UserInterface.h"
 #include "CsvFile.h"
+#include "UserAction.h"
 
 int main() {
     UserInterface ui;
@@ -12,11 +13,11 @@ int main() {
     
     ui.printLineBreak();
     ui.printLineBreak();
+    UserAction a("admin");
+    std::string user = ui.input("Username: ", LIGHT_BLUE, false);
+    std::string pass = ui.input("Password: ", LIGHT_BLUE, true);
     
-    ui.input("Username: ", LIGHT_BLUE, false);
-    std::string pass = ui.input("Password (default: 123): ", LIGHT_BLUE, true);
-    
-    if (pass == "123") {
+    if (a.authentication(user,pass)) {
         ui.printTitle("Access granted!", GREEN, CYAN);
     } else {
         ui.printTitle("Access denied!", RED, CYAN);
@@ -37,37 +38,27 @@ int main() {
         LIGHT_BLUE
     );
 
-    // test file
-    CsvFile f("test.txt");
-    f.write(
-        {
-            {"1", "2", "3"},
-            {"4", "5", "6"},
-            {"7", "8", "9"}
-        }
-    );
-
-    f.append(
-        {
-            {"10", "11", "12"},
-            {"13", "14", "15"},
-            {"my ", "name is ", "John"}
-        });
-
-    f.remove(1);
-
-    std::vector<std::vector<std::string>> data = f.read();
-    for (const std::vector<std::string>& row: data) {
-        for (const std::string& cell: row) {
-            std::cout << cell << " ";
-        }
-        std::cout << std::endl;
-    }
+    
+    
+    
     
     while (1 != 2) {
         std::string s;
         s = ui.input(">", LIGHT_YELLOW, false);
         ui.print(s, LIGHT_BLUE, true);
     }
+
+    //test file
+    
+    //only_employee
+    //std::cout << a.displayUser("Donald") << std::endl;
+    //std::cout << a.displayUser("Mickey");
+    
+    //only admin
+    /*std::vector<std::string> users = a.displayUsers();
+    for (auto& row : users) {
+        std::cout << row << std::endl;
+    }*/
+
     return 0;
 }

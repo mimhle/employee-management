@@ -66,6 +66,8 @@ public:
      * @return True if success, false if not
      */
     bool del();
+
+    void addNewFile(std::string fileName);
 };
 
 

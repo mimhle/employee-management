@@ -100,3 +100,8 @@ bool CsvFile::rename(const std::string& newName) {
 bool CsvFile::del() {
     return std::remove(_strPath.c_str()) == 0;
 }
+
+void CsvFile::addNewFile(std::string newFile) {
+    std::ofstream newUser(newFile + ".txt");
+    newUser.close();
+}
