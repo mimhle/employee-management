@@ -88,7 +88,7 @@ public:
 
     std::string getRole() const;
 
-    void setRole(std::string role);
+    // void setRole(std::string role);
 
     /**
      * @brief Overloads the != operator
