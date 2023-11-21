@@ -1,5 +1,4 @@
 #include "Users.h"
-#include <iostream>
 
 Users::Users() {
     _list = LinkedList<UserData>();
