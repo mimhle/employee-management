@@ -12,7 +12,6 @@ private:
 public:
 	UserAction(std::string role);
 	UserAction();
-	~UserAction();
 	void setUserRole(std::string role);
 	std::string getUserRole();
 	void addUser(UserData user);

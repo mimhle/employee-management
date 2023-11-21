@@ -10,11 +10,7 @@ UserAction::UserAction(std::string role = "") {
 }
 
 UserAction::UserAction() {
-	strRole = "employee";
-	list.importUserData();
-}
-
-UserAction::~UserAction() {
+	strRole = "";
 	list.importUserData();
 }
 
@@ -69,6 +65,7 @@ UserData UserAction::findUser(std::string userName) {
 		int userNum = list.searchUser(userName);
 		return usersList[userNum];
 	}
+	return UserData();
 }
 
 void UserAction::editUser(std::string userName, UserData editedUser) {
@@ -93,6 +90,7 @@ std::string UserAction::displayUser(std::string userName) {
 		}
 		return userDataTmp;
 	}
+	return "";
 }
 
 std::vector<std::string> UserAction::displayUsers() {
