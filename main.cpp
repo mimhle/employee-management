@@ -49,16 +49,23 @@ int main() {
     }
 
     //test file
-    
     //only_employee
     //std::cout << a.displayUser("Donald") << std::endl;
     //std::cout << a.displayUser("Mickey");
     
     //only admin
     /*std::vector<std::string> users = a.displayUsers();
-    for (auto& row : users) {
-        std::cout << row << std::endl;
-    }*/
+    for (int i = 0; i < users.size(); i++) {
+        std::cout << users[i] << std::endl;
+    }
 
+    std::cout << users[0];*/
+
+    Users list;
+    list.importUserData();
+    std::vector<UserData> users = list.listUsers();
+    for (int i = 0; i < users.size(); i++) {
+        std::cout << users[i].getName() << std::endl;
+    }
     return 0;
 }
