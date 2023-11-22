@@ -51,20 +51,20 @@ public:
 	 * @param userName Username of the user to edit
 	 * @param editedUser UserData object representing the edited user information
 	 */
-	void editUser(std::string userName,UserData editedUser);
+	void updateUserInformation(std::string userName,UserData editedUser);
 
 	/**
 	 * @brief Display user information
 	 * @param userName Username of the user to display (for employee role)
 	 * @return String containing user information
 	 */
-	std::string strUserInformation(std::string UserName);
+	std::string getUserInformation(std::string UserName);
 
 	/**
 	 * @brief Display all employees information (for admin role)
 	 * @return Vector of strings containing information of all users
 	 */
-	std::vector<std::string> vtUsersInformation();
+	std::vector<std::string> getAllUsersInformation();
 
 	/**
 	 * @brief Authenticate user based on username and password
@@ -72,7 +72,7 @@ public:
 	 * @param passWord Password
 	 * @return True if authentication succeeds, false otherwise
 	 */
-	bool bAuthentication(std::string userName, std::string passWord);
+	bool authenticateUser(std::string userName, std::string passWord);
 };
 
 
