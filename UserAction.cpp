@@ -94,12 +94,16 @@ std::string UserAction::displayUser(std::string userName) {
 }
 
 std::vector<std::string> UserAction::displayUsers() {
+	std::vector <std::string> strUser;
 	if (strRole == "admin") {
 		std::vector <UserData> listUser = list.listUsers();
-		std::vector <std::string> strUser;
 		for (int i = 0; i < listUser.size(); i++) {
 			strUser[i] += listUser[i].getName() + " " + listUser[i].getAddress() + " " + listUser[i].getPhoneNumber() + " " + listUser[i].getEmail();
 		}
+		return strUser;
+	}
+	else {
+		strUser[0] = "None user were found";
 		return strUser;
 	}
 }
