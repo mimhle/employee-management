@@ -28,7 +28,6 @@ void UserAction::addUser(UserData user) {
 		usersFile.append({
 			{user.getUserName(), "," , user.getPassword()}
 			});
-		usersFile.addNewFile(user.getUserName());
 		CsvFile newUser(user.getUserName() + ".txt");
 		newUser.append({
 			{user.getName()},
@@ -96,9 +95,9 @@ std::string UserAction::displayUser(std::string userName) {
 std::vector<std::string> UserAction::displayUsers() {
 	std::vector <std::string> strUser;
 	if (strRole == "admin") {
-		std::vector <UserData> listUser = list.listUsers();
-		for (int i = 0; i < listUser.size(); i++) {
-			strUser[i] += listUser[i].getName() + " " + listUser[i].getAddress() + " " + listUser[i].getPhoneNumber() + " " + listUser[i].getEmail();
+		std::vector <UserData> listUsers = list.listUsers();
+		for (int i = 0; i < listUsers.size(); i++) {
+			strUser[i] += listUsers[i].getName() + " " + listUsers[i].getAddress() + " " + listUsers[i].getPhoneNumber() + " " + listUsers[i].getEmail();
 		}
 		return strUser;
 	}
