@@ -60,8 +60,8 @@ UserData UserAction::findUser(std::string userName) {
 	return UserData();
 }
 
-void UserAction::updateUserInformation(std::string userName, UserData editedUserData) {
-	usersList.editUser(userName, editedUserData);
+void UserAction::updateUserInformation(std::string userName, UserData user) {
+	usersList.editUser(userName, user);
 	CsvFile csvFileUser(userName + ".txt");
 	csvFileUser.remove(0);
 	csvFileUser.remove(1);
@@ -69,11 +69,11 @@ void UserAction::updateUserInformation(std::string userName, UserData editedUser
 	csvFileUser.remove(3);
 	csvFileUser.remove(4);
 	csvFileUser.append({
-		{editedUserData.getName()},
-		{editedUserData.getDateOfBirth()},
-		{editedUserData.getAddress()},
-		{editedUserData.getPhoneNumber()},
-		{editedUserData.getEmail()}
+		{user.getName()},
+		{user.getDateOfBirth()},
+		{user.getAddress()},
+		{user.getPhoneNumber()},
+		{user.getEmail()}
 		});
 	CsvFile csvFileEmployee("Employees.txt");
 	std::vector<std::vector<std::string>> vtEmployeeAccounts = csvFileEmployee.read();
@@ -89,7 +89,7 @@ void UserAction::updateUserInformation(std::string userName, UserData editedUser
 	}
 	csvFileEmployee.remove(intLine);
 	csvFileEmployee.append({
-			{editedUserData.getUserName(), "," , editedUserData.getPassword()}
+			{user.getUserName(), "," , user.getPassword()}
 		});
 }
 

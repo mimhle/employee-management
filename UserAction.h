@@ -51,7 +51,7 @@ public:
 	 * @param userName Username of the user to edit
 	 * @param editedUser UserData object representing the edited user information
 	 */
-	void updateUserInformation(std::string userName,UserData editedUser);
+	void updateUserInformation(std::string userName,UserData user);
 
 	/**
 	 * @brief Display user information
