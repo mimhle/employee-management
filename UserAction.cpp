@@ -15,7 +15,7 @@ UserAction::UserAction() {
 }
 
 void UserAction::addUser(UserData user) {
-	if (strRole == "admin") {
+	if (strRole == "Admin") {
 		CsvFile csvFileEmployee("Employees.txt");
 		csvFileEmployee.append({
 			{user.getUserName(), "," , user.getPassword()}
@@ -33,7 +33,7 @@ void UserAction::addUser(UserData user) {
 }
 
 void UserAction::deleteUser(UserData user) {
-	if (strRole == "admin") {
+	if (strRole == "Admin") {
 		CsvFile csvFileEmployee("Employees.txt");
 		std::vector<std::vector<std::string>> dataUsers = csvFileEmployee.read();
 		int lineNum = 0;
@@ -52,7 +52,7 @@ void UserAction::deleteUser(UserData user) {
 }
 
 UserData UserAction::findUser(std::string userName) {
-	if (strRole == "admin") {
+	if (strRole == "Admin") {
 		std::vector<UserData> vtUsersDataList = usersList.listUsers();
 		int userNum = usersList.searchUser(userName);
 		return vtUsersDataList[userNum];
@@ -94,7 +94,7 @@ void UserAction::editUser(std::string userName, UserData editedUserData) {
 }
 
 std::string UserAction::displayUser(std::string userName) {
-	if (strRole == "employee") {
+	if (strRole == "Employee") {
 		std::string strUserData;
 		CsvFile csvFileUser(userName + ".txt");
 		std::vector<std::vector<std::string>> vtDataUser = csvFileUser.read();
@@ -108,7 +108,7 @@ std::string UserAction::displayUser(std::string userName) {
 
 std::vector<std::string> UserAction::displayUsers() {
 	std::vector <std::string> strUsers;
-	if (strRole == "admin") {
+	if (strRole == "Admin") {
 		std::vector <UserData> vtUsersDataList = usersList.listUsers();
 		for (int i = 0; i < vtUsersDataList.size(); i++) {
 			if(vtUsersDataList[i].getRole() == "Admin")
@@ -123,19 +123,19 @@ std::vector<std::string> UserAction::displayUsers() {
 }
 
 bool UserAction::authentication(std::string userName, std::string passWord) {
-	if (strRole == "admin") {
-		CsvFile adminLogin("Administrators.txt");
-		std::vector<std::vector<std::string>> adminData = adminLogin.read();
-		for (auto& row : adminData) {
+	if (strRole == "Admin") {
+		CsvFile csvFileAdmin("Administrators.txt");
+		std::vector<std::vector<std::string>> vtAdminAccounts = csvFileAdmin.read();
+		for (auto& row : vtAdminAccounts) {
 			if (row[0] == userName && row[1] == passWord) {
 				return true;
 			}
 		}
 	}
-	else if (strRole == "employee") {
-		CsvFile userLogin("Employees.txt");
-		std::vector<std::vector<std::string>> userData = userLogin.read();
-		for (auto& row : userData) {
+	else if (strRole == "Employee") {
+		CsvFile csvFileEmployee("Employees.txt");
+		std::vector<std::vector<std::string>> vtEmployeeAccounts = csvFileEmployee.read();
+		for (auto& row : vtEmployeeAccounts) {
 			if (row[0] == userName && row[1] == passWord) {
 				return true;
 			}
