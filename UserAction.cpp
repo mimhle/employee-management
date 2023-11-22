@@ -82,8 +82,7 @@ void UserAction::updateUserInformation(std::string userName, UserData user) {
 		if (row[0] == userName) {
 			break;
 		}
-		else
-		{
+		else {
 			intLine++;
 		}
 	}
