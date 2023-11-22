@@ -14,6 +14,10 @@ UserAction::UserAction() {
 	list.importUserData();
 }
 
+void UserAction::setUserRole(std::string role) {
+	strRole = role;
+}
+
 std::string UserAction::getUserRole() {
 	return strRole;
 }
@@ -27,7 +31,6 @@ void UserAction::addUser(UserData user) {
 		CsvFile newUser(user.getUserName() + ".txt");
 		newUser.append({
 			{user.getName()},
-			{user.getDateOfBirth()},
 			{user.getAddress()},
 			{user.getPhoneNumber()},
 			{user.getEmail()}
@@ -50,8 +53,7 @@ void UserAction::deleteUser(UserData user) {
 				lineNum++;
 			}
 		}
-		CsvFile deleteUser(user.getName() + ".txt");
-		deleteUser.del();
+		usersFile.remove(lineNum);
 		list.removeUser(user);
 	}
 }
@@ -68,10 +70,9 @@ UserData UserAction::findUser(std::string userName) {
 void UserAction::editUser(std::string userName, UserData editedUser) {
 	list.editUser(userName, editedUser);
 	CsvFile userData(userName + ".txt");
-	userData.remove(0);	userData.remove(1);	userData.remove(2);	userData.remove(3);	userData.remove(4);
+	userData.remove(0);
 	userData.append({
 		{editedUser.getName()},
-		{editedUser.getDateOfBirth()},
 		{editedUser.getAddress()},
 		{editedUser.getPhoneNumber()},
 		{editedUser.getEmail()}
@@ -96,13 +97,12 @@ std::vector<std::string> UserAction::displayUsers() {
 	if (strRole == "admin") {
 		std::vector <UserData> listUsers = list.listUsers();
 		for (int i = 0; i < listUsers.size(); i++) {
-			if(listUsers[i].getRole() == "Employee")
-				strUser.push_back( listUsers[i].getName() + " " + listUsers[i].getDateOfBirth() + " " + listUsers[i].getAddress() + " " + listUsers[i].getPhoneNumber() + " " + listUsers[i].getEmail());
+			strUser[i] += listUsers[i].getName() + " " + listUsers[i].getAddress() + " " + listUsers[i].getPhoneNumber() + " " + listUsers[i].getEmail();
 		}
 		return strUser;
 	}
 	else {
-		strUser.push_back("None user were found");
+		strUser[0] = "None user were found";
 		return strUser;
 	}
 }
@@ -130,3 +130,4 @@ bool UserAction::authentication(std::string userName, std::string passWord) {
 
 	return false;
 }
+

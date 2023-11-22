@@ -46,7 +46,7 @@ public:
     /**
      * @brief Search user in list
      * @param userName Username of user to search
-     * @return Index of user in list if found, -1 if not found 
+     * @return Index of user in list if found, -1 if not found
      */
     int searchUser(const std::string& userName) const;
 

@@ -55,8 +55,7 @@ bool Users::importUserData() {
     try {
         CsvFile csvFileAdmin("Administrators.txt");
         vtAdminAccounts = csvFileAdmin.read(1);
-    }
-    catch (const std::exception& e) {
+    } catch (const std::exception& e) {
         return false;
     }
 
@@ -64,8 +63,7 @@ bool Users::importUserData() {
     try {
         CsvFile csvFileEmployee("Employees.txt");
         vtEmployeeAccounts = csvFileEmployee.read(1);
-    }
-    catch (const std::exception& e) {
+    } catch (const std::exception& e) {
         return false;
     }
 
@@ -77,8 +75,7 @@ bool Users::importUserData() {
         try {
             CsvFile csvFile(vtAccounts[i][0] + ".txt");
             data = csvFile.read();
-        }
-        catch (const std::exception& e) {
+        } catch (const std::exception& e) {
             return false;
         }
 
