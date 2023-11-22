@@ -58,13 +58,13 @@ public:
 	 * @param userName Username of the user to display (for employee role)
 	 * @return String containing user information
 	 */
-	std::string displayUser(std::string UserName);
+	std::string strUserInformation(std::string UserName);
 
 	/**
 	 * @brief Display all employees information (for admin role)
 	 * @return Vector of strings containing information of all users
 	 */
-	std::vector<std::string> displayUsers();
+	std::vector<std::string> vtUsersInformation();
 
 	/**
 	 * @brief Authenticate user based on username and password
@@ -72,7 +72,7 @@ public:
 	 * @param passWord Password
 	 * @return True if authentication succeeds, false otherwise
 	 */
-	bool authentication(std::string userName, std::string passWord);
+	bool bAuthentication(std::string userName, std::string passWord);
 };
 
 

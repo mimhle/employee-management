@@ -93,7 +93,7 @@ void UserAction::editUser(std::string userName, UserData editedUserData) {
 		});
 }
 
-std::string UserAction::displayUser(std::string userName) {
+std::string UserAction::strUserInformation(std::string userName) {
 	if (strRole == "Employee") {
 		std::string strUserData;
 		CsvFile csvFileUser(userName + ".txt");
@@ -106,7 +106,7 @@ std::string UserAction::displayUser(std::string userName) {
 	return "";
 }
 
-std::vector<std::string> UserAction::displayUsers() {
+std::vector<std::string> UserAction::vtUsersInformation() {
 	std::vector <std::string> strUsers;
 	if (strRole == "Admin") {
 		std::vector <UserData> vtUsersDataList = usersList.listUsers();
@@ -122,7 +122,7 @@ std::vector<std::string> UserAction::displayUsers() {
 	}
 }
 
-bool UserAction::authentication(std::string userName, std::string passWord) {
+bool UserAction::bAuthentication(std::string userName, std::string passWord) {
 	if (strRole == "Admin") {
 		CsvFile csvFileAdmin("Administrators.txt");
 		std::vector<std::vector<std::string>> vtAdminAccounts = csvFileAdmin.read();
