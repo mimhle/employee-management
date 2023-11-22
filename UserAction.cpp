@@ -77,17 +77,17 @@ void UserAction::editUser(std::string userName, UserData editedUserData) {
 		});
 	CsvFile csvFileEmployee("Employees.txt");
 	std::vector<std::vector<std::string>> vtEmployeeAccounts = csvFileEmployee.read();
-	int lineNum = 0;
+	int intLine = 0;
 	for (auto& row : vtEmployeeAccounts) {
 		if (row[0] == userName) {
 			break;
 		}
 		else
 		{
-			lineNum++;
+			intLine++;
 		}
 	}
-	csvFileEmployee.remove(lineNum);
+	csvFileEmployee.remove(intLine);
 	csvFileEmployee.append({
 			{editedUserData.getUserName(), "," , editedUserData.getPassword()}
 		});
