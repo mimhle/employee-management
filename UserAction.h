@@ -20,7 +20,7 @@ public:
 	* @brief Constructor with role parameter
 	* @param role User role (default is empty)
 	*/
-	UserAction(std::string role = "");
+	explicit UserAction(std::string role = "");
 
 	/**
 	 * @brief Default constructor
@@ -31,34 +31,34 @@ public:
 	 * @brief Add a new user
 	 * @param user UserData object representing the user
 	 */
-	void addUser(UserData user);
+	void addUser(const UserData& user);
 
 	/**
 	* @brief Delete a user.
 	* @param user UserData object representing the user to be deleted.
 	*/
-	void deleteUser(UserData user);
+	void deleteUser(const UserData& user);
 
 	/**
 	 * @brief Find a user by username
 	 * @param userName Username of the user to find
 	 * @return UserData object representing the found user
 	 */
-	UserData findUser(std::string userName);
+	UserData findUser(const std::string& userName);
 
 	/**
 	 * @brief Edit user information
 	 * @param userName Username of the user to edit
 	 * @param editedUser UserData object representing the edited user information
 	 */
-	void updateUserInformation(std::string userName,UserData user);
+	void updateUserInformation(const std::string& userName,const UserData& user);
 
 	/**
 	 * @brief Display user information
 	 * @param userName Username of the user to display (for employee role)
 	 * @return String containing user information
 	 */
-	std::string getUserInformation(std::string UserName);
+	std::string getUserInformation(const std::string& UserName);
 
 	/**
 	 * @brief Display all employees information (for admin role)
@@ -69,10 +69,10 @@ public:
 	/**
 	 * @brief Authenticate user based on username and password
 	 * @param userName Username
-	 * @param passWord Password
+	 * @param password Password
 	 * @return True if authentication succeeds, false otherwise
 	 */
-	bool authenticateUser(std::string userName, std::string passWord);
+	bool authenticateUser(const std::string& userName, const std::string& password);
 };
 
 
