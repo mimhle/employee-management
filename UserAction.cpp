@@ -19,7 +19,7 @@ void UserAction::addUser(UserData user) {
 		CsvFile csvFileEmployee("Employees.txt");
 		csvFileEmployee.append({
 			{user.getUserName(), "," , user.getPassword()}
-		});
+			});
 		CsvFile newUser(user.getUserName() + ".txt");
 		newUser.write({
 			{user.getName()},
@@ -27,7 +27,7 @@ void UserAction::addUser(UserData user) {
 			{user.getAddress()},
 			{user.getPhoneNumber()},
 			{user.getEmail()}
-		});
+			});
 		_usersList.addUser(user);
 	}
 }
@@ -82,7 +82,7 @@ void UserAction::updateUserInformation(std::string userName, UserData user) {
 		csvFileEmployee.remove(iLine);
 		csvFileEmployee.append({
 				{user.getUserName(), "," , user.getPassword()}
-		});
+			});
 	}
 }
 
@@ -101,17 +101,15 @@ std::string UserAction::getUserInformation(std::string userName) {
 
 std::vector<std::string> UserAction::getAllUsersInformation() {
 	std::vector <std::string> strUsers;
-	if (_strRole!= "Admin") {
-		strUsers[0] = "None user were found";
-		return strUsers;
-	} else {
-		std::vector <UserData> vtUsersDataList = _usersList.listUsers();
-		for (int i = 0; i < vtUsersDataList.size(); i++) {
-			if (vtUsersDataList[i].getRole() == "Employee")
-				strUsers.push_back(vtUsersDataList[i].getName() + " " + vtUsersDataList[i].getDateOfBirth() + " " + vtUsersDataList[i].getAddress() + " " + vtUsersDataList[i].getPhoneNumber() + " " + vtUsersDataList[i].getEmail());
-		}
-		return strUsers;
+	if(_strRole != "Admin")
+		return { "None user were found" };
+	std::vector <UserData> vtUsersDataList = _usersList.listUsers();
+	for (auto& data : vtUsersDataList) {
+		if (data.getRole() == "Employee")
+			strUsers.push_back(data.getName() + " " + data.getDateOfBirth() + " " + data.getAddress() + " " + data.getPhoneNumber() + " " + data.getEmail());
 	}
+	return strUsers;
+
 }
 
 bool UserAction::authenticateUser(std::string userName, std::string passWord) {
@@ -119,7 +117,8 @@ bool UserAction::authenticateUser(std::string userName, std::string passWord) {
 	if (_strRole == "Admin") {
 		CsvFile csvFileUsers("Administrators.txt");
 		vtUserAccounts = csvFileUsers.read();
-	} else {
+	}
+	else {
 		CsvFile csvFileUsers("Employees.txt");
 		vtUserAccounts = csvFileUsers.read();
 	}
