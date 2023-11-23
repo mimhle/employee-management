@@ -18,16 +18,17 @@ void UserAction::addUser(UserData user) {
 	if (_strRole == "Admin") {
 		CsvFile csvFileEmployee("Employees.txt");
 		csvFileEmployee.append({
-			{user.getUserName(), "," , user.getPassword()}
-			});
+				{user.getUserName(), "," , user.getPassword()}
+				});
 		CsvFile newUser(user.getUserName() + ".txt");
-		newUser.append({
+		newUser.write(
+		{
 			{user.getName()},
 			{user.getDateOfBirth()},
 			{user.getAddress()},
 			{user.getPhoneNumber()},
 			{user.getEmail()}
-			});
+		});
 		_usersList.addUser(user);
 	}
 }
@@ -60,12 +61,7 @@ UserData UserAction::findUser(std::string userName) {
 void UserAction::updateUserInformation(std::string userName, UserData user) {
 	_usersList.editUser(userName, user);
 	CsvFile csvFileUser(userName + ".txt");
-	csvFileUser.remove(0);
-	csvFileUser.remove(1);
-	csvFileUser.remove(2);
-	csvFileUser.remove(3);
-	csvFileUser.remove(4);
-	csvFileUser.append(
+	csvFileUser.write(
 		{
 			{user.getName()},
 			{user.getDateOfBirth()},
@@ -83,10 +79,9 @@ void UserAction::updateUserInformation(std::string userName, UserData user) {
 		}
 	}
 	csvFileEmployee.remove(iLine);
-	csvFileEmployee.append(
-		{
+	csvFileEmployee.append({
 			{user.getUserName(), "," , user.getPassword()}
-		});
+			});
 }
 
 std::string UserAction::getUserInformation(std::string userName) {
@@ -104,15 +99,15 @@ std::string UserAction::getUserInformation(std::string userName) {
 
 std::vector<std::string> UserAction::getAllUsersInformation() {
 	std::vector <std::string> strUsers;
-	if (_strRole == "Admin") {
+	if (_strRole!= "Admin") {
+		strUsers[0] = "None user were found";
+		return strUsers;
+	} else {
 		std::vector <UserData> vtUsersDataList = _usersList.listUsers();
 		for (int i = 0; i < vtUsersDataList.size(); i++) {
 			if (vtUsersDataList[i].getRole() == "Employee")
 				strUsers.push_back(vtUsersDataList[i].getName() + " " + vtUsersDataList[i].getDateOfBirth() + " " + vtUsersDataList[i].getAddress() + " " + vtUsersDataList[i].getPhoneNumber() + " " + vtUsersDataList[i].getEmail());
 		}
-		return strUsers;
-	} else {
-		strUsers[0] = "None user were found";
 		return strUsers;
 	}
 }
@@ -136,7 +131,6 @@ bool UserAction::authenticateUser(std::string userName, std::string passWord) {
 
 		}
 	}
-
 	return false;
 }
 
