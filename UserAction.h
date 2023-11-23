@@ -12,8 +12,8 @@
  */
 class UserAction {
 private:
-	Users usersList;
-	std::string strRole;
+	Users _usersList;
+	std::string _strRole;
 
 public:
 	/**
