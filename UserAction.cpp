@@ -35,10 +35,10 @@ void UserAction::addUser(UserData user) {
 void UserAction::deleteUser(UserData user) {
 	if (_strRole == "Admin") {
 		CsvFile csvFileEmployee("Employees.txt");
-		std::vector<std::vector<std::string>> dataUsers = csvFileEmployee.read();
+		std::vector<std::vector<std::string>> vtEmployeeAccounts = csvFileEmployee.read();
 		int iLine = -1;
-		for (int i = 0; i < dataUsers.size(); i++) {
-			if (dataUsers[i][0] == user.getName()) {
+		for (int i = 0; i < vtEmployeeAccounts.size(); i++) {
+			if (vtEmployeeAccounts[i][0] == user.getName()) {
 				iLine = i;
 				break;
 			}
@@ -75,12 +75,11 @@ void UserAction::updateUserInformation(std::string userName, UserData user) {
 		});
 	CsvFile csvFileEmployee("Employees.txt");
 	std::vector<std::vector<std::string>> vtEmployeeAccounts = csvFileEmployee.read();
-	int iLine = 0;
-	for (auto& row : vtEmployeeAccounts) {
-		if (row[0] == userName) {
+	int iLine = -1;
+	for (int i = 0; i < vtEmployeeAccounts.size(); i++) {
+		if (vtEmployeeAccounts[i][0] == user.getName()) {
+			iLine = i;
 			break;
-		} else {
-			iLine++;
 		}
 	}
 	csvFileEmployee.remove(iLine);
