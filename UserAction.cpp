@@ -102,7 +102,7 @@ std::string UserAction::getUserInformation(std::string userName) {
 std::vector<std::string> UserAction::getAllUsersInformation() {
 	std::vector <std::string> strUsers;
 	if(_strRole != "Admin")
-		return { "None user were found" };
+		return {"None user were found"};
 	std::vector <UserData> vtUsersDataList = _usersList.listUsers();
 	for (auto& data : vtUsersDataList) {
 		if (data.getRole() == "Employee")
