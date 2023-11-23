@@ -109,7 +109,6 @@ std::vector<std::string> UserAction::getAllUsersInformation() {
 			strUsers.push_back(data.getName() + " " + data.getDateOfBirth() + " " + data.getAddress() + " " + data.getPhoneNumber() + " " + data.getEmail());
 	}
 	return strUsers;
-
 }
 
 bool UserAction::authenticateUser(std::string userName, std::string passWord) {
