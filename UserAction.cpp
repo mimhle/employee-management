@@ -4,7 +4,7 @@
 #include "UserData.h"
 
 
-UserAction::UserAction(std::string role = "") {
+UserAction::UserAction(std::string role) {
 	_strRole = role;
 	_usersList.importUserData();
 }
