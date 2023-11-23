@@ -55,7 +55,7 @@ public:
 
 	/**
 	 * @brief Display user information
-	 * @param userName Username of the user to display (for employee role)
+	 * @param userName Username of the user to display
 	 * @return String containing user information
 	 */
 	std::string getUserInformation(const std::string& UserName);
