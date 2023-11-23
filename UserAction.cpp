@@ -19,7 +19,7 @@ void UserAction::addUser(UserData user) {
 		CsvFile csvFileEmployee("Employees.txt");
 		csvFileEmployee.append({
 				{user.getUserName(), "," , user.getPassword()}
-				});
+		});
 		CsvFile newUser(user.getUserName() + ".txt");
 		newUser.write(
 		{
@@ -44,8 +44,10 @@ void UserAction::deleteUser(UserData user) {
 				break;
 			}
 		}
-		csvFileEmployee.remove(iLine);
-		_usersList.removeUser(user);
+		if (iLine != -1) {
+			csvFileEmployee.remove(iLine);
+			_usersList.removeUser(user);
+		}
 	}
 }
 
@@ -78,10 +80,12 @@ void UserAction::updateUserInformation(std::string userName, UserData user) {
 			break;
 		}
 	}
-	csvFileEmployee.remove(iLine);
-	csvFileEmployee.append({
-			{user.getUserName(), "," , user.getPassword()}
-			});
+	if (iLine != 1) {
+		csvFileEmployee.remove(iLine);
+		csvFileEmployee.append({
+				{user.getUserName(), "," , user.getPassword()}
+		});
+	}
 }
 
 std::string UserAction::getUserInformation(std::string userName) {

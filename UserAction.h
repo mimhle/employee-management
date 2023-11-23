@@ -20,7 +20,7 @@ public:
 	* @brief Constructor with role parameter
 	* @param role User role (default is empty)
 	*/
-	UserAction(std::string role);
+	UserAction(std::string role = "");
 
 	/**
 	 * @brief Default constructor
@@ -36,7 +36,6 @@ public:
 	/**
 	* @brief Delete a user.
 	* @param user UserData object representing the user to be deleted.
-	* @param iLine Initialize iLine to -1 to handle the case when the user is not found.
 	*/
 	void deleteUser(UserData user);
 
@@ -50,7 +49,6 @@ public:
 	/**
 	 * @brief Edit user information
 	 * @param userName Username of the user to edit
-	 * @param iLine Initialize iLine to -1 to handle the case when the user is not found.
 	 * @param editedUser UserData object representing the edited user information
 	 */
 	void updateUserInformation(std::string userName,UserData user);
