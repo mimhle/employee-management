@@ -1,3 +1,4 @@
+#include <conio.h>
 #include "UserInterface.h"
 
 bool UserInterface::isElevated() {
@@ -163,19 +164,24 @@ void UserInterface::printMultiLine(const std::vector<std::string>& items, int co
     }
 }
 
-std::string UserInterface::input(const std::string& message, int color, bool hideInput) const {
-    char szInput[255];
+std::string UserInterface::input(const std::string& message, int color, bool hideInput, char hideChar) const {
     setColor(color);
     printf("%s ", message.c_str());
-    if (hideInput) {
-        _hideInput();
+
+    std::string strInput;
+    char c;
+    while ((int)(c = _getch()) != 13) { // enter
+        if (c == 8) { // backspace
+            if (!strInput.empty()) {
+                printf("\b \b");
+                strInput.pop_back();
+            }
+        } else {
+            printf("%c", hideInput ? hideChar : c);
+            strInput.push_back(c);
+        }
     }
-    fgets(szInput, 255, stdin);
-    szInput[strlen(szInput) - 1] = '\0'; // Remove \n
-    if (hideInput) {
-        _showInput();
-        printf("\n");
-    }
+    printf("\n");
     setColor(DEFAULT_COLOR);
-    return szInput;
+    return strInput;
 }
