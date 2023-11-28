@@ -1,10 +1,9 @@
-#include <iostream>
 #include <ctime>
 #include <string>
 #include "UserData.h"
 
 UserData::UserData(std::string name, std::string dateOfBirth, std::string address, std::string phoneNumber,
-    std::string email, std::string username, std::string password, std::string role
+    std::string email, std::string username, std::string password
 ) {
     _strName = name;
     _strDateOfBirth = dateOfBirth;
@@ -14,7 +13,6 @@ UserData::UserData(std::string name, std::string dateOfBirth, std::string addres
     _strEmail = email;
     _strUserName = username;
     _strPassword = password;
-    _strRole = role;
 }
 
 UserData::UserData() {
@@ -26,7 +24,6 @@ UserData::UserData() {
     _strEmail = "";
     _strUserName = "";
     _strPassword = "";
-    _strRole = "";
 }
 
 UserData::~UserData() {
@@ -38,7 +35,6 @@ UserData::~UserData() {
     _strEmail = "";
     _strUserName = "";
     _strPassword = "";
-    _strRole = "";
 }
 
 int UserData::userAge() {
@@ -102,10 +98,6 @@ std::string UserData::getPassword() const { return _strPassword; }
 
 void UserData::setPassword(std::string password) { _strPassword = password; }
 
-std::string UserData::getRole() const { return _strRole; }
-
-// void UserData::setRole(std::string role) { _strRole = role; }
-
 bool UserData::operator!=(const UserData& user) const {
-    return _strUserName != user._strUserName || _strPassword != user._strPassword || _strRole != user._strRole || _strName != user._strName || _strDateOfBirth != user._strDateOfBirth || _iAge != user._iAge || _strAddress != user._strAddress || _strPhoneNumber != user._strPhoneNumber || _strEmail != user._strEmail;
+    return _strUserName != user._strUserName || _strPassword != user._strPassword || _strName != user._strName || _strDateOfBirth != user._strDateOfBirth || _iAge != user._iAge || _strAddress != user._strAddress || _strPhoneNumber != user._strPhoneNumber || _strEmail != user._strEmail;
 }

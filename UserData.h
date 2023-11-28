@@ -22,7 +22,6 @@ private:
     std::string _strEmail;
     std::string _strUserName;
     std::string _strPassword;
-    std::string _strRole;
 
     /**
      * @brief Calculates the age of the user
@@ -44,7 +43,7 @@ public:
     * @param role The user's role(Admintrator, Employee)
     */
     UserData(std::string name, std::string dateOfBirth, std::string address, std::string phoneNumber,
-        std::string email, std::string username, std::string password, std::string role
+        std::string email, std::string username, std::string password
     );
 
     UserData();
@@ -85,10 +84,6 @@ public:
     std::string getPassword() const;
 
     void setPassword(std::string password);
-
-    std::string getRole() const;
-
-    // void setRole(std::string role);
 
     /**
      * @brief Overloads the != operator
