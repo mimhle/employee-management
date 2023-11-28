@@ -14,12 +14,12 @@ UserAction::UserAction() {
     _usersList.importUserData();
 }
 
-void UserAction::addUser(const UserData& user) {
-    if (!(_strRole == "Admin")) return;
+bool UserAction::addUser(const UserData& user) {
+    if (!(_strRole == "Admin" && _usersList.addUser(user))) return false;
     CsvFile csvFileEmployee("Employees.txt");
     csvFileEmployee.append(
         {
-            {user.getUserName(), ",", user.getPassword()}
+            {user.getUserName() + "," + user.getPassword()}
         }
     );
     CsvFile newUser(user.getUserName() + ".txt");
@@ -32,25 +32,32 @@ void UserAction::addUser(const UserData& user) {
             {user.getEmail()}
         }
     );
-    _usersList.addUser(user);
+    return true;
 }
 
-void UserAction::deleteUser(const UserData& user) {
-    if (!(_strRole == "Admin")) return;
-    CsvFile csvFileEmployee("Employees.txt");
-    std::vector<std::vector<std::string>> vtEmployeeAccounts = csvFileEmployee.read();
-    int iLine = -1;
-    for (int i = 0; i < vtEmployeeAccounts.size(); i++) {
-        if (vtEmployeeAccounts[i][0] == user.getName()) {
-            iLine = i;
-            break;
+
+bool UserAction::deleteUser(const std::string& userName) {
+    if (_strRole == "Admin") {
+        CsvFile csvFileEmployee("Employees.txt");
+        std::vector<std::vector<std::string>> vtEmployeeAccounts = csvFileEmployee.read();
+        int iLine = -1;
+        for (int i = 0; i < vtEmployeeAccounts.size(); i++) {
+            if (vtEmployeeAccounts[i][0] == userName) {
+                iLine = i;
+                break;
+            }
+        }
+        if (iLine != -1) {
+            csvFileEmployee.remove(iLine);
+            CsvFile csvFileDelete(userName + ".txt");
+            csvFileDelete.del();
+            _usersList.removeUser(findUser(userName));
+            return true;
         }
     }
-    if (iLine != -1) {
-        csvFileEmployee.remove(iLine);
-        _usersList.removeUser(user);
-    }
+    return false;
 }
+
 
 UserData UserAction::findUser(const std::string& userName) {
     if (!(_strRole == "Admin")) return {};
@@ -126,8 +133,10 @@ bool UserAction::authenticateUser(const std::string& userName, const std::string
         CsvFile csvFileUsers("Employees.txt");
         vtUserAccounts = csvFileUsers.read();
     }
-    for (auto& row: vtUserAccounts) {
-        if (row[0] == userName && row[1] == password) return true;
+    if (vtUserAccounts.size() != 0) {
+        for (auto row: vtUserAccounts) {
+            if (row[0] == userName && row[1] == password) return true;
+        }
     }
     return false;
 }
