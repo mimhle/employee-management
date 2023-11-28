@@ -84,9 +84,12 @@ bool CsvFile::append(const std::vector<std::vector<std::string>>& data, char sep
 }
 
 void CsvFile::remove(int line) const {
-    std::vector<std::vector<std::string>> VtData = read(0, -1);
-    VtData.erase(VtData.begin() + line);
-    write(VtData);
+    std::vector<std::vector<std::string>> vtData = read(0, -1);
+    if (line < 0) {
+        line = (int) vtData.size() + line;
+    }
+    vtData.erase(vtData.begin() + line);
+    write(vtData);
 }
 
 bool CsvFile::rename(const std::string& newName) {

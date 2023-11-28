@@ -50,7 +50,7 @@ public:
 
     /**
      * @brief Remove line from file
-     * @param line Line to remove
+     * @param line Line to remove (negative value to count from end)
      */
     void remove(int line) const;
 
