@@ -153,9 +153,10 @@ public:
      * @param message Message to print
      * @param color Color of message
      * @param hideInput Hide input (for password)
+     * @param hideChar Character to replace input with (if hideInput is true)
      * @return User input
      */
-    std::string input(const std::string& message = ">", int color = DEFAULT_COLOR, bool hideInput = false) const;
+    std::string input(const std::string& message, int color, bool hideInput = false, char hideChar = '*') const;
 };
 
 #endif //CTDL_GK_USERINTERFACE_CPP
