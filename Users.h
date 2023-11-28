@@ -32,8 +32,9 @@ public:
     /**
      * @brief Remove user from list
      * @param user User to remove
+     * @return True if success, false if failed
      */
-    void removeUser(const UserData& user);
+    bool removeUser(const UserData& user);
 
     /**
      * @brief Edit user in list

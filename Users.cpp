@@ -19,8 +19,13 @@ bool Users::addUser(const UserData& user) {
     return true;
 }
 
-void Users::removeUser(const UserData& user) {
-    _list.remove(user);
+bool Users::removeUser(const UserData& user) {
+    for (int i = 0; i < _list.getSize(); i++)
+        if (_list[i].getUserName() == user.getUserName()) {
+            _list.remove(user);
+            return true;
+        }
+    return false;
 }
 
 bool Users::editUser(const std::string& userName, const UserData& user) {
