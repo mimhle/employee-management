@@ -9,44 +9,46 @@ Users::~Users() {
 }
 
 bool Users::addUser(const UserData& user) {
-    for (int i = 0; i < _list.getSize(); i++) {
-        if (_list[i].getUserName() == user.getUserName()) {
+    for (int i = 0; i < _list.getSize(); i++)
+        if (_list[i].getUserName() == user.getUserName())
             return false;
-        }
-    }
 
     _list.addTail(user);
     return true;
 }
 
-void Users::removeUser(const UserData& user) {
-    _list.remove(user);
+bool Users::removeUser(const UserData& user) {
+    for (int i = 0; i < _list.getSize(); i++)
+        if (_list[i].getUserName() == user.getUserName()) {
+            _list.remove(user);
+            return true;
+        }
+    return false;
 }
 
 bool Users::editUser(const std::string& userName, const UserData& user) {
-    for (int i = 0; i < _list.getSize(); i++) {
+    for (int i = 0; i < _list.getSize(); i++)
         if (_list[i].getUserName() == userName) {
             _list[i] = user;
             return true;
         }
-    }
+
     return false;
 }
 
 int Users::searchUser(const std::string& userName) const {
-    for (int i = 0; i < _list.getSize(); i++) {
-        if (_list[i].getUserName() == userName) {
+    for (int i = 0; i < _list.getSize(); i++)
+        if (_list[i].getUserName() == userName)
             return i;
-        }
-    }
+
     return -1;
 }
 
 std::vector<UserData> Users::listUsers() const {
     std::vector<UserData> vtResult;
-    for (int i = 0; i < _list.getSize(); i++) {
+    for (int i = 0; i < _list.getSize(); i++)
         vtResult.push_back(_list[i]);
-    }
+
     return vtResult;
 }
 
