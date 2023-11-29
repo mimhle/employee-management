@@ -57,6 +57,14 @@ std::vector<UserData> Users::listUsers() const {
 }
 
 bool Users::importUserData() {
+    std::vector<std::vector<std::string>> vtAdminAccounts;
+    try {
+        CsvFile csvFileAdmin("Administrators.txt");
+        vtAdminAccounts = csvFileAdmin.read(1);
+    } catch (const std::exception& e) {
+        return false;
+    }
+
     std::vector<std::vector<std::string>> vtEmployeeAccounts;
     try {
         CsvFile csvFileEmployee("Employees.txt");
@@ -65,16 +73,20 @@ bool Users::importUserData() {
         return false;
     }
 
-    for (int i = 0; i < vtEmployeeAccounts.size(); i++) {
+    std::vector<std::vector<std::string>> vtAccounts = vtAdminAccounts;
+    vtAccounts.insert(vtAccounts.end(), vtEmployeeAccounts.begin(), vtEmployeeAccounts.end());
+
+    for (int i = 0; i < vtAccounts.size(); i++) {
         std::vector<std::vector<std::string>> data;
         try {
-            CsvFile csvFile(vtEmployeeAccounts[i][0] + ".txt");
+            CsvFile csvFile(vtAccounts[i][0] + ".txt");
             data = csvFile.read();
         } catch (const std::exception& e) {
             return false;
         }
 
-        UserData user(data[0][0], data[1][0], data[2][0], data[3][0], data[4][0], vtEmployeeAccounts[i][0], vtEmployeeAccounts[i][1]);
+        std::string role = (i >= vtAdminAccounts.size()) ? "Employee" : "Administrator";
+        UserData user(data[0][0], data[1][0], data[2][0], data[3][0], data[4][0], vtAccounts[i][0], vtAccounts[i][1], role);
         _list.addTail(user);
     }
 
