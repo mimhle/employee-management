@@ -29,7 +29,7 @@ private:
      * @details This function calculates the age of the user based on the date of birth.
      * @return void
     */
-    int userAge();
+    int userAge(std::string dateOfBirth);
 
 public:
     /**
