@@ -96,6 +96,13 @@ public:
      * @return True if the two users are not equal, false otherwise
     */
     bool operator!=(const UserData& user) const;
+
+    /**
+     * @brief Overloads the = operator
+     * @details This function overloads the = operator to assign the value of a user to another.
+     * @return The user with the new value
+    */
+    UserData& operator=(const UserData& user);
 };
 
 #endif // CTDL_GK_USERDATA_CPP
