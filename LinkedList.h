@@ -138,7 +138,7 @@ public:
      * @details Overload operator []
      * @return DataType
     */
-    DataType operator[](int index) const;
+    DataType& operator[](int index) const;
 };
 
 #endif // CTDL_GK_LINKEDLIST_CPP

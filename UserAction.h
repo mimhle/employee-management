@@ -6,9 +6,16 @@
 
 /**
  * @class UserAction
- * @brief Class for user actions
- * @details This class provides functionality for performing various user-related actions,
- * such as adding, deleting, finding, editing, and displaying user information.
+ * @brief Manages actions related to user data and authentication
+ *
+ * This class allows creating, reading, updating, and deleting user records
+ * from a user list. It also handles user authentication. Methods are
+ * provided for adding new users, finding existing users, updating user
+ * information, displaying user data, and validating username/password.
+ *
+ * Access to full user data is restricted based on the user role set for
+ * the class instance. The default role has read-only access. The "admin"
+ * role allows full access to all methods.
  */
 class UserAction {
 private:
@@ -16,10 +23,12 @@ private:
 	std::string _strRole;
 
 public:
+
 	/**
-	* @brief Constructor with role parameter
-	* @param role User role (default is empty)
-	*/
+	 * @brief Constructor
+	 * Creates an empty UserAction instance with default empty role.
+	 * @param role User role to assign ("employee" or "admin")
+	 */
 	explicit UserAction(std::string role = "");
 
 	/**
@@ -28,15 +37,25 @@ public:
 	UserAction();
 
 	/**
-	 * @brief Add a new user
-	 * @param user UserData object representing the user
+	 * @brief Set user role
+	 * @param role User role to assign ("employee" or "admin")
+	 */
+	void setRole(std::string role);
+
+	/**
+	 * @brief Add new user record
+	 * Adds a provided UserData object as a new user record in the user list.
+	 * Accessible only if the instance role is "admin".
+	 * @param user UserData object with new user data
+	 * @return true if the user was added successfully, false otherwise
 	 */
 	bool addUser(const UserData& user);
 
 	/**
-	* @brief Delete a user.
-	* @param user UserData object representing the user to be deleted.
-	*/
+	 * @brief Delete a user
+	 * @param userName Username of the user to be deleted
+	 * @return true if the user was deleted successfully, false otherwise
+	 */
 	bool deleteUser(const std::string& userName);
 
 	/**
@@ -50,8 +69,9 @@ public:
 	 * @brief Edit user information
 	 * @param userName Username of the user to edit
 	 * @param editedUser UserData object representing the edited user information
+	 * @return true if the user information was edited successfully, false otherwise
 	 */
-	void updateUserInformation(const std::string& userName,const UserData& user);
+	bool updateUserInformation(const std::string& userName, const UserData& user);
 
 	/**
 	 * @brief Display user information
