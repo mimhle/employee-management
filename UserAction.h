@@ -35,7 +35,7 @@ public:
 
 	/**
 	* @brief Delete a user.
-	* @param user UserData object representing the user to be deleted.
+	* @param userName Username of the user to delete
 	*/
 	bool deleteUser(const std::string& userName);
 
@@ -51,7 +51,7 @@ public:
 	 * @param userName Username of the user to edit
 	 * @param editedUser UserData object representing the edited user information
 	 */
-	void updateUserInformation(const std::string& userName,const UserData& user);
+	void updateUserInformation(const std::string& userName,const UserData& editedUser);
 
 	/**
 	 * @brief Display user information

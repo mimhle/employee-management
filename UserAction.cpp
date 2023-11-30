@@ -22,8 +22,8 @@ bool UserAction::addUser(const UserData& user) {
             {user.getUserName() + "," + user.getPassword()}
         }
     );
-    CsvFile newUser(user.getUserName() + ".txt");
-    newUser.write(
+    CsvFile csvFileNewUser(user.getUserName() + ".txt");
+    csvFileNewUser.write(
         {
             {user.getName()},
             {user.getDateOfBirth()},
@@ -62,27 +62,27 @@ bool UserAction::deleteUser(const std::string& userName) {
 UserData UserAction::findUser(const std::string& userName) {
     if (!(_strRole == "Admin")) return {};
     std::vector<UserData> vtUsersDataList = _usersList.listUsers();
-    int userNum = _usersList.searchUser(userName);
-    return vtUsersDataList[userNum];
+    int iUserNum = _usersList.searchUser(userName);
+    return vtUsersDataList[iUserNum];
 }
 
-void UserAction::updateUserInformation(const std::string& userName, const UserData& user) {
-    _usersList.editUser(userName, user);
+void UserAction::updateUserInformation(const std::string& userName, const UserData& editedUser) {
+    _usersList.editUser(userName, editedUser);
     CsvFile csvFileUser(userName + ".txt");
     csvFileUser.write(
         {
-            {user.getName()},
-            {user.getDateOfBirth()},
-            {user.getAddress()},
-            {user.getPhoneNumber()},
-            {user.getEmail()}
+            {editedUser.getName()},
+            {editedUser.getDateOfBirth()},
+            {editedUser.getAddress()},
+            {editedUser.getPhoneNumber()},
+            {editedUser.getEmail()}
         }
     );
     CsvFile csvFileEmployee("Employees.txt");
     std::vector<std::vector<std::string>> vtEmployeeAccounts = csvFileEmployee.read();
     int iLine = -1;
     for (int i = 0; i < vtEmployeeAccounts.size(); i++) {
-        if (vtEmployeeAccounts[i][0] == user.getName()) {
+        if (vtEmployeeAccounts[i][0] == editedUser.getName()) {
             iLine = i;
             break;
         }
@@ -91,7 +91,7 @@ void UserAction::updateUserInformation(const std::string& userName, const UserDa
         csvFileEmployee.remove(iLine);
         csvFileEmployee.append(
             {
-                {user.getUserName(), ",", user.getPassword()}
+                {editedUser.getUserName(), ",", editedUser.getPassword()}
             }
         );
     }
@@ -113,7 +113,7 @@ std::vector<std::string> UserAction::getAllUsersInformation() {
     if (_strRole != "Admin") return {"None user were found"};
     std::vector<std::string> strUsers;
     std::vector<UserData> vtUsersDataList = _usersList.listUsers();
-    for (auto& data: vtUsersDataList) {
+    for (const auto& data: vtUsersDataList) {
         if (data.getRole() == "Employee") {
             strUsers.push_back(
                 data.getName() + " " + data.getDateOfBirth() + " " + data.getAddress() + " " + data.getPhoneNumber() +
@@ -133,7 +133,7 @@ bool UserAction::authenticateUser(const std::string& userName, const std::string
         CsvFile csvFileUsers("Employees.txt");
         vtUserAccounts = csvFileUsers.read();
     }
-    if (vtUserAccounts.size() != 0) {
+    if (!vtUserAccounts.empty()) {
         for (auto row: vtUserAccounts) {
             if (row[0] == userName && row[1] == password) return true;
         }
