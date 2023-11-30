@@ -8,7 +8,7 @@ UserData::UserData(std::string name, std::string dateOfBirth, std::string addres
 ) {
     _strName = name;
     _strDateOfBirth = dateOfBirth;
-    _iAge = 0;
+    _iAge = userAge(dateOfBirth);
     _strAddress = address;
     _strPhoneNumber = phoneNumber;
     _strEmail = email;
@@ -41,7 +41,8 @@ UserData::~UserData() {
     _strRole = "";
 }
 
-int UserData::userAge() {
+int UserData::userAge(std::string dateOfBirth) {
+    int iAge = 0;
     time_t currentTime = time(0);
 
     tm* pLocalTime = localtime(&currentTime);
@@ -50,23 +51,23 @@ int UserData::userAge() {
     int iCurrentYear = 1900 + pLocalTime->tm_year;
 
     //type string dateOfBirth DD/MM/YYYY
-    int iDayOfBirth = std::stoi(_strDateOfBirth.substr(0, 2));
-    int iMonthOfBirth = std::stoi(_strDateOfBirth.substr(3, 2));
-    int iYearOfBirth = std::stoi(_strDateOfBirth.substr(6, 4));
+    int iDayOfBirth = std::stoi(dateOfBirth.substr(0, 2));
+    int iMonthOfBirth = std::stoi(dateOfBirth.substr(3, 2));
+    int iYearOfBirth = std::stoi(dateOfBirth.substr(6, 4));
 
     if (iMonthOfBirth > iCurrentMonth) {
-        _iAge = iCurrentYear - iYearOfBirth - 1;
+        iAge = iCurrentYear - iYearOfBirth - 1;
     } else if (iMonthOfBirth < iCurrentMonth) {
-        _iAge = iCurrentYear - iYearOfBirth;
+        iAge = iCurrentYear - iYearOfBirth;
     } else {
         if (iDayOfBirth > iCurrentDay) {
-            _iAge = iCurrentYear - iYearOfBirth - 1;
+            iAge = iCurrentYear - iYearOfBirth - 1;
         } else {
-            _iAge = iCurrentYear - iYearOfBirth;
+            iAge = iCurrentYear - iYearOfBirth;
         }
     }
 
-    return _iAge;
+    return iAge;
 }
 
 std::string UserData::getName() const { return _strName; }
@@ -77,7 +78,7 @@ std::string UserData::getDateOfBirth() const { return _strDateOfBirth; }
 
 void UserData::setDateOfBirth(std::string dateOfBirth) {
     _strDateOfBirth = dateOfBirth;
-    _iAge = userAge();
+    _iAge = userAge(dateOfBirth);
 }
 
 int UserData::getAge() { return _iAge; }
