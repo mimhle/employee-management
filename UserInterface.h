@@ -85,7 +85,7 @@ public:
     void print(const std::string& text, int color = DEFAULT_COLOR, bool newLine = true) const;
 
     /**
-     * @brief Print text to console
+     * @brief Print multiple lines of text to console
      *
      * @param items Items to print (vector of strings)
      * @param color Color of text
@@ -98,7 +98,7 @@ public:
     ) const;
 
     /**
-     * @brief Print text to console
+     * @brief Print a table to console
      *
      * @param items Items to print (vector of strings)
      * @param color Color of text
