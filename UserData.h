@@ -24,6 +24,14 @@ private:
     std::string _strPassword;
     std::string _strRole;
 
+    /**
+     * @brief Calculates the age of the user
+     * @details This function calculates the age of the user based on the date of birth.
+     * @param dateOfBirth The date of birth of the user (format: DD/MM/YYYY)
+     * @return The age of the user
+    */
+    int userAge(std::string dateOfBirth) const;
+
 public:
     /**
     * @brief Constructs a new User object with the provided data.
@@ -82,13 +90,6 @@ public:
     std::string getRole() const;
 
     // void setRole(std::string role);
-
-    /**
-     * @brief Calculates the age of the user
-     * @details This function calculates the age of the user based on the date of birth.
-     * @return void
-    */
-    int userAge(std::string dateOfBirth);
 
     /**
      * @brief Overloads the != operator

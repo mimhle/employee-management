@@ -41,7 +41,7 @@ UserData::~UserData() {
     _strRole = "";
 }
 
-int UserData::userAge(std::string dateOfBirth) {
+int UserData::userAge(std::string dateOfBirth) const {
     int iAge = 0;
     time_t currentTime = time(0);
 
