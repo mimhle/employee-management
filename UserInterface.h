@@ -156,7 +156,7 @@ public:
      * @param hideChar Character to replace input with (if hideInput is true)
      * @return User input
      */
-    std::string input(const std::string& message, int color, bool hideInput = false, char hideChar = '*') const;
+    std::string input(const std::string& message = "", int color = DEFAULT_COLOR, bool hideInput = false, char hideChar = '*') const;
 };
 
 #endif //CTDL_GK_USERINTERFACE_CPP
