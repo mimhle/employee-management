@@ -31,10 +31,10 @@ public:
 
     /**
      * @brief Remove user from list
-     * @param user User to remove
+     * @param userName Username of user to remove
      * @return True if success, false if failed
      */
-    bool removeUser(const UserData& user);
+    bool removeUser(const std::string& userName);
 
     /**
      * @brief Edit user in list

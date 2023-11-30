@@ -164,7 +164,7 @@ void LinkedList<DataType>::selectionSort() {
 }
 
 template<class DataType>
-DataType LinkedList<DataType>::operator[](int index) const {
+DataType& LinkedList<DataType>::operator[](int index) const {
     Node<DataType>* _p = _pHead;
     for (int i = 0; i < index; i++)
         _p = _p->_pNext;
