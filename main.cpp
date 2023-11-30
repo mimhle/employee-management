@@ -27,13 +27,13 @@ void adminMenuProcessing(char cOption);
 
 void employeeMenuProcessing(char cOption);
 
-UserData updateMenu(std::string userName);
+UserData updateMenu(const std::string& userName);
 
 UserData inputInformation();
 
-void displayUserInformation(const UserData user);
+void displayUserInformation(const UserData& user);
 
-void displayAllUserInformation(const std::vector<std::string> user);
+void displayAllUserInformation(const std::vector<std::string>& user);
 
 bool isValidDateFormat(const std::string& date);
 
@@ -237,7 +237,7 @@ void employeeMenuProcessing(char cOption) {
     employeeMenu();
 }
 
-UserData updateMenu(std::string userName) {
+UserData updateMenu(const std::string& userName) {
     g_ui.print(
         {
             "1. Update Name",
@@ -295,7 +295,7 @@ UserData inputInformation() {
     return UserData(strName, strBirth, strAddress, strPhoneNumber, strEmail, strUsername, strPass, "Employee");
 }
 
-void displayUserInformation(const UserData user) {
+void displayUserInformation(const UserData& user) {
     g_ui.print(
         {
             user.getName(),
@@ -308,7 +308,7 @@ void displayUserInformation(const UserData user) {
     );
 }
 
-void displayAllUserInformation(const std::vector<std::string> user) {
+void displayAllUserInformation(const std::vector<std::string>& user) {
     //g_ui.print(user, LIGHT_CYAN, true, '\n');
     for (auto& row: user) {
         g_ui.printCentered(row, BLUE);
