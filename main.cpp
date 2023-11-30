@@ -1,7 +1,4 @@
-#include <iostream>
 #include <string>
-#include <fstream>
-#include <sstream>
 #include "UserInterface.h"
 #include "CsvFile.h"
 #include "UserAction.h"
@@ -58,8 +55,7 @@ void adminMenu() {
     );
     g_ui.printCentered("", LIGHT_YELLOW, true, '-');
     g_ui.printCentered("", LIGHT_YELLOW, true, ' ');
-    std::string strOption = g_ui.input(">", LIGHT_GREEN, false);
-    adminMenuProcessing(strOption[0]);
+    adminMenuProcessing(g_ui.input(">", LIGHT_GREEN, false)[0]);
 }
 
 void employeeMenu() {
@@ -74,8 +70,7 @@ void employeeMenu() {
     );
     g_ui.printCentered("", LIGHT_YELLOW, true, '-');
     g_ui.printCentered("", LIGHT_YELLOW, true, ' ');
-    std::string strOption = g_ui.input(">", LIGHT_GREEN, false);
-    employeeMenuProcessing(strOption[0]);
+    employeeMenuProcessing(g_ui.input(">", LIGHT_GREEN, false)[0]);
 }
 
 void loginMenu() {
@@ -91,13 +86,13 @@ void loginMenu() {
         LIGHT_GREEN
     );
     g_ui.printLineBreak();
-    std::string StrOption = g_ui.input(">", BRIGHT_WHITE, false);
+    std::string strOption = g_ui.input(">", BRIGHT_WHITE, false);
     g_ui.clearScreen();
-    if (StrOption == "1") {
+    if (strOption == "1") {
         loginAdmin();
-    } else if (StrOption == "2") {
+    } else if (strOption == "2") {
         loginEmployee();
-    } else if (StrOption == "3") {
+    } else if (strOption == "3") {
         exit(0);
     } else {
         g_ui.printTitle("KHONG HOP LE", LIGHT_YELLOW, LIGHT_RED, true);
@@ -228,7 +223,6 @@ void employeeMenuProcessing(char cOption) {
 }
 
 UserData inputInformation() {
-
     std::string strName = g_ui.input("name: ");
     std::string strBirth = g_ui.input("birth: ");
     std::string strAddress = g_ui.input("address: ");
@@ -236,5 +230,14 @@ UserData inputInformation() {
     std::string strEmail = g_ui.input("email: ");
     std::string strUsername = g_ui.input("UserName: ");
     std::string strPass = "111111";
-    return UserData(strName, strBirth, strAddress, strPhoneNumber, strEmail, strUsername, strPass, "Employee");
+    return UserData(
+        strName,
+        strBirth,
+        strAddress,
+        strPhoneNumber,
+        strEmail,
+        strUsername,
+        strPass,
+        "Employee"
+    );
 }
