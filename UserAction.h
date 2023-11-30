@@ -31,13 +31,13 @@ public:
 	 * @brief Add a new user
 	 * @param user UserData object representing the user
 	 */
-	void addUser(const UserData& user);
+	bool addUser(const UserData& user);
 
 	/**
 	* @brief Delete a user.
 	* @param user UserData object representing the user to be deleted.
 	*/
-	void deleteUser(const UserData& user);
+	bool deleteUser(const std::string& userName);
 
 	/**
 	 * @brief Find a user by username
