@@ -34,7 +34,7 @@ public:
      * @param userName Username of user to remove
      * @return True if success, false if failed
      */
-    bool removeUser(const std::string userName);
+    bool removeUser(const UserData& user);
 
     /**
      * @brief Edit user in list

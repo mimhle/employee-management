@@ -19,10 +19,10 @@ bool Users::addUser(const UserData& user) {
     return true;
 }
 
-bool Users::removeUser(const std::string userName) {
+bool Users::removeUser(const UserData& user) {
     for (int i = 0; i < _list.getSize(); i++) {
-        if (_list[i].getUserName() == userName) {
-            _list.remove(_list[i]);
+        if (_list[i].getUserName() == user.getUserName()) {
+            _list.remove(user);
             return true;
         }
     }
