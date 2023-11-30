@@ -66,7 +66,6 @@ void adminMenu() {
 }
 
 void employeeMenu() {
-    g_ui.cBorder = '*';
     g_ui.printCentered("EMPLOYEE MENU", LIGHT_YELLOW, true, '-');
     g_ui.print(
         {
@@ -82,7 +81,6 @@ void employeeMenu() {
 }
 
 void loginMenu() {
-    g_ui.cBorder = '*';
     g_ui.printTitle("LOGIN", LIGHT_GREEN, BRIGHT_WHITE, true);
     g_ui.printLineBreak();
     g_ui.print(
@@ -116,7 +114,6 @@ void loginMenu() {
 
 void loginAdmin() {
     g_ui.clearScreen();
-    g_ui.cBorder = '*';
     g_ui.printTitle("ADMIN LOGIN", LIGHT_YELLOW, LIGHT_CYAN, true);
     g_ui.printLineBreak();
     g_userAccount = g_ui.input("Username: ", LIGHT_PURPLE, false);
@@ -143,7 +140,6 @@ void loginAdmin() {
 
 void loginEmployee() {
     g_ui.clearScreen();
-    g_ui.cBorder = '*';
     g_ui.printTitle("EMPLOYEE LOGIN", LIGHT_YELLOW, LIGHT_CYAN, true);
     g_ui.printLineBreak();
     g_userAccount = g_ui.input("Username: ", LIGHT_PURPLE, false);

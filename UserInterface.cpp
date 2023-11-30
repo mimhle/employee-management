@@ -114,6 +114,43 @@ void UserInterface::print(const std::vector<std::string>& items, int color, bool
     }
 }
 
+void UserInterface::printTable(const std::vector<std::vector<std::string>>& items, int color, bool newLine,
+                               char separator, bool center
+) const {
+    std::vector<int> vtMaxWidth;
+    for (const std::vector<std::string>& vtItem: items) {
+        for (int i = 0; i < vtItem.size(); i++) {
+            if (vtMaxWidth.size() <= i) {
+                vtMaxWidth.push_back(0);
+            }
+            if (vtItem[i].length() > vtMaxWidth[i]) {
+                vtMaxWidth[i] = (int) vtItem[i].length();
+            }
+        }
+    }
+
+    std::vector<std::string> vtStrItems;
+    for (const std::vector<std::string>& vtItem: items) {
+        std::string strItem;
+        for (const auto & s : vtItem) {
+            strItem += s + std::string(vtMaxWidth[&s - &vtItem[0]] - s.length(), ' ') + separator;
+        }
+        vtStrItems.push_back(strItem);
+    }
+
+    for (const std::string& strItem: vtStrItems) {
+        if (center) printCentered(strItem, color, false);
+        else print(strItem, color, false);
+
+        if (strItem != vtStrItems.back() && vtStrItems.size() > 1) {
+            printLineBreak();
+        }
+    }
+    if (newLine) {
+        printLineBreak();
+    }
+}
+
 void UserInterface::printCentered(const std::string& text, int color, bool newLine, char padding, char cap,
                                   int capColor
 ) const {
@@ -170,7 +207,7 @@ std::string UserInterface::input(const std::string& message, int color, bool hid
 
     std::string strInput;
     char c;
-    while ((int)(c = _getch()) != 13) { // enter
+    while ((int) (c = _getch()) != 13) { // enter
         if (c == 8) { // backspace
             if (!strInput.empty()) {
                 printf("\b \b");

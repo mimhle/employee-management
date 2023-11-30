@@ -98,6 +98,20 @@ public:
     ) const;
 
     /**
+     * @brief Print text to console
+     *
+     * @param items Items to print (vector of strings)
+     * @param color Color of text
+     * @param newLine Print new line after text
+     * @param separator Separator character
+     * @param center Center text
+     * @return void
+     */
+    void printTable(const std::vector<std::vector<std::string>>& items, int color = DEFAULT_COLOR, bool newLine = true,
+                    char separator = ' ', bool center = false
+    ) const;
+
+    /**
      * @brief Print text to console, centered
      *
      * @param text Text to print
@@ -156,7 +170,9 @@ public:
      * @param hideChar Character to replace input with (if hideInput is true)
      * @return User input
      */
-    std::string input(const std::string& message = "", int color = DEFAULT_COLOR, bool hideInput = false, char hideChar = '*') const;
+    std::string input(const std::string& message = "", int color = DEFAULT_COLOR, bool hideInput = false,
+                      char hideChar = '*'
+    ) const;
 };
 
 #endif //CTDL_GK_USERINTERFACE_CPP
