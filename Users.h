@@ -31,7 +31,7 @@ public:
 
     /**
      * @brief Remove user from list
-     * @param userName Username of user to remove
+     * @param user User to remove
      * @return True if success, false if failed
      */
     bool removeUser(const UserData& user);
