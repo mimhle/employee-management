@@ -8,7 +8,7 @@ UserData::UserData(std::string name, std::string dateOfBirth, std::string addres
 ) {
     _strName = name;
     _strDateOfBirth = dateOfBirth;
-    _iAge = userAge();
+    _iAge = 0;
     _strAddress = address;
     _strPhoneNumber = phoneNumber;
     _strEmail = email;
