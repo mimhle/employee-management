@@ -39,13 +39,13 @@ bool isValidDateFormat(const std::string& date);
 
 void changePassword();
 
+
 int main() {
     g_ui.cBorder = '*';
     loginMenu();
     return 0;
 }
 
-// TODO: Change all recursive functions to using loop
 
 void adminMenu() {
     g_ui.printCentered("MENU", LIGHT_YELLOW, true, '-');
