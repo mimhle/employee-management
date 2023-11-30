@@ -1,4 +1,6 @@
 #include "UserAction.h"
+
+#include <utility>
 #include "CsvFile.h"
 #include "Users.h"
 #include "UserData.h"
@@ -14,7 +16,7 @@ UserAction::UserAction() {
 }
 
 void UserAction::setRole(std::string role) {
-    _strRole = role;
+    _strRole = std::move(role);
     _usersList.~Users();
     _usersList.importUserData();
 }
@@ -62,7 +64,7 @@ bool UserAction::deleteUser(const std::string& userName) {
 }
 
 UserData UserAction::findUser(const std::string& userName) {
-    if (!(_usersList.searchUser(userName) != -1)) return {};
+    if (_usersList.searchUser(userName) == -1) return {};
     std::vector<UserData> vtUsersDataList = _usersList.listUsers();
     int iUserNum = _usersList.searchUser(userName);
     return vtUsersDataList[iUserNum];
