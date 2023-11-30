@@ -207,7 +207,7 @@ std::string UserInterface::input(const std::string& message, int color, bool hid
 
     std::string strInput;
     char c;
-    while ((int) (c = _getch()) != 13) { // enter
+    while ((int) (c = (char) _getch()) != 13) { // enter
         if (c == 8) { // backspace
             if (!strInput.empty()) {
                 printf("\b \b");
