@@ -24,39 +24,39 @@ private:
 
 public:
 
-	/**
-	 * @brief Constructor
-	 * Creates an empty UserAction instance with default empty role.
-	 * @param role User role to assign ("employee" or "admin")
-	 */
-	explicit UserAction(std::string role = "");
+    /**
+     * @brief Constructor
+     * Creates an empty UserAction instance with default empty role.
+     * @param role User role to assign ("employee" or "admin")
+     */
+    explicit UserAction(std::string role = "");
 
     /**
      * @brief Default constructor
      */
     UserAction();
 
-	/**
-	 * @brief Set user role
-	 * @param role User role to assign ("employee" or "admin")
-	 */
-	void setRole(std::string role);
+    /**
+     * @brief Set user role
+     * @param role User role to assign ("employee" or "admin")
+     */
+    void setRole(std::string role);
 
-	/**
-	 * @brief Add new user record
-	 * Adds a provided UserData object as a new user record in the user list.
-	 * Accessible only if the instance role is "admin".
-	 * @param user UserData object with new user data
-	 * @return true if the user was added successfully, false otherwise
-	 */
-	bool addUser(const UserData& user);
+    /**
+     * @brief Add new user record
+     * Adds a provided UserData object as a new user record in the user list.
+     * Accessible only if the instance role is "admin".
+     * @param user UserData object with new user data
+     * @return true if the user was added successfully, false otherwise
+     */
+    bool addUser(const UserData& user);
 
-	/**
-	 * @brief Delete a user
-	 * @param userName Username of the user to be deleted
-	 * @return true if the user was deleted successfully, false otherwise
-	 */
-	bool deleteUser(const std::string& userName);
+    /**
+     * @brief Delete a user
+     * @param userName Username of the user to be deleted
+     * @return true if the user was deleted successfully, false otherwise
+     */
+    bool deleteUser(const std::string& userName);
 
     /**
      * @brief Find a user by username
@@ -65,13 +65,13 @@ public:
      */
     UserData findUser(const std::string& userName);
 
-	/**
-	 * @brief Edit user information
-	 * @param userName Username of the user to edit
-	 * @param editedUser UserData object representing the edited user information
-	 * @return true if the user information was edited successfully, false otherwise
-	 */
-	bool updateUserInformation(const std::string& userName, const UserData& user);
+    /**
+     * @brief Edit user information
+     * @param userName Username of the user to edit
+     * @param editedUser UserData object representing the edited user information
+     * @return true if the user information was edited successfully, false otherwise
+     */
+    bool updateUserInformation(const std::string& userName, const UserData& user);
 
     /**
      * @brief Display user information

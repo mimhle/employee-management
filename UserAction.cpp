@@ -5,7 +5,7 @@
 
 UserAction::UserAction(std::string role) {
     _strRole = std::move(role);
-    _usersList.importUserData(); 
+    _usersList.importUserData();
 }
 
 UserAction::UserAction() {
@@ -62,14 +62,14 @@ bool UserAction::deleteUser(const std::string& userName) {
 }
 
 UserData UserAction::findUser(const std::string& userName) {
-    if (!( _usersList.searchUser(userName)!=-1)) return {};
+    if (!(_usersList.searchUser(userName) != -1)) return {};
     std::vector<UserData> vtUsersDataList = _usersList.listUsers();
     int iUserNum = _usersList.searchUser(userName);
     return vtUsersDataList[iUserNum];
 }
 
 bool UserAction::updateUserInformation(const std::string& userName, const UserData& user) {
-    if(!(_usersList.editUser(userName,user))) return false;
+    if (!(_usersList.editUser(userName, user))) return false;
     CsvFile csvFileEmployee("Employees.txt");
     std::vector<std::vector<std::string>> vtEmployeeAccounts = csvFileEmployee.read();
     int iLine = -1;
@@ -136,12 +136,11 @@ bool UserAction::authenticateUser(const std::string& userName, const std::string
         for (int i = 1; i < vtAccountsUser.size(); i++) {
             if (vtAccountsUser[i][0] == userName && vtAccountsUser[i][1] == password) return true;
         }
-    }
-    else {
+    } else {
         CsvFile csvFileEmployee("Employees.txt");
         vtAccountsUser = csvFileEmployee.read();
         for (int i = 1; i < vtAccountsUser.size(); i++) {
-           if (vtAccountsUser[i][0] == userName && vtAccountsUser[i][1] == password) return true;
+            if (vtAccountsUser[i][0] == userName && vtAccountsUser[i][1] == password) return true;
         }
     }
     return false;

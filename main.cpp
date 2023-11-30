@@ -26,11 +26,17 @@ void loginEmployee();
 void adminMenuProcessing(char cOption);
 
 void employeeMenuProcessing(char cOption);
+
 UserData updateMenu(std::string userName);
+
 UserData inputInformation();
+
 void displayUserInformation(const UserData user);
+
 void displayAllUserInformation(const std::vector<std::string> user);
+
 bool isValidDateFormat(const std::string& date);
+
 void changePassword();
 
 int main() {
@@ -164,45 +170,41 @@ void loginEmployee() {
 void adminMenuProcessing(char cOption) {
     g_ui.clearScreen();
     std::string username;
-    switch (cOption)
-    {
-    case '1':
-        if(g_user.addUser(inputInformation())){
-            g_ui.clearScreen(); 
-            g_ui.printTitle("Successful", LIGHT_GREEN, GREEN);
-        }
-        else 
-            g_ui.printTitle("Unsuccessful", LIGHT_YELLOW, YELLOW);
-        break;
-    case '2':
-        if(g_user.deleteUser(g_ui.input("Enter username:", LIGHT_CYAN, false))){
-            g_ui.clearScreen(); 
-            g_ui.printTitle("Successful", LIGHT_GREEN, GREEN);
-        }
-        else
-            g_ui.printTitle("Unsuccessful", LIGHT_YELLOW, YELLOW);
-        break;
-    case '3':
-        displayUserInformation(g_user.findUser(g_ui.input("Enter username:", LIGHT_CYAN, false)));
-        break;
-    case '4':
-        username = g_ui.input("Enter username:", LIGHT_CYAN, false);
-        if(g_user.updateUserInformation(username ,updateMenu(username))){
-            g_ui.clearScreen(); 
-            g_ui.printTitle("Successful", LIGHT_GREEN, GREEN);
-        }
-        else 
-            g_ui.printTitle("Unsuccessful", LIGHT_YELLOW, YELLOW);
-        break;
-    case '5':
-        displayAllUserInformation(g_user.getAllUsersInformation());
-        break;
-    case '6':
-        loginMenu();
-        break;
-    default:
-        g_ui.printTitle("INVALID CHOICE", LIGHT_YELLOW, LIGHT_RED, true);
-        break;
+    switch (cOption) {
+        case '1':
+            if (g_user.addUser(inputInformation())) {
+                g_ui.clearScreen();
+                g_ui.printTitle("Successful", LIGHT_GREEN, GREEN);
+            } else
+                g_ui.printTitle("Unsuccessful", LIGHT_YELLOW, YELLOW);
+            break;
+        case '2':
+            if (g_user.deleteUser(g_ui.input("Enter username:", LIGHT_CYAN, false))) {
+                g_ui.clearScreen();
+                g_ui.printTitle("Successful", LIGHT_GREEN, GREEN);
+            } else
+                g_ui.printTitle("Unsuccessful", LIGHT_YELLOW, YELLOW);
+            break;
+        case '3':
+            displayUserInformation(g_user.findUser(g_ui.input("Enter username:", LIGHT_CYAN, false)));
+            break;
+        case '4':
+            username = g_ui.input("Enter username:", LIGHT_CYAN, false);
+            if (g_user.updateUserInformation(username, updateMenu(username))) {
+                g_ui.clearScreen();
+                g_ui.printTitle("Successful", LIGHT_GREEN, GREEN);
+            } else
+                g_ui.printTitle("Unsuccessful", LIGHT_YELLOW, YELLOW);
+            break;
+        case '5':
+            displayAllUserInformation(g_user.getAllUsersInformation());
+            break;
+        case '6':
+            loginMenu();
+            break;
+        default:
+            g_ui.printTitle("INVALID CHOICE", LIGHT_YELLOW, LIGHT_RED, true);
+            break;
     }
     g_ui.input("Return");
     g_ui.clearScreen();
@@ -211,32 +213,31 @@ void adminMenuProcessing(char cOption) {
 
 void employeeMenuProcessing(char cOption) {
     g_ui.clearScreen();
-    switch (cOption)
-    {
-    case '1':
-        g_ui.print(
-            {
-                g_user.getUserInformation(g_userAccount)
-            },
-            LIGHT_YELLOW
-        );
-        break;
-    case '2':
-        changePassword();
-        break;
-    case '3':
-        loginMenu();
-        break;
-    default:
-        g_ui.printTitle("INVALID CHOICE", LIGHT_YELLOW, LIGHT_RED, true);
-        break;
+    switch (cOption) {
+        case '1':
+            g_ui.print(
+                {
+                    g_user.getUserInformation(g_userAccount)
+                },
+                LIGHT_YELLOW
+            );
+            break;
+        case '2':
+            changePassword();
+            break;
+        case '3':
+            loginMenu();
+            break;
+        default:
+            g_ui.printTitle("INVALID CHOICE", LIGHT_YELLOW, LIGHT_RED, true);
+            break;
     }
     g_ui.input("Return");
     g_ui.clearScreen();
     employeeMenu();
 }
 
-UserData updateMenu(std::string userName){
+UserData updateMenu(std::string userName) {
     g_ui.print(
         {
             "1. Update Name",
@@ -253,33 +254,28 @@ UserData updateMenu(std::string userName){
     if (strChange == "1") {
         user.setName(strChangeStuff);
         return user;
-    }
-    else if (strChange == "2") {
+    } else if (strChange == "2") {
         user.setDateOfBirth(strChangeStuff);
         return user;
-    }
-    else if (strChange == "3") {
+    } else if (strChange == "3") {
         user.setAddress(strChangeStuff);
         return user;
-    }
-    else if(strChange == "4"){
+    } else if (strChange == "4") {
         user.setPhoneNumber(strChangeStuff);
         return user;
-    }
-    else if (strChange == "5") {
+    } else if (strChange == "5") {
         user.setEmail(strChangeStuff);
         return user;
-    }
-    else{
+    } else {
         updateMenu(userName);
     }
     return user;
 }
 
-UserData inputInformation(){
+UserData inputInformation() {
     std::string strName;
     std::string strBirth;
-    
+
     do {
         strName = g_ui.input("Enter name: ");
         strBirth = g_ui.input("Enter Date of birth(dd/mm/yy): ");
@@ -299,7 +295,7 @@ UserData inputInformation(){
     return UserData(strName, strBirth, strAddress, strPhoneNumber, strEmail, strUsername, strPass, "Employee");
 }
 
-void displayUserInformation(const UserData user){
+void displayUserInformation(const UserData user) {
     g_ui.print(
         {
             user.getName(),
@@ -312,37 +308,35 @@ void displayUserInformation(const UserData user){
     );
 }
 
-void displayAllUserInformation(const std::vector<std::string> user){
+void displayAllUserInformation(const std::vector<std::string> user) {
     //g_ui.print(user, LIGHT_CYAN, true, '\n');
-    for(auto& row : user){
-        g_ui.printCentered(row , BLUE);
+    for (auto& row: user) {
+        g_ui.printCentered(row, BLUE);
         g_ui.printLineBreak();
     }
 }
 
-void changePassword(){
-    std::string strNewPass1 = g_ui.input("Enter a new password: ",LIGHT_PURPLE, true);
-    std::string strNewPass2 = g_ui.input("Confirm the new password again: ",LIGHT_PURPLE, true);
+void changePassword() {
+    std::string strNewPass1 = g_ui.input("Enter a new password: ", LIGHT_PURPLE, true);
+    std::string strNewPass2 = g_ui.input("Confirm the new password again: ", LIGHT_PURPLE, true);
 
-    if (g_user.authenticateUser(g_userAccount, g_ui.input("Enter current password: ",LIGHT_CYAN, true))) {
+    if (g_user.authenticateUser(g_userAccount, g_ui.input("Enter current password: ", LIGHT_CYAN, true))) {
         g_maxLoginAttempts = 0;
         g_ui.clearScreen();
-        if(strNewPass1 == strNewPass2) {
+        if (strNewPass1 == strNewPass2) {
             g_user.setRole("Admin");
             UserData user = g_user.findUser(g_userAccount);
             user.setPassword(strNewPass1);
-            if(g_user.updateUserInformation(g_userAccount,user)){
+            if (g_user.updateUserInformation(g_userAccount, user)) {
                 g_ui.printTitle("Successful", LIGHT_GREEN, GREEN);
                 g_ui.clearScreen();
                 loginMenu();
-            }
-            else {
+            } else {
                 g_ui.printTitle("Unsuccessful", RED, RED);
                 employeeMenu();
 
             }
-        }
-        else{
+        } else {
             g_ui.clearScreen();
             g_ui.printTitle("The new passwords do not match. Please try again.", LIGHT_CYAN, LIGHT_RED);
         }
@@ -375,14 +369,14 @@ bool isValidDateFormat(const std::string& date) {
 
     if (iMonth == 2) {
         if (iYear % 4 == 0 && (iYear % 100 != 0 || iYear % 400 == 0)) {
-            if (iDay < 1 || iDay > 29) return false; 
+            if (iDay < 1 || iDay > 29) return false;
         } else {
             if (iDay < 1 || iDay > 28) return false;
         }
     } else if (iMonth == 4 || iMonth == 6 || iMonth == 9 || iMonth == 11) {
         if (iDay < 1 || iDay > 30) return false;
     } else {
-        if (iDay < 1 || iDay > 31) return false; 
+        if (iDay < 1 || iDay > 31) return false;
     }
     return true;
 }
