@@ -19,8 +19,8 @@
  */
 class UserAction {
 private:
-	Users _usersList;
-	std::string _strRole;
+    Users _usersList;
+    std::string _strRole;
 
 public:
 
@@ -31,10 +31,10 @@ public:
 	 */
 	explicit UserAction(std::string role = "");
 
-	/**
-	 * @brief Default constructor
-	 */
-	UserAction();
+    /**
+     * @brief Default constructor
+     */
+    UserAction();
 
 	/**
 	 * @brief Set user role
@@ -58,12 +58,12 @@ public:
 	 */
 	bool deleteUser(const std::string& userName);
 
-	/**
-	 * @brief Find a user by username
-	 * @param userName Username of the user to find
-	 * @return UserData object representing the found user
-	 */
-	UserData findUser(const std::string& userName);
+    /**
+     * @brief Find a user by username
+     * @param userName Username of the user to find
+     * @return UserData object representing the found user
+     */
+    UserData findUser(const std::string& userName);
 
 	/**
 	 * @brief Edit user information
@@ -73,26 +73,26 @@ public:
 	 */
 	bool updateUserInformation(const std::string& userName, const UserData& user);
 
-	/**
-	 * @brief Display user information
-	 * @param userName Username of the user to display
-	 * @return String containing user information
-	 */
-	std::string getUserInformation(const std::string& UserName);
+    /**
+     * @brief Display user information
+     * @param userName Username of the user to display
+     * @return String containing user information
+     */
+    std::string getUserInformation(const std::string& UserName);
 
-	/**
-	 * @brief Display all employees information (for admin role)
-	 * @return Vector of strings containing information of all users
-	 */
-	std::vector<std::string> getAllUsersInformation();
+    /**
+     * @brief Display all employees information (for admin role)
+     * @return Vector of strings containing information of all users
+     */
+    std::vector<std::string> getAllUsersInformation();
 
-	/**
-	 * @brief Authenticate user based on username and password
-	 * @param userName Username
-	 * @param password Password
-	 * @return True if authentication succeeds, false otherwise
-	 */
-	bool authenticateUser(const std::string& userName, const std::string& password);
+    /**
+     * @brief Authenticate user based on username and password
+     * @param userName Username
+     * @param password Password
+     * @return True if authentication succeeds, false otherwise
+     */
+    bool authenticateUser(const std::string& userName, const std::string& password);
 };
 
 

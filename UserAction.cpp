@@ -27,8 +27,8 @@ bool UserAction::addUser(const UserData& user) {
             {user.getUserName() + "," + user.getPassword()}
         }
     );
-    CsvFile newUser(user.getUserName() + ".txt");
-    newUser.write(
+    CsvFile csvFileNewUser(user.getUserName() + ".txt");
+    csvFileNewUser.write(
         {
             {user.getName()},
             {user.getDateOfBirth()},
@@ -64,8 +64,8 @@ bool UserAction::deleteUser(const std::string& userName) {
 UserData UserAction::findUser(const std::string& userName) {
     if (!( _usersList.searchUser(userName)!=-1)) return {};
     std::vector<UserData> vtUsersDataList = _usersList.listUsers();
-    int userNum = _usersList.searchUser(userName);
-    return vtUsersDataList[userNum];
+    int iUserNum = _usersList.searchUser(userName);
+    return vtUsersDataList[iUserNum];
 }
 
 bool UserAction::updateUserInformation(const std::string& userName, const UserData& user) {
@@ -117,7 +117,7 @@ std::vector<std::string> UserAction::getAllUsersInformation() {
     if (_strRole != "Admin") return {"None user were found"};
     std::vector<std::string> strUsers;
     std::vector<UserData> vtUsersDataList = _usersList.listUsers();
-    for (auto& data: vtUsersDataList) {
+    for (const auto& data: vtUsersDataList) {
         if (data.getRole() == "Employee") {
             strUsers.push_back(
                 data.getName() + " " + data.getDateOfBirth() + " " + data.getAddress() + " " + data.getPhoneNumber() +

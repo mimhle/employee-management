@@ -1,8 +1,4 @@
-#include <iostream>
-#include <vector>
 #include <string>
-#include <fstream>
-#include <sstream>
 #include "UserInterface.h"
 #include "CsvFile.h"
 #include "UserAction.h"
@@ -10,18 +6,25 @@
 
 int g_maxLoginAttempts = 0;
 
-std::string g_userAccont;
+std::string g_userAccount;
 std::string g_userPassword;
 UserAction g_user("Admin");
 
 UserInterface g_ui;
 
+
 void adminMenu();
+
 void employeeMenu();
+
 void loginMenu();
+
 void loginAdmin();
+
 void loginEmployee();
+
 void adminMenuProcessing(char cOption);
+
 void employeeMenuProcessing(char cOption);
 UserData updateMenu(std::string userName);
 UserData inputInformation();
@@ -30,9 +33,15 @@ void displayAllUserInformation(const std::vector<std::string> user);
 bool isValidDateFormat(const std::string& date);
 void changePassword();
 
+int main() {
+    g_ui.cBorder = '*';
+    loginMenu();
+    return 0;
+}
+
+// TODO: Change all recursive functions to using loop
 
 void adminMenu() {
-    g_ui.cBorder = '*';
     g_ui.printCentered("MENU", LIGHT_YELLOW, true, '-');
     g_ui.print(
         {
@@ -47,8 +56,7 @@ void adminMenu() {
     );
     g_ui.printCentered("", LIGHT_YELLOW, true, '-');
     g_ui.printCentered("", LIGHT_YELLOW, true, ' ');
-    std::string strOption = g_ui.input(">", LIGHT_GREEN, false);
-    adminMenuProcessing(strOption[0]);
+    adminMenuProcessing(g_ui.input(">", LIGHT_GREEN, false)[0]);
 }
 
 void employeeMenu() {
@@ -64,8 +72,7 @@ void employeeMenu() {
     );
     g_ui.printCentered("", LIGHT_YELLOW, true, '-');
     g_ui.printCentered("", LIGHT_YELLOW, true, ' ');
-    std::string strOption = g_ui.input(">", LIGHT_GREEN, false);
-    employeeMenuProcessing(strOption[0]);
+    employeeMenuProcessing(g_ui.input(">", LIGHT_GREEN, false)[0]);
 }
 
 void loginMenu() {
@@ -82,15 +89,15 @@ void loginMenu() {
         LIGHT_GREEN
     );
     g_ui.printLineBreak();
-    std::string StrOption = g_ui.input(">", BRIGHT_WHITE, false);
+    std::string strOption = g_ui.input(">", BRIGHT_WHITE, false);
     g_ui.clearScreen();
-    if (StrOption == "1") {
+    if (strOption == "1") {
         g_user.setRole("Admin");
         loginAdmin();
-    } else if (StrOption == "2") {
+    } else if (strOption == "2") {
         g_user.setRole("Employee");
         loginEmployee();
-    } else if (StrOption == "3") {
+    } else if (strOption == "3") {
         exit(0);
     } else {
         g_ui.printTitle("INVALID CHOICE", LIGHT_YELLOW, LIGHT_RED, true);
@@ -106,9 +113,9 @@ void loginAdmin() {
     g_ui.cBorder = '*';
     g_ui.printTitle("ADMIN LOGIN", LIGHT_YELLOW, LIGHT_CYAN, true);
     g_ui.printLineBreak();
-    g_userAccont = g_ui.input("Username: ", LIGHT_PURPLE, false);
+    g_userAccount = g_ui.input("Username: ", LIGHT_PURPLE, false);
     g_userPassword = g_ui.input("Password (default: 123): ", LIGHT_PURPLE, true);
-    if (g_user.authenticateUser(g_userAccont, g_userPassword)) {
+    if (g_user.authenticateUser(g_userAccount, g_userPassword)) {
         g_maxLoginAttempts = 0;
         g_ui.clearScreen();
         adminMenu();
@@ -133,9 +140,9 @@ void loginEmployee() {
     g_ui.cBorder = '*';
     g_ui.printTitle("EMPLOYEE LOGIN", LIGHT_YELLOW, LIGHT_CYAN, true);
     g_ui.printLineBreak();
-    g_userAccont = g_ui.input("Username: ", LIGHT_PURPLE, false);
+    g_userAccount = g_ui.input("Username: ", LIGHT_PURPLE, false);
     g_userPassword = g_ui.input("Password (default: 123): ", LIGHT_PURPLE, true);
-    if (g_user.authenticateUser(g_userAccont, g_userPassword)) {
+    if (g_user.authenticateUser(g_userAccount, g_userPassword)) {
         g_ui.clearScreen();
         employeeMenu();
     } else {
@@ -209,7 +216,7 @@ void employeeMenuProcessing(char cOption) {
     case '1':
         g_ui.print(
             {
-                g_user.getUserInformation(g_userAccont)
+                g_user.getUserInformation(g_userAccount)
             },
             LIGHT_YELLOW
         );
@@ -317,14 +324,14 @@ void changePassword(){
     std::string strNewPass1 = g_ui.input("Enter a new password: ",LIGHT_PURPLE, true);
     std::string strNewPass2 = g_ui.input("Confirm the new password again: ",LIGHT_PURPLE, true);
 
-    if (g_user.authenticateUser(g_userAccont, g_ui.input("Enter current password: ",LIGHT_CYAN, true))) {
+    if (g_user.authenticateUser(g_userAccount, g_ui.input("Enter current password: ",LIGHT_CYAN, true))) {
         g_maxLoginAttempts = 0;
         g_ui.clearScreen();
         if(strNewPass1 == strNewPass2) {
             g_user.setRole("Admin");
-            UserData user = g_user.findUser(g_userAccont);
+            UserData user = g_user.findUser(g_userAccount);
             user.setPassword(strNewPass1);
-            if(g_user.updateUserInformation(g_userAccont,user)){
+            if(g_user.updateUserInformation(g_userAccount,user)){
                 g_ui.printTitle("Successful", LIGHT_GREEN, GREEN);
                 g_ui.clearScreen();
                 loginMenu();
@@ -378,15 +385,4 @@ bool isValidDateFormat(const std::string& date) {
         if (iDay < 1 || iDay > 31) return false; 
     }
     return true;
-}
-
-void processing() {
-    g_ui.cBorder = '*';
-    loginMenu();
-}
-
-int main() {
-    g_ui.cBorder = '*';
-    processing();
-    return 0;
 }
