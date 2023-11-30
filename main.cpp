@@ -31,6 +31,18 @@ void employeeMenuProcessing(char cOption);
 
 UserData inputInformation();
 
+void processing() {
+    loginMenu();
+}
+
+int main() {
+    g_ui.cBorder = '*';
+    processing();
+    return 0;
+}
+
+// TODO: Change all recursive functions to using loop
+
 void adminMenu() {
     g_ui.printCentered("MENU", LIGHT_YELLOW, true, '-');
     g_ui.print(
@@ -101,7 +113,7 @@ void loginAdmin() {
     g_ui.printTitle("DANG NHAP ADMIN", LIGHT_YELLOW, LIGHT_CYAN, true);
     g_ui.printLineBreak();
     g_userAccount = g_ui.input("Username: ", LIGHT_PURPLE, false);
-    g_userPassword = g_ui.input("Password (default: 123): ", LIGHT_PURPLE, true);
+    g_userPassword = g_ui.input("Password (default: 111111): ", LIGHT_PURPLE, true);
     UserAction user("Admin");
     if (user.authenticateUser(g_userAccount, g_userPassword)) {
         g_ui.clearScreen();
@@ -225,14 +237,4 @@ UserData inputInformation() {
     std::string strUsername = g_ui.input("UserName: ");
     std::string strPass = "111111";
     return UserData(strName, strBirth, strAddress, strPhoneNumber, strEmail, strUsername, strPass, "Employee");
-}
-
-void processing() {
-    loginMenu();
-}
-
-int main() {
-    g_ui.cBorder = '*';
-    processing();
-    return 0;
 }
