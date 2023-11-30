@@ -9,22 +9,29 @@
 
 int g_maxLoginAttempts = 0;
 
-std::string g_userAccont;
+std::string g_userAccount;
 std::string g_userPassword;
 
 UserInterface g_ui;
 
+
 void adminMenu();
+
 void employeeMenu();
+
 void loginMenu();
+
 void loginAdmin();
+
 void loginEmployee();
+
 void adminMenuProcessing(char cOption);
+
 void employeeMenuProcessing(char cOption);
+
 UserData inputInformation();
 
 void adminMenu() {
-    g_ui.cBorder = '*';
     g_ui.printCentered("MENU", LIGHT_YELLOW, true, '-');
     g_ui.print(
         {
@@ -44,7 +51,6 @@ void adminMenu() {
 }
 
 void employeeMenu() {
-    g_ui.cBorder = '*';
     g_ui.printCentered("MENU EMPLOYEE", LIGHT_YELLOW, true, '-');
     g_ui.print(
         {
@@ -61,7 +67,6 @@ void employeeMenu() {
 }
 
 void loginMenu() {
-    g_ui.cBorder = '*';
     g_ui.printTitle("DANG NHAP", LIGHT_GREEN, BRIGHT_WHITE, true);
     g_ui.printLineBreak();
     g_ui.print(
@@ -93,13 +98,12 @@ void loginMenu() {
 
 void loginAdmin() {
     g_ui.clearScreen();
-    g_ui.cBorder = '*';
     g_ui.printTitle("DANG NHAP ADMIN", LIGHT_YELLOW, LIGHT_CYAN, true);
     g_ui.printLineBreak();
-    g_userAccont = g_ui.input("Username: ", LIGHT_PURPLE, false);
+    g_userAccount = g_ui.input("Username: ", LIGHT_PURPLE, false);
     g_userPassword = g_ui.input("Password (default: 123): ", LIGHT_PURPLE, true);
     UserAction user("Admin");
-    if (user.authenticateUser(g_userAccont, g_userPassword)) {
+    if (user.authenticateUser(g_userAccount, g_userPassword)) {
         g_ui.clearScreen();
         adminMenu();
     } else {
@@ -120,13 +124,12 @@ void loginAdmin() {
 
 void loginEmployee() {
     g_ui.clearScreen();
-    g_ui.cBorder = '*';
     g_ui.printTitle("DANG NHAP EMPLOYEE", LIGHT_YELLOW, LIGHT_CYAN, true);
     g_ui.printLineBreak();
-    g_userAccont = g_ui.input("Username: ", LIGHT_PURPLE, false);
+    g_userAccount = g_ui.input("Username: ", LIGHT_PURPLE, false);
     g_userPassword = g_ui.input("Password (default: 123): ", LIGHT_PURPLE, true);
     UserAction user("Employee");
-    if (user.authenticateUser(g_userAccont, g_userPassword)) {
+    if (user.authenticateUser(g_userAccount, g_userPassword)) {
         g_ui.clearScreen();
         employeeMenu();
     } else {
@@ -148,36 +151,35 @@ void loginEmployee() {
 void adminMenuProcessing(char cOption) {
     UserAction user("Admin");
     g_ui.clearScreen();
-    switch (cOption)
-    {
-    case '1':
-        if(user.addUser(inputInformation())) 
-            g_ui.printTitle("Thanh cong", LIGHT_GREEN, GREEN);
-        else 
-            g_ui.printTitle("Khong thanh cong", LIGHT_YELLOW, YELLOW);
-        break;
-    case '2':
-        if(user.deleteUser(g_ui.input("Nhap username:", LIGHT_CYAN, false)))
-            g_ui.printTitle("Thanh cong", LIGHT_GREEN, GREEN);
-        else
-            g_ui.printTitle("Khong thanh cong", LIGHT_YELLOW, YELLOW);
-        break;
-    case '3':
-        user.findUser(g_ui.input("Nhap username:", LIGHT_CYAN, false)); // retrun userdata
-        break;
-    case '4':
-        // user.updateUserInformation();
-        break;
-    case '5':
-        user.getAllUsersInformation(); // return vector <userdata>
-        break;
-    case '6':
-        loginMenu();
-        break;
-    default:
-        g_ui.printTitle("KHONG HOP LE", LIGHT_YELLOW, LIGHT_RED, true);
-        g_ui.printCentered("Quay lai", LIGHT_PURPLE, false);
-        break;
+    switch (cOption) {
+        case '1':
+            if (user.addUser(inputInformation()))
+                g_ui.printTitle("Thanh cong", LIGHT_GREEN, GREEN);
+            else
+                g_ui.printTitle("Khong thanh cong", LIGHT_YELLOW, YELLOW);
+            break;
+        case '2':
+            if (user.deleteUser(g_ui.input("Nhap username:", LIGHT_CYAN, false)))
+                g_ui.printTitle("Thanh cong", LIGHT_GREEN, GREEN);
+            else
+                g_ui.printTitle("Khong thanh cong", LIGHT_YELLOW, YELLOW);
+            break;
+        case '3':
+            user.findUser(g_ui.input("Nhap username:", LIGHT_CYAN, false)); // retrun userdata
+            break;
+        case '4':
+            // user.updateUserInformation();
+            break;
+        case '5':
+            user.getAllUsersInformation(); // return vector <userdata>
+            break;
+        case '6':
+            loginMenu();
+            break;
+        default:
+            g_ui.printTitle("KHONG HOP LE", LIGHT_YELLOW, LIGHT_RED, true);
+            g_ui.printCentered("Quay lai", LIGHT_PURPLE, false);
+            break;
     }
     g_ui.input();
     g_ui.clearScreen();
@@ -187,35 +189,34 @@ void adminMenuProcessing(char cOption) {
 void employeeMenuProcessing(char cOption) {
     UserAction user("Employee");
     g_ui.clearScreen();
-    switch (cOption)
-    {
-    case '1':
-        g_ui.print(
-            {
-                user.getUserInformation(g_userAccont)
-            },
-            LIGHT_YELLOW
-        );
-        g_ui.input();
-        break;
-    case '2':
-        // user.updateUserInformation(g_userAccont, user.findUser(g_userAccont));
-        break;
-    case '3':
-        loginMenu();
-        break;
-    default:
-        g_ui.printTitle("KHONG HOP LE", LIGHT_YELLOW, LIGHT_RED, true);
-        g_ui.printCentered("Quay lai", LIGHT_PURPLE, false);
-        g_ui.input();
-        break;
+    switch (cOption) {
+        case '1':
+            g_ui.print(
+                {
+                    user.getUserInformation(g_userAccount)
+                },
+                LIGHT_YELLOW
+            );
+            g_ui.input();
+            break;
+        case '2':
+            // user.updateUserInformation(g_userAccont, user.findUser(g_userAccont));
+            break;
+        case '3':
+            loginMenu();
+            break;
+        default:
+            g_ui.printTitle("KHONG HOP LE", LIGHT_YELLOW, LIGHT_RED, true);
+            g_ui.printCentered("Quay lai", LIGHT_PURPLE, false);
+            g_ui.input();
+            break;
     }
     g_ui.clearScreen();
     employeeMenu();
 }
 
-UserData inputInformation(){
-    
+UserData inputInformation() {
+
     std::string strName = g_ui.input("name: ");
     std::string strBirth = g_ui.input("birth: ");
     std::string strAddress = g_ui.input("address: ");
@@ -227,7 +228,6 @@ UserData inputInformation(){
 }
 
 void processing() {
-    g_ui.cBorder = '*';
     loginMenu();
 }
 
