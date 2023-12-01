@@ -147,3 +147,18 @@ bool UserAction::authenticateUser(const std::string& userName, const std::string
     }
     return false;
 }
+
+bool UserAction::findUserName(const std::string& userName) {
+    std::vector<std::vector<std::string>> vtAccountsUser;
+    CsvFile csvFileAdmin("Administrators.txt");
+    vtAccountsUser = csvFileAdmin.read();
+    for (int i = 1; i < vtAccountsUser.size(); i++) {
+        if (vtAccountsUser[i][0] == userName) return true;
+    }
+    CsvFile csvFileEmployee("Employees.txt");
+    vtAccountsUser = csvFileEmployee.read();
+    for (int i = 1; i < vtAccountsUser.size(); i++) {
+        if (vtAccountsUser[i][0] == userName) return true;
+    }
+    return false;
+}

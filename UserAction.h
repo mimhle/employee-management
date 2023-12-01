@@ -93,6 +93,13 @@ public:
      * @return True if authentication succeeds, false otherwise
      */
     bool authenticateUser(const std::string& userName, const std::string& password);
+
+    /**
+     * @brief find user based on username
+     * @param userName Username
+     * @return True if find succeeds, false otherwise
+     */
+    bool findUserName(const std::string& userName);
 };
 
 
