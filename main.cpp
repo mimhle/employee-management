@@ -179,7 +179,7 @@ void adminMenuProcessing(char cOption) {
             break;
         case '2':
             strUserName = g_ui.input("Enter username:", LIGHT_CYAN, false);
-            if(!g_user.findUserName(strUserName)){
+            if (!g_user.findUserName(strUserName)) {
                 g_ui.clearScreen();
                 g_ui.printTitle("Username is not exist", LIGHT_YELLOW, YELLOW);
                 g_ui.input();
@@ -193,7 +193,7 @@ void adminMenuProcessing(char cOption) {
             break;
         case '3':
             strUserName = g_ui.input("Enter username:", LIGHT_CYAN, false);
-            if(!g_user.findUserName(strUserName)){
+            if (!g_user.findUserName(strUserName)) {
                 g_ui.clearScreen();
                 g_ui.printTitle("Username is not exist", LIGHT_YELLOW, YELLOW);
                 g_ui.input();
@@ -203,7 +203,7 @@ void adminMenuProcessing(char cOption) {
             break;
         case '4':
             strUserName = g_ui.input("Enter username:", LIGHT_CYAN, false);
-            if(!g_user.findUserName(strUserName)){
+            if (!g_user.findUserName(strUserName)) {
                 g_ui.clearScreen();
                 g_ui.printTitle("Username is not exist", LIGHT_YELLOW, YELLOW);
                 g_ui.input();
@@ -282,11 +282,10 @@ UserData updateMenu(const std::string& userName) {
         return user;
     } else if (strChange == "2") {
         strChangeStuff = g_ui.input("Enter new value(dd/mm/yyyy): ");
-        if(isValidDateFormat(strChangeStuff)){
+        if (isValidDateFormat(strChangeStuff)) {
             user.setDateOfBirth(strChangeStuff);
             return user;
-        }
-        else{
+        } else {
             g_ui.clearScreen();
             g_ui.printTitle("Invalid date of birth!", LIGHT_YELLOW, LIGHT_RED, true);
             g_ui.input();
