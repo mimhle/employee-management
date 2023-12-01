@@ -48,6 +48,7 @@ int main() {
 
 
 void adminMenu() {
+    g_ui.clearScreen();
     g_ui.printCentered("MENU", LIGHT_YELLOW, true, '-');
     g_ui.print(
         {
@@ -66,6 +67,7 @@ void adminMenu() {
 }
 
 void employeeMenu() {
+    g_ui.clearScreen();
     g_ui.printCentered("EMPLOYEE MENU", LIGHT_YELLOW, true, '-');
     g_ui.print(
         {
@@ -81,6 +83,7 @@ void employeeMenu() {
 }
 
 void loginMenu() {
+    g_ui.clearScreen();
     g_ui.printTitle("LOGIN", LIGHT_GREEN, BRIGHT_WHITE, true);
     g_ui.printLineBreak();
     g_ui.print(
@@ -120,7 +123,6 @@ void loginAdmin() {
     g_userPassword = g_ui.input("Password (default: 123): ", LIGHT_PURPLE, true);
     if (g_user.authenticateUser(g_userAccount, g_userPassword)) {
         g_maxLoginAttempts = 0;
-        g_ui.clearScreen();
         adminMenu();
     } else {
         if (g_maxLoginAttempts == 2) {
@@ -145,7 +147,6 @@ void loginEmployee() {
     g_userAccount = g_ui.input("Username: ", LIGHT_PURPLE, false);
     g_userPassword = g_ui.input("Password (default: 123): ", LIGHT_PURPLE, true);
     if (g_user.authenticateUser(g_userAccount, g_userPassword)) {
-        g_ui.clearScreen();
         employeeMenu();
     } else {
         if (g_maxLoginAttempts == 2) {
@@ -165,28 +166,50 @@ void loginEmployee() {
 
 void adminMenuProcessing(char cOption) {
     g_ui.clearScreen();
-    std::string username;
+    std::string strUserName;
     switch (cOption) {
         case '1':
             if (g_user.addUser(inputInformation())) {
                 g_ui.clearScreen();
                 g_ui.printTitle("Successful", LIGHT_GREEN, GREEN);
-            } else
+            } else {
+                g_ui.clearScreen();
                 g_ui.printTitle("Unsuccessful", LIGHT_YELLOW, YELLOW);
+            }
             break;
         case '2':
-            if (g_user.deleteUser(g_ui.input("Enter username:", LIGHT_CYAN, false))) {
+            strUserName = g_ui.input("Enter username:", LIGHT_CYAN, false);
+            if(!g_user.findUserName(strUserName)){
+                g_ui.clearScreen();
+                g_ui.printTitle("Username is not exist", LIGHT_YELLOW, YELLOW);
+                g_ui.input();
+                adminMenu();
+            }
+            if (g_user.deleteUser(strUserName)) {
                 g_ui.clearScreen();
                 g_ui.printTitle("Successful", LIGHT_GREEN, GREEN);
             } else
                 g_ui.printTitle("Unsuccessful", LIGHT_YELLOW, YELLOW);
             break;
         case '3':
-            displayUserInformation(g_user.findUser(g_ui.input("Enter username:", LIGHT_CYAN, false)));
+            strUserName = g_ui.input("Enter username:", LIGHT_CYAN, false);
+            if(!g_user.findUserName(strUserName)){
+                g_ui.clearScreen();
+                g_ui.printTitle("Username is not exist", LIGHT_YELLOW, YELLOW);
+                g_ui.input();
+                adminMenu();
+            }
+            displayUserInformation(g_user.findUser(strUserName));
             break;
         case '4':
-            username = g_ui.input("Enter username:", LIGHT_CYAN, false);
-            if (g_user.updateUserInformation(username, updateMenu(username))) {
+            strUserName = g_ui.input("Enter username:", LIGHT_CYAN, false);
+            if(!g_user.findUserName(strUserName)){
+                g_ui.clearScreen();
+                g_ui.printTitle("Username is not exist", LIGHT_YELLOW, YELLOW);
+                g_ui.input();
+                adminMenu();
+            }
+            if (g_user.updateUserInformation(strUserName, updateMenu(strUserName))) {
                 g_ui.clearScreen();
                 g_ui.printTitle("Successful", LIGHT_GREEN, GREEN);
             } else
@@ -196,6 +219,7 @@ void adminMenuProcessing(char cOption) {
             displayAllUserInformation(g_user.getAllUsersInformation());
             break;
         case '6':
+            g_maxLoginAttempts = 0;
             loginMenu();
             break;
         default:
@@ -222,6 +246,7 @@ void employeeMenuProcessing(char cOption) {
             changePassword();
             break;
         case '3':
+            g_maxLoginAttempts = 0;
             loginMenu();
             break;
         default:
@@ -234,35 +259,59 @@ void employeeMenuProcessing(char cOption) {
 }
 
 UserData updateMenu(const std::string& userName) {
+    g_ui.clearScreen();
+    g_ui.printCentered("UPDATE MENU", LIGHT_YELLOW, true, '-');
     g_ui.print(
         {
-            "1. Update Name",
-            "2. Update Date of Birth",
-            "3. Update Address",
-            "4. Update Phone Number",
-            "5. Update Email",
+            "1. Name",
+            "2. Date of Birth",
+            "3. Address",
+            "4. Phone Number",
+            "5. Email",
+            "6. Exit"
         },
-        LIGHT_YELLOW
+        BRIGHT_WHITE
     );
+    g_ui.printCentered("", LIGHT_YELLOW, true, '-');
     std::string strChange = g_ui.input("Enter number to change: ");
-    std::string strChangeStuff = g_ui.input("Enter new value: ");
+    std::string strChangeStuff;
     UserData user = g_user.findUser(userName);
     if (strChange == "1") {
+        strChangeStuff = g_ui.input("Enter new value: ");
         user.setName(strChangeStuff);
         return user;
     } else if (strChange == "2") {
-        user.setDateOfBirth(strChangeStuff);
-        return user;
+        strChangeStuff = g_ui.input("Enter new value(dd/mm/yyyy): ");
+        if(isValidDateFormat(strChangeStuff)){
+            user.setDateOfBirth(strChangeStuff);
+            return user;
+        }
+        else{
+            g_ui.clearScreen();
+            g_ui.printTitle("Invalid date of birth!", LIGHT_YELLOW, LIGHT_RED, true);
+            g_ui.input();
+            g_ui.clearScreen();
+            updateMenu(userName);
+        }
+
     } else if (strChange == "3") {
+        strChangeStuff = g_ui.input("Enter new value: ");
         user.setAddress(strChangeStuff);
         return user;
     } else if (strChange == "4") {
+        strChangeStuff = g_ui.input("Enter new value: ");
         user.setPhoneNumber(strChangeStuff);
         return user;
     } else if (strChange == "5") {
+        strChangeStuff = g_ui.input("Enter new value: ");
         user.setEmail(strChangeStuff);
         return user;
+    } else if (strChange == "6") {
+        adminMenu();
     } else {
+        g_ui.clearScreen();
+        g_ui.printTitle("INVALID CHOICE", LIGHT_YELLOW, LIGHT_RED, true);
+        g_ui.input();
         updateMenu(userName);
     }
     return user;
@@ -274,7 +323,7 @@ UserData inputInformation() {
 
     do {
         strName = g_ui.input("Enter name: ");
-        strBirth = g_ui.input("Enter Date of birth(dd/mm/yy): ");
+        strBirth = g_ui.input("Enter Date of birth(dd/mm/yyyy): ");
         if (!isValidDateFormat(strBirth)) {
             g_ui.clearScreen();
             g_ui.printTitle("Invalid date of birth!", LIGHT_YELLOW, LIGHT_RED, true);
@@ -292,6 +341,8 @@ UserData inputInformation() {
 }
 
 void displayUserInformation(const UserData& user) {
+    g_ui.clearScreen();
+    g_ui.printCentered("", LIGHT_CYAN, true, '-');
     g_ui.print(
         {
             user.getName(),
@@ -302,14 +353,17 @@ void displayUserInformation(const UserData& user) {
         },
         LIGHT_PURPLE
     );
+    g_ui.printCentered("", LIGHT_CYAN, true, '-');
 }
 
 void displayAllUserInformation(const std::vector<std::string>& user) {
     //g_ui.print(user, LIGHT_CYAN, true, '\n');
+    g_ui.printCentered("LIst", LIGHT_CYAN, true, '-');
     for (auto& row: user) {
         g_ui.printCentered(row, BLUE);
         g_ui.printLineBreak();
     }
+    g_ui.printCentered("", LIGHT_CYAN, true, '-');
 }
 
 void changePassword() {
@@ -323,14 +377,15 @@ void changePassword() {
             g_user.setRole("Admin");
             UserData user = g_user.findUser(g_userAccount);
             user.setPassword(strNewPass1);
+            g_ui.clearScreen();
             if (g_user.updateUserInformation(g_userAccount, user)) {
                 g_ui.printTitle("Successful", LIGHT_GREEN, GREEN);
-                g_ui.clearScreen();
+                g_ui.input();
                 loginMenu();
             } else {
                 g_ui.printTitle("Unsuccessful", RED, RED);
+                g_ui.input();
                 employeeMenu();
-
             }
         } else {
             g_ui.clearScreen();
@@ -347,22 +402,18 @@ void changePassword() {
         g_ui.clearScreen();
         g_ui.printTitle("Incorrect curent password", LIGHT_CYAN, LIGHT_RED);
         g_maxLoginAttempts++;
-        g_ui.input();
     }
 }
 
 bool isValidDateFormat(const std::string& date) {
     if (date.length() != 10) return false;
-
     if (date[2] != '/' || date[5] != '/') return false;
 
     int iDay, iMonth, iYear;
     sscanf(date.c_str(), "%d/%d/%d", &iDay, &iMonth, &iYear);
 
-    if (iYear < 1900 || iYear > 2100) return false;
-
+    if (iYear < 1950 || iYear > 2010) return false;
     if (iMonth < 1 || iMonth > 12) return false;
-
     if (iMonth == 2) {
         if (iYear % 4 == 0 && (iYear % 100 != 0 || iYear % 400 == 0)) {
             if (iDay < 1 || iDay > 29) return false;
